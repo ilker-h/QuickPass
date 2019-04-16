@@ -1,0 +1,13 @@
+mat-card {
+    cursor: pointer;
+    width: 453px;
+  }
+
+  .selected-color{
+    background:#3f51b5;
+    color: white;
+  }
+ 
+  mat-card-content {
+    margin-left: 15px;
+  }

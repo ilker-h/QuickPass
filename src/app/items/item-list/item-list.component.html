@@ -1,0 +1,7 @@
+<div class="row margin">
+    <div class="col-xs-12">
+        <!-- "item" and "index" values are given from item-individual.component.ts   -->
+        <app-item-individual *ngFor="let itemElement of items; let i = index" [item]="itemElement" [index]="i">
+        </app-item-individual>
+    </div>
+</div>

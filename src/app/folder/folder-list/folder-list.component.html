@@ -1,0 +1,8 @@
+<div class="row margin">
+    <div class="col-xs-12">
+                <!-- "folder" and "index" values are given from folder-individual.component.ts   -->
+        <app-folder-individual-in-list 
+        *ngFor="let folderElement of folders; let i = index" [folder]="folderElement" [index]="i">
+        </app-folder-individual-in-list>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<mat-card class="margin mat-elevation-z8">
+
+  <div class="row margin">
+    <div class="col-xs-12">
+      <form [formGroup]="folderForm" (ngSubmit)="onSubmit()" class="form">
+
+        <!-- Folder field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="folder">Folder</mat-label>
+              <input matInput type="text" id="name" formControlName="name">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /Folder field -->
+
+        <!-- Action Buttons -->
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" mat-flat-button color="primary">Save</button>
+            <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
+        <!-- /Action Buttons -->
+
+      </form>
+    </div>
+  </div>
+</mat-card>

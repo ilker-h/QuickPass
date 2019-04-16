@@ -1,0 +1,105 @@
+<mat-card class="margin mat-elevation-z8">
+
+  <!-- Edit Item form -->
+  <div class="row margin">
+    <div class="col-xs-12">
+      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="form">
+
+        <!-- Folder dropdown -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-icon mat-list-icon class="folder-icon">folder</mat-icon>
+            <mat-form-field class="folder-select">
+              <mat-label for="folder">Folder</mat-label>
+              <mat-select formControlName="folderMatchedTo">
+                <mat-option *ngFor="let individualFolder of allFolders" [value]="individualFolder.name">
+                  {{ individualFolder.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /Folder dropdown -->
+
+        <!-- Title field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="title">Title</mat-label>
+              <input matInput type="text" id="title" formControlName="title">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /Title field -->
+
+        <!-- Username field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="username">Username</mat-label>
+              <input matInput type="text" id="username" formControlName="username">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /Username field -->
+
+        <!-- Password field -->        
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="username">Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Password field -->
+
+        <!-- Email field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="email">Email</mat-label>
+              <input matInput type="text" id="email" formControlName="email">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Email field -->
+
+        <!-- URL field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="url">URL</mat-label>
+              <input matInput type="text" id="url" formControlName="url">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- URL field -->
+
+        <!-- Notes field -->
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field class="full-width">
+              <mat-label for="notes">Notes</mat-label>
+              <input matInput type="text" id="notes" formControlName="notes" rows="7">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Notes field -->
+
+        <!-- Action Buttons -->        
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" mat-flat-button color="primary">Save</button>
+            <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
+        <!-- Action Buttons -->
+
+      </form>
+    </div>
+  </div>
+</mat-card>

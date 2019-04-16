@@ -1,0 +1,43 @@
+
+/* 
+For checking if the form is valid: and add this to the Save button: [disabled]="!itemForm.valid"
+input.ng-invalid.ng-touched, textarea.invalid.ng-touched {
+    border: 2px solid red;
+} */
+
+button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.margin {
+    margin: 40px;
+  }
+
+  mat-card {
+    max-width: 100%;
+    height: 640px;
+    padding-top: 6%;
+  }
+
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 450px;
+  }
+
+.folder-select {
+  width: 410px;
+  padding-left: 40px;
+  padding-bottom: 40px;
+}
+
+.folder-icon{
+  font-size: 50px;
+  vertical-align: top; /* https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
+  color: #3f51b5;
+}

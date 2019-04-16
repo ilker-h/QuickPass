@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>QuickPass</h1>
+
+    <span class="spacer"></span>
+
+    <!-- Search Bar -->
+    <form class="form">
+      <mat-form-field class="full-width">
+        <input matInput value="">
+      </mat-form-field>
+    </form>
+    <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+    <!-- /Search Bar -->
+
+    <span class="spacer"></span>
+
+    <!-- Create New... -->
+    <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false" aria-label=" heart icon"
+      [matMenuTriggerFor]="menu">
+      <mat-icon class="icon">add_circle</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/items/new">Create New Password</button>
+      <button mat-menu-item routerLink="/folders/new-folder">Create New Folder</button>
+    </mat-menu>
+    <!-- /Create New -->
+
+    <!-- Passwords -->
+    <button mat-icon-button class="icon" matTooltip="Passwords" aria-hidden="false" aria-label=" heart icon"
+      routerLink="/items">
+      <mat-icon class="icon">vpn_key</mat-icon>
+    </button>
+    <!-- /Passwords -->
+
+    <!-- Folders -->
+    <button mat-icon-button class="icon" matTooltip="Folders" aria-hidden="false" aria-label=" heart icon"
+      routerLink="/folders">
+      <mat-icon class="icon">folder</mat-icon>
+    </button>
+    <!-- /Folders -->
+
+    <!-- Log Out -->
+    <button mat-icon-button class="icon" matTooltip="Log Out" aria-hidden="false" aria-label=" delete icon">
+      <mat-icon class="icon">power_settings_new</mat-icon>
+    </button>
+    <!-- /Log Out -->
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="mat-toolbar-row">
+
+</div>
