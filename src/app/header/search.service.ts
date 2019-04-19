@@ -3,11 +3,20 @@ import { BehaviorSubject } from 'rxjs';
 export class SearchService {
 
     //for searching folders:
-    private searchQuerySource = new BehaviorSubject<string>("");
-    currentSearchQuery = this.searchQuerySource
+    private FolderSearchQuerySource = new BehaviorSubject<string>("");
+    currentFolderSearchQuery = this.FolderSearchQuerySource
 
-    changeSearchQuery(newSearchQuery: string) {
-    this.searchQuerySource.next(newSearchQuery);
+    changeFolderSearchQuery(newFolderSearchQuery: string) {
+    this.FolderSearchQuerySource.next(newFolderSearchQuery);
+    }
+
+
+    //for searching items:
+    private searchItemQuerySource = new BehaviorSubject<string>("");
+    currentItemSearchQuery = this.searchItemQuerySource
+
+    changeSearchQueryItem(newSearchQueryItem: string) {
+    this.searchItemQuerySource.next(newSearchQueryItem);
     }
     
 }

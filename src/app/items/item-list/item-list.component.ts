@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { SearchService } from 'src/app/header/search.service';
 
 @Component({
   selector: 'app-item-list',
@@ -14,6 +15,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   items: Item[];
   subscription: Subscription;
+  itemSearchQuery: string; // for Search Query functionality
 
       //for the table
       displayedColumns: string[] = ['title', 'username'];
@@ -21,7 +23,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
       @ViewChild(MatSort) sort: MatSort;
       @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute,
+              private typedItemSearchQuery: SearchService) { }
 
   ngOnInit() {
 
@@ -38,6 +41,9 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // if the table values have been not been changed, do these things that are outside of the subscribe()
     this.items = this.itemService.getItems();
     this.setupTable();
+    
+        // for Search Query functionality (should be inside ngOnInit)
+        this.typedItemSearchQuery.currentItemSearchQuery.subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase())
   }
 
   // this method is currently unused but I'm keeping it for the syntax:

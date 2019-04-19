@@ -9,19 +9,23 @@ import { SearchService } from './search.service';
 export class HeaderComponent implements OnInit {
   @Output() searchQueryEventEmitter = new EventEmitter<string>();
 
-  message: string; // for Search Query functionality
+  // searchQuery: string; // for Search Query functionality - I don't think this is being used
 
   constructor(private typedSearchQuery: SearchService) { }
 
   ngOnInit() {
   }
 
-  // for Search Query functionality
-  onTypeSearchQuery(searchQuery: string) {
+  // for Search Query functionality for Folders
+  onTypeFolderSearchQuery(searchQuery: string) {
     console.log(searchQuery);
-    this.typedSearchQuery.changeSearchQuery(searchQuery);
+    this.typedSearchQuery.changeFolderSearchQuery(searchQuery);
   }
 
-  
+    // for Search Query functionality for Items
+    onTypeSearchQueryItem(searchQueryItem: string) {
+      console.log(searchQueryItem);
+      this.typedSearchQuery.changeSearchQueryItem(searchQueryItem);
+    }
 
 }

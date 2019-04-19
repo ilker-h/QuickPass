@@ -16,7 +16,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   folders: Folder[];
   subscription: Subscription;
-  message: string; // for Search Query functionality
+  folderSearchQuery: string; // for Search Query functionality
 
     //for the table
     displayedColumns: string[] = ['name'];
@@ -25,7 +25,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute,
-              private typedSearchQuery: SearchService) { }
+              private typedFolderSearchQuery: SearchService) { }
 
   ngOnInit() {
     // this subscribes to the foldersChanged observable and so it knows whenever the folders array has 
@@ -43,7 +43,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
     this.setupTable(); 
 
     // for Search Query functionality (should be inside ngOnInit)
-    this.typedSearchQuery.currentSearchQuery.subscribe(message => this.dataSource.filter = message.trim().toLowerCase())
+    this.typedFolderSearchQuery.currentFolderSearchQuery.subscribe(folderSearchQuery => this.dataSource.filter = folderSearchQuery.trim().toLowerCase())
 
   }
 

@@ -13,9 +13,16 @@
     <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon> -->
     <!-- /Search Bar -->
 
+    <!-- Search Bar for item-list-component.ts - Search Query functionality -->
+    <mat-form-field>
+      <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)"> 
+    </mat-form-field>
+    <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+    <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
+
     <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
     <mat-form-field>
-    <input matInput (keyup)="onTypeSearchQuery($event.target.value)"> 
+    <input matInput (keyup)="onTypeFolderSearchQuery($event.target.value)"> 
   </mat-form-field>
   <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
   <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
