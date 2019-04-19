@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { SearchService } from './search.service';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +12,51 @@ export class HeaderComponent implements OnInit {
 
   // searchQuery: string; // for Search Query functionality - I don't think this is being used
 
-  constructor(private typedSearchQuery: SearchService) { }
 
-  ngOnInit() {
-  }
+
+  public location = '' ;
+
+  constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute, private router: Router) {
+    this.location = router.url;
+   }
+
+//   ngOnInit() {
+
+// this.route.params
+//     .subscribe(
+//       (params: Params) => {
+
+//         if(params['items'] === "items") {
+//           console.log(params);
+//         }
+
+//       }
+//     )
+
+//   }
+
+queryParam;
+
+ngOnInit() {
+  this.route.queryParams.subscribe(params => {
+      this.queryParam = params['0'];
+  });
+}
+
+
+
+
 
   // for Search Query functionality for Folders
-  onTypeFolderSearchQuery(searchQuery: string) {
-    console.log(searchQuery);
-    this.typedSearchQuery.changeFolderSearchQuery(searchQuery);
+  onTypeFolderSearchQuery(folderSearchQuery: string) {
+    console.log(folderSearchQuery);
+    this.typedSearchQuery.changeFolderSearchQuery(folderSearchQuery);
   }
 
     // for Search Query functionality for Items
-    onTypeSearchQueryItem(searchQueryItem: string) {
-      console.log(searchQueryItem);
-      this.typedSearchQuery.changeSearchQueryItem(searchQueryItem);
+    onTypeSearchQueryItem(itemSearchQuery: string) {
+      console.log(itemSearchQuery);
+      this.typedSearchQuery.changeSearchQueryItem(itemSearchQuery);
     }
 
 }
