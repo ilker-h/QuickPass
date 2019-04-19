@@ -5,6 +5,7 @@ import { Folder } from 'src/app/shared/folder.model';
 import { Subscription } from 'rxjs';
 import { FolderService } from 'src/app/folder/folder.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SearchService } from 'src/app/header/search.service';
 
 @Component({
   selector: 'app-folder-list',
@@ -15,6 +16,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   folders: Folder[];
   subscription: Subscription;
+  message: string; // for Search Query functionality
 
     //for the table
     displayedColumns: string[] = ['name'];
@@ -22,7 +24,8 @@ export class FolderListComponent implements OnInit, OnDestroy {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute,
+              private typedSearchQuery: SearchService) { }
 
   ngOnInit() {
     // this subscribes to the foldersChanged observable and so it knows whenever the folders array has 
@@ -38,6 +41,10 @@ export class FolderListComponent implements OnInit, OnDestroy {
       // if the table values have been not been changed, do these things that are outside of the subscribe()
     this.folders = this.folderService.getFolders();
     this.setupTable(); 
+
+    // for Search Query functionality (should be inside ngOnInit)
+    this.typedSearchQuery.currentSearchQuery.subscribe(message => this.dataSource.filter = message.trim().toLowerCase())
+
   }
 
   // this method is unused but I'm keeping it for the syntax
@@ -51,7 +58,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
           this.dataSource.paginator = this.paginator;
   }
 
-        // The built-in Javascript .map() function lets you convert this.folders, 
+      // The built-in Javascript .map() function lets you convert this.folders, 
       // which is an array of JSON objects,
       // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
       // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
@@ -66,9 +73,10 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
  }
 
- applyFilter(filterValue: string) {
-   this.dataSource.filter = filterValue.trim().toLowerCase();
- }
+ // this function is not used:
+//  applyFilter(filterValue: string) {
+//    this.dataSource.filter = filterValue.trim().toLowerCase();
+//  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

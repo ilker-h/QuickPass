@@ -5,13 +5,20 @@
     <span class="spacer"></span>
 
     <!-- Search Bar -->
-    <form class="form">
+    <!-- <form class="form">
       <mat-form-field class="full-width">
         <input matInput value="">
       </mat-form-field>
     </form>
-    <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+    <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon> -->
     <!-- /Search Bar -->
+
+    <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
+    <mat-form-field>
+    <input matInput (keyup)="onTypeSearchQuery($event.target.value)"> 
+  </mat-form-field>
+  <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+  <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
 
     <span class="spacer"></span>
 

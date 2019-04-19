@@ -16,7 +16,7 @@ h1 {
     font-size: 30px;
 }
 
-.form {
+mat-form-field {
     min-width: 150px;
     max-width: 500px;
     width: 100%;

@@ -19,6 +19,7 @@ import { FolderService } from './folder/folder.service';
 import { FolderListComponent } from './folder/folder-list/folder-list.component';
 import { FolderEditComponent } from './folder/folder-edit/folder-edit.component';
 import { FolderIndividualComponent } from './folder/folder-list/folder-individual/folder-individual.component';
+import { SearchService } from './header/search.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { FolderIndividualComponent } from './folder/folder-list/folder-individua
     MaterialModule,
     CommonModule
   ],
-  providers: [ItemService, FolderService],
+  providers: [ItemService, FolderService, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

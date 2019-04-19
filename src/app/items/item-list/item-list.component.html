@@ -1,7 +1,37 @@
-<div class="row margin">
+<!-- <div class="row margin">
     <div class="col-xs-12">
-        <!-- "item" and "index" values are given from item-individual.component.ts   -->
+        "item" and "index" values are given from item-individual.component.ts  
         <app-item-individual *ngFor="let itemElement of items; let i = index" [item]="itemElement" [index]="i">
         </app-item-individual>
     </div>
-</div>
+</div> -->
+
+<!-- I can now delete the item-individiual component -->
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="title">
+      <!-- mat-sort-header attribute goes on this <th> if you want to sort -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort by Title </th>
+      <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
+        [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color">
+        {{itemElement.title}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <!-- mat-sort-header attribute goes on this <th> if you want to sort -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort by Username </th>
+      <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
+        [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color">
+        {{itemElement.username}}
+      </td>
+    </ng-container>
+  
+    <!-- add hidden attribute to tr -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[50, 100, 300]" showFirstLastButtons></mat-paginator>
