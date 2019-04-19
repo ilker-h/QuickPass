@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+
 import { Folder } from 'src/app/shared/folder.model';
 import { Subscription } from 'rxjs';
 import { FolderService } from 'src/app/folder/folder.service';
@@ -14,6 +16,12 @@ export class FolderListComponent implements OnInit, OnDestroy {
   folders: Folder[];
   subscription: Subscription;
 
+    //for the table
+    displayedColumns: string[] = ['name'];
+    dataSource;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,17 +30,45 @@ export class FolderListComponent implements OnInit, OnDestroy {
     this.subscription = this.folderService.foldersChanged
       .subscribe(
         (folders: Folder[]) => {
+           // if the table values have been changed, do these things
           this.folders = folders;
+          this.setupTable();
         }
       );
+      // if the table values have been not been changed, do these things that are outside of the subscribe()
     this.folders = this.folderService.getFolders();
-
+    this.setupTable(); 
   }
 
   // this method is unused but I'm keeping it for the syntax
   // onNewFolder() {
   //   this.router.navigate(['/', 'new-folder']);
   // }
+
+  setupTable() {
+    this.dataSource = new MatTableDataSource(this.folders);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  }
+
+        // The built-in Javascript .map() function lets you convert this.folders, 
+      // which is an array of JSON objects,
+      // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
+      // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
+      // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties 
+      findIndexOfFolderName(folderName: string) {
+
+        return this.folders.map( 
+
+           (obj) => {return obj.name}
+         
+           ).indexOf(folderName)
+
+ }
+
+ applyFilter(filterValue: string) {
+   this.dataSource.filter = filterValue.trim().toLowerCase();
+ }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

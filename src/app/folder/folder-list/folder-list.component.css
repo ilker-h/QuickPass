@@ -2,3 +2,42 @@
     margin: 40px;
   }
   
+  .margin {
+    margin: 40px;
+  }
+  
+  mat-card {
+    cursor: pointer;
+    width: 453px;
+  }
+
+  .selected-color{
+    background:#3f51b5;
+    color: white;
+  }
+ 
+  mat-card-content {
+    margin-left: 15px;
+  }
+ 
+  mat-divider {
+      background-color: blue;
+      padding: 3px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td {
+    cursor: pointer;
+    width: 453px;
+    font-size: 25px;
+    padding: 100px;
+    height: 70px;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
