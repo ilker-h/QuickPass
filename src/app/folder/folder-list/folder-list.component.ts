@@ -53,7 +53,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
   // }
 
   setupTable() {
-    this.dataSource = new MatTableDataSource(this.folders);
+    this.dataSource = new MatTableDataSource<Folder>(this.folders); //added in <Folder> - should not cause bug
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
   }

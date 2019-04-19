@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { SearchService } from 'src/app/header/search.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-item-list',
@@ -18,7 +19,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   itemSearchQuery: string; // for Search Query functionality
 
       //for the table
-      displayedColumns: string[] = ['title', 'username'];
+      displayedColumns: string[] = ['select', 'title', 'username'];
       dataSource;
       @ViewChild(MatSort) sort: MatSort;
       @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -52,11 +53,13 @@ export class ItemListComponent implements OnInit, OnDestroy {
   //   // this.router.navigate(['new'], {relativeTo: this.route});  <== it used to be this but I changed it
   // }
 
+selection; // for checkboxes
 
   setupTable() {
-    this.dataSource = new MatTableDataSource(this.items);
+    this.dataSource = new MatTableDataSource<Item>(this.items);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.selection = new SelectionModel<Item>(true, []); // for checkboxes
   }
 
       // The built-in Javascript .map() function lets you convert this.folders, 
@@ -66,12 +69,107 @@ export class ItemListComponent implements OnInit, OnDestroy {
       // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties 
       findIndexOfItemTitle(itemTitle: string) {
 
+
+        // console.log(this.items.map( 
+
+        //   (obj) => {return obj.title}
+        
+        //   ).indexOf(itemTitle));
+
         return this.items.map( 
 
            (obj) => {return obj.title}
          
            ).indexOf(itemTitle)
 
+ }
+
+
+/** Whether the number of selected elements matches the total number of rows. */
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  // console.log(numRows);
+  // console.log(numSelected);
+  // console.log(this.selection); // this is kind of useful
+  // console.log(this.selection.selected); //this is the good one
+  // console.log(this.selection.selected.length);
+  return numSelected === numRows;
+}
+
+/** Selects all rows if they are not all selected; otherwise clear selection. */
+masterToggle() {
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+
+    console.log(this.selection.hasValue());
+}
+
+/** The label for the checkbox on the passed row */
+checkboxLabel(row?: Item): string {
+  if (!row) {
+    // console.log(`${this.isAllSelected() ? 'select' : 'deselect'} all`);
+    // console.log('^Line 103____________________');
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  }
+  // console.log(`${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.title +1}`);
+  // console.log('^Line 107____________________');
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.title + 1}`;
+}
+
+// all of this was the rough work (which works as intended) for creating the onDeleteItems() method:
+// 
+// ok;
+// stringArrayOfThingsToDelete;
+//  onDeleteItem() {
+//   console.log(this.selection.selected);
+//   console.log(this.selection.selected[0].title);
+//     this.ok = this.findIndexOfItemTitle(this.selection.selected[0].title);
+//     console.log('>>>>' + this.ok);
+
+// console.log(
+//     this.selection.selected.map( (obj) => {return obj.title} )
+// );
+
+//  this.stringArrayOfThingsToDelete = this.selection.selected.map( (obj) => {return obj.title} );
+      
+//       // .indexOf(this.selection.selected[0])
+
+//       for (let one of this.stringArrayOfThingsToDelete) {
+
+//         console.log(this.findIndexOfItemTitle(one));
+//         console.log(this.itemService.getItems());
+
+//         this.itemService.deleteItem(this.findIndexOfItemTitle(one));
+//       }
+//       console.log(this.itemService.getItems());
+//       this.router.navigate(['/items']);
+
+//  }
+
+
+// 
+ok;
+stringArrayOfThingsToDelete;
+ onDeleteItems() {
+
+console.log(
+    this.selection.selected.map( (obj) => {return obj.title} )
+);
+
+// this.selection (and this.selection.selected) are useful because it returns an array of objects
+// that represents what checkboxes have been selected.
+//Then, using .map() on that array of objects turns it into a string array of title properties.
+//From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+ this.stringArrayOfThingsToDelete = this.selection.selected.map( (obj) => {return obj.title} );
+      
+ //this loops through the string array of title properties
+      for (let i of this.stringArrayOfThingsToDelete) {
+//this finds the index number of that specific title, and then deletes it
+        this.itemService.deleteItem(this.findIndexOfItemTitle(i));
+      }
+      this.router.navigate(['/items']);
  }
 
   ngOnDestroy() {
