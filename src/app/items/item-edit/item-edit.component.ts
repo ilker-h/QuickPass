@@ -97,7 +97,7 @@ export class ItemEditComponent implements OnInit {
       'folderMatchedTo': new FormControl(itemFolderMatchedTo, Validators.required),
 
       // this is the folder name from FolderService
-      'name': new FormControl(folderName, Validators.required)
+      'name': new FormControl(folderName, Validators.required) // I don't think this is being used anymore
     })
 
   }

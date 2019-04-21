@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
 import { Item } from '../shared/item.model';
 import { FolderService } from '../folder/folder.service';
+import { Folder } from '../shared/folder.model';
 
 @Injectable()
 export class ItemService {
@@ -40,6 +41,11 @@ export class ItemService {
 
     updateItem(index: number, newItem: Item) {
         this.items[index] = newItem;
+        this.itemsChanged.next(this.items.slice());
+    }
+
+    updateItemFolder(index: number, folderNameToMoveTo: Folder['name']) {
+        this.items[index].folderMatchedTo = folderNameToMoveTo;
         this.itemsChanged.next(this.items.slice());
     }
 

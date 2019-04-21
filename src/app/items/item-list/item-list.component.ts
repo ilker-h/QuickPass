@@ -6,6 +6,9 @@ import { ItemService } from '../item.service';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { SearchService } from 'src/app/header/search.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Folder } from 'src/app/shared/folder.model';
+import { FolderService } from 'src/app/folder/folder.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-item-list',
@@ -17,6 +20,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
   items: Item[];
   subscription: Subscription;
   itemSearchQuery: string; // for Search Query functionality
+  allFolders: Folder[];
+  itemForm: FormGroup;
 
       //for the table
       displayedColumns: string[] = ['select', 'title', 'username'];
@@ -24,10 +29,14 @@ export class ItemListComponent implements OnInit, OnDestroy {
       @ViewChild(MatSort) sort: MatSort;
       @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute,
+  constructor(private itemService: ItemService, private folderService: FolderService,
+              private router: Router, private route: ActivatedRoute, 
               private typedItemSearchQuery: SearchService) { }
 
   ngOnInit() {
+    
+    //for populating the "Move to Folder" dropdown in the toolbar in the template
+    this.allFolders = this.folderService.getFolders();
 
     // this subscribes to the itemsChanged observable and so it knows whenever the items array has 
     // been updated. Then it updates the template with the newly updated item values
@@ -37,12 +46,14 @@ export class ItemListComponent implements OnInit, OnDestroy {
           // if the table values have been changed, do these things
           this.items = items;
           this.setupTable();
+          this.initForm();
         }
       );
     // if the table values have been not been changed, do these things that are outside of the subscribe()
     this.items = this.itemService.getItems();
     this.setupTable();
-    
+    this.initForm();
+
         // for Search Query functionality (should be inside ngOnInit)
         this.typedItemSearchQuery.currentItemSearchQuery.subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase())
   }
@@ -150,8 +161,48 @@ checkboxLabel(row?: Item): string {
 
 
 // 
-ok;
-stringArrayOfThingsToDelete;
+
+private initForm() {
+  let itemFolderMatchedTo;
+
+  // this FormGroup goes into the template
+  this.itemForm = new FormGroup({
+    // these are from ItemService
+    'folderMatchedTo': new FormControl(itemFolderMatchedTo),
+  })
+
+}
+
+stringArrayOfItemsToMoveToFolder;
+folderNameToMoveTo;
+onMoveToFolder() {
+  
+console.log(
+  this.selection.selected.map( (obj) => {return obj.title} ) );
+  console.log(this.itemForm.value['folderMatchedTo']);
+
+// this.selection (and this.selection.selected) are useful because it returns an array of objects
+// that represents what checkboxes have been selected.
+//Then, using .map() on that array of objects turns it into a string array of title properties.
+//From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map( (obj) => {return obj.title} );
+
+this.folderNameToMoveTo = this.itemForm.value['folderMatchedTo'];
+
+//this loops through the string array of title properties
+    for (let i of this.stringArrayOfItemsToMoveToFolder) {
+      console.log(i);
+      console.log(this.findIndexOfItemTitle(i));
+      console.log(this.itemForm.value['folderMatchedTo']);
+      console.log(this.folderNameToMoveTo);
+//this finds the index number of that specific title, and then deletes it
+      this.itemService.updateItemFolder(this.findIndexOfItemTitle(i), this.folderNameToMoveTo);
+    }
+    this.router.navigate(['/items']);
+
+}
+
+stringArrayOfItemsToDelete;
  onDeleteItems() {
 
 console.log(
@@ -162,10 +213,10 @@ console.log(
 // that represents what checkboxes have been selected.
 //Then, using .map() on that array of objects turns it into a string array of title properties.
 //From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
- this.stringArrayOfThingsToDelete = this.selection.selected.map( (obj) => {return obj.title} );
+ this.stringArrayOfItemsToDelete = this.selection.selected.map( (obj) => {return obj.title} );
       
  //this loops through the string array of title properties
-      for (let i of this.stringArrayOfThingsToDelete) {
+      for (let i of this.stringArrayOfItemsToDelete) {
 //this finds the index number of that specific title, and then deletes it
         this.itemService.deleteItem(this.findIndexOfItemTitle(i));
       }
