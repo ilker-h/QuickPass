@@ -26,13 +26,12 @@
     <!-- Search Bar for item-list-component.ts - Search Query functionality -->
     <!-- Only shows on a URl that contains 'items' -->
     <div *ngIf="router.url.includes('items')">
-      <mat-form-field>
-        <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
-      </mat-form-field>
-      <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+          <mat-form-field>
+              <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
+            </mat-form-field>
     </div>
-    <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
 
+    <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
 
     <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
     <!-- Only shows on a URl that contains 'folders' -->
@@ -40,8 +39,9 @@
       <mat-form-field>
         <input matInput (keyup)="onTypeFolderSearchQuery($event.target.value)">
       </mat-form-field>
-      <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
     </div>
+    <!-- only this Search icon will show, there is no icon for the items URL -->
+    <mat-icon class="icon" style="padding-left: 190px;" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
 
     <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
 

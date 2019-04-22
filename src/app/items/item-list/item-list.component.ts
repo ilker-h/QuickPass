@@ -169,9 +169,23 @@ private initForm() {
   this.itemForm = new FormGroup({
     // these are from ItemService
     'folderMatchedTo': new FormControl(itemFolderMatchedTo),
+    'All': new FormControl()
   })
 
 }
+
+// not being used:
+//
+// compareObjects(valueFromOption: any, valueFromSelection: any) {
+//   // return o1.name === o2.name && o1.id === o2.id;
+//   if(valueFromOption == valueFromSelection) {
+//     console.log('true2');
+//       // return true;
+//   } else {
+//     console.log('false2');
+//     return 'All';
+//   }
+// }
 
 stringArrayOfItemsToMoveToFolder;
 folderNameToMoveTo;
