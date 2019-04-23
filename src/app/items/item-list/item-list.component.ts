@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { SearchService } from 'src/app/header/search.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { Folder } from 'src/app/shared/folder.model';
 import { FolderService } from 'src/app/folder/folder.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -178,119 +178,49 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   folderNameToFilterBy;
   allItems;
-  filteredByFolderDataSource;
-  arr;
+  indicesOfArraysThatContainFolderNameToFilterBy: number[] = [];
+  itemsInFolderNameToFilterBy: Item[] = [];
   onFilterByFolder() {
 
-    // console.log(this.dataSource);
-    // console.log(this.dataSource.filteredData);
-    this.folderNameToFilterBy = this.itemForm.value['folderMatchedTo'];
+    if (this.itemForm.value['folderMatchedTo'] === 'All') {
+      this.setupTable();
 
-    // console.log(this.folderNameToFilterBy);
+    } else {
 
-    this.allItems = this.itemService.getItems();
-    // console.log(this.allItems);
-    // console.log(this.itemService.getItems());
-    // this.allItems = this.itemService.getItems().map( obj => [obj] );
-    // console.log(this.allItems);
-
-    this.allItems.forEach(function (arrayItem) {
-      // var x = arrayItem.folderMatchedTo;
-      // console.log(x);
-
-      // console.log(this.folderNameToFilterBy);
+      // initialize arrays
+      this.indicesOfArraysThatContainFolderNameToFilterBy = [];
+      this.itemsInFolderNameToFilterBy = [];
 
 
-      // if (this.folderNameToFilterBy === x) {
-      //       console.log('yes it matches');
-      // } else {
-      //   console.log('does not match')
-      // }
-    });
+      // stores the dropdown Folder Name that was selected
+      this.folderNameToFilterBy = this.itemForm.value['folderMatchedTo'];
 
-    // console.log(this.allItems['folderMatchedTo']);
+      // get all items in the form of an array of objects then map() it into an array of arrays
+      // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+      // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
+      this.allItems = this.itemService.getItems().map(
+        (obj) => { return obj.folderMatchedTo }
+      );
 
-console.log(                  this.allItems.map(
-  (obj) => {return obj.folderMatchedTo}
-).indexOf(this.folderNameToFilterBy) );
-
-    for (let i of this.allItems) {
-      console.log(i.folderMatchedTo);
-
-// console.log(this.folderNameToFilterBy);
-
-      if (this.folderNameToFilterBy === i.folderMatchedTo) {
-        console.log('yes it matches');
-
-        // this.filteredByFolderDataSource.push(
-        //   this.allItems.map(
-        //     (obj) => {return obj.folderMatchedTo}
-        //   ).indexOf(this.folderNameToFilterBy)
-        // );
-        
-        this.filteredByFolderDataSource.push(
-        this.allItems.map(
-          (obj) => {return obj.folderMatchedTo}
-        ).reduce(function(a, v, k) { if (v===i.folderMatchedTo) a.push(k); return a; }, [])
-        );
-
-this.arr = this.allItems.map(
-  (obj) => {return obj.folderMatchedTo});
-
-        this.filteredByFolderDataSource = function getAllIndexes(arr, val) {
-          var indexes = [], i;
-          for(i = 0; i < arr.length; i++)
-              if (arr[i] === val)
-                  indexes.push(i);
-          return indexes;
+      // Gets all indices of the values in an array
+      // https://stackoverflow.com/questions/20798477/how-to-find-index-of-all-occurrences-of-element-in-array
+      for (let i = 0; i < this.allItems.length; i++) {
+        if (this.allItems[i] === this.folderNameToFilterBy) {
+          this.indicesOfArraysThatContainFolderNameToFilterBy.push(i);
+        }
       }
 
-
-
-console.log(i.folderMatchedTo);
-// console.log(this.allItems.map(
-//   (obj) => {return obj.folderMatchedTo}
-// ).indexOf(i.folderMatchedTo));
-
-        console.log(this.filteredByFolderDataSource);
-
+      // convert indices to an array of only Items that reside in the Folder that was selected
+      for (let i of this.indicesOfArraysThatContainFolderNameToFilterBy) {
+        this.itemsInFolderNameToFilterBy.push(this.itemService.getItem(i));
       }
-      console.log(this.filteredByFolderDataSource);
 
-      //  else {
-      //   console.log('does not match');
-      //   console.log(this.filteredByFolderDataSource);
-      // }
+      // fill up the table with Items that reside in the Folder that was selected
+      this.dataSource = new MatTableDataSource<Item>(this.itemsInFolderNameToFilterBy);
+      this.router.navigate(['/items']);
 
     }
 
-    // findIndexOfItemTitle(itemTitle: string) {
-
-
-    //   // console.log(this.items.map( 
-  
-    //   //   (obj) => {return obj.title}
-  
-    //   //   ).indexOf(itemTitle));
-  
-    //   return this.items.map(
-  
-    //     (obj) => { return obj.title }
-  
-    //   ).indexOf(itemTitle)
-  
-    // }
-
-
-
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    // Steps:
-    // get folder name to filter by
-    // get list of indexes with getFolders() from service
-    // check each index to see if the folder name chosen matches the list of indexes (using a for loop)
-    // save the list that does match into dataSource
-    // then give that dataSource back to the table to show.
     // Also, fix the name duplications of the forms like "folderMatchedTo" and clean up this file in general
   }
 
@@ -318,6 +248,7 @@ console.log(i.folderMatchedTo);
     // this.selection (and this.selection.selected) are useful because it returns an array of objects
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
+    // so it turns from [{title: "folder1"}, {title: "folder2"}] to ["folder1", "folder2"]
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
     this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map((obj) => { return obj.title });
 
