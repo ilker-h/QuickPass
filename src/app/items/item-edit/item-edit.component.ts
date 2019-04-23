@@ -59,6 +59,9 @@ export class ItemEditComponent implements OnInit {
   }
 
   private initForm() {
+
+    this.hide = true; // reinitializing the password masking feature
+
     let itemTitle = '';
     let itemUsername = '';
     let itemPassword = '';

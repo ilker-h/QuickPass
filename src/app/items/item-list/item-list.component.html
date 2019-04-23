@@ -9,7 +9,7 @@
 <!-- I can now delete the item-individiual component -->
 
 
-        <!-- "Folder You Are Viewing" dropdown -->
+        <!-- "Filter by Folder" dropdown -->
         <mat-card class="mat-elevation-z2">
             <div class="row">
     
@@ -34,15 +34,15 @@
                   </mat-form-field>
                 </form> -->
     
-                <form [formGroup]="itemForm" (ngSubmit)="onMoveToFolder()" class="form">
+                <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
                     <mat-form-field class="folder-select">
                       <mat-label *ngIf="selectedValue !== null">Select Folder</mat-label>
                       <mat-label *ngIf="selectedValue === null">Select Folder</mat-label>
                       <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
-                          <mat-option [value]="All" (click)="selectedValue = null">
+                          <mat-option [value]="'All'" (click)="selectedValue = null">
                               All</mat-option>
                               <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
-                        <mat-option *ngFor="let individualFolder of allFolders" [value]="individualFolder.name">
+                        <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders" [value]="individualFolder.name">
                           {{ individualFolder.name }}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -52,7 +52,7 @@
     
               </div>
             </mat-card>
-              <!-- /"Folder You Are Viewing" dropdown -->
+              <!-- /"Filter by Folder" dropdown -->
 
 
 <!-- Toolbar -->
