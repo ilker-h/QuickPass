@@ -9,6 +9,7 @@
 
 mat-card {
   margin: 20px 0px;
+  /* width: 100%; */
   /* border: 1px solid black; */
   /* background: white; */
 }
@@ -45,7 +46,7 @@ th {
   font-weight: bold;
 }
 
-.mat-form-field {
+mat-form-field {
   /* font-size: 14px; */
   /* width: 100%;   this works to make its width 100% */
   width: 100%;
@@ -65,3 +66,4 @@ button {
   color: #3f51b5;
   padding: 8px 13px;
 }
+

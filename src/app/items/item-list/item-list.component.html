@@ -36,8 +36,8 @@
     
                 <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
                     <mat-form-field class="folder-select">
-                      <mat-label *ngIf="selectedValue !== null">Select Folder</mat-label>
-                      <mat-label *ngIf="selectedValue === null">Select Folder</mat-label>
+                      <mat-label *ngIf="selectedValue !== null">Select Folder To View</mat-label>
+                      <mat-label *ngIf="selectedValue === null">Select Folder To View</mat-label>
                       <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
                           <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
                               All</mat-option>
