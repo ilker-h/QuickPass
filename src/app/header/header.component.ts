@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { SearchService } from './search.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,40 +13,22 @@ export class HeaderComponent implements OnInit {
 
   // searchQuery: string; // for Search Query functionality - I don't think this is being used
 
-
-
   public location = '' ;
 
-  constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute, private router: Router) {
+  constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute,
+     private router: Router, private authService: AuthService) {
     this.location = router.url;
    }
 
-//   ngOnInit() {
-
-// this.route.params
-//     .subscribe(
-//       (params: Params) => {
-
-//         if(params['items'] === "items") {
-//           console.log(params);
-//         }
-
-//       }
-//     )
-
-//   }
 
 queryParam;
 
 ngOnInit() {
+  // is this being used?
   this.route.queryParams.subscribe(params => {
       this.queryParam = params['0'];
   });
 }
-
-
-
-
 
   // for Search Query functionality for Folders
   onTypeFolderSearchQuery(folderSearchQuery: string) {
@@ -57,6 +40,11 @@ ngOnInit() {
     onTypeSearchQueryItem(itemSearchQuery: string) {
       console.log(itemSearchQuery);
       this.typedSearchQuery.changeSearchQueryItem(itemSearchQuery);
+    }
+
+    onLogout() {
+      this.authService.logoutUser();
+      this.router.navigate(['/', 'login']);
     }
 
 }

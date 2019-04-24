@@ -20,6 +20,11 @@ import { FolderListComponent } from './folder/folder-list/folder-list.component'
 import { FolderEditComponent } from './folder/folder-edit/folder-edit.component';
 import { FolderIndividualComponent } from './folder/folder-list/folder-individual/folder-individual.component';
 import { SearchService } from './header/search.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
+import { AboutComponent } from './header/about/about.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,10 @@ import { SearchService } from './header/search.service';
     FolderComponent,
     FolderIndividualComponent,
     FolderListComponent,
-    FolderEditComponent
+    FolderEditComponent,
+    SignupComponent,
+    LoginComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,7 @@ import { SearchService } from './header/search.service';
     MaterialModule,
     CommonModule
   ],
-  providers: [ItemService, FolderService, SearchService],
+  providers: [ItemService, FolderService, SearchService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

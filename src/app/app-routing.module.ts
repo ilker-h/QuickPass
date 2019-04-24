@@ -4,24 +4,37 @@ import { ItemsComponent } from './items/items.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FolderComponent } from './folder/folder.component';
 import { FolderEditComponent } from './folder/folder-edit/folder-edit.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AboutComponent } from './header/about/about.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 const appRoutes: Routes = [
 
-    { path: '', redirectTo: '/items', pathMatch: 'full' },
+    // if not logged in, this is where you can go:
+    { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent },
+    { path: 'about', component: AboutComponent },
+
+
+    // if logged in, this is where you can go:
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
 
     {
-        path: 'items', component: ItemsComponent, children: [
-            { path: 'new', component: ItemEditComponent }, // , canActivate: [AuthGuard]
-            { path: ':id', component: ItemEditComponent },
+        path: 'items', component: ItemsComponent, canActivate: [AuthGuard], children: [
+            { path: 'new', component: ItemEditComponent, canActivate: [AuthGuard] }, // , canActivate: [AuthGuard]
+            { path: ':id', component: ItemEditComponent, canActivate: [AuthGuard] },
         ]
     },
     //keep these in this order because if "new-folder" is below ":id" then the "new folder" feature doesn't work
     {
-        path: 'folders', component: FolderComponent, children: [
-            { path: 'new-folder', component: FolderEditComponent },
-            { path: ':id', component: FolderEditComponent }
+        path: 'folders', component: FolderComponent, canActivate: [AuthGuard], children: [
+            { path: 'new-folder', component: FolderEditComponent, canActivate: [AuthGuard] },
+            { path: ':id', component: FolderEditComponent, canActivate: [AuthGuard] }
         ]
-    }
+    },
+
+
 ];
 
 @NgModule({

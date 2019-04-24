@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-xs-12">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
+
+<!-- ngForm gets access to the underlying form and then upon submitting the form,
+   the form gets passed to the onSignup() method using a reference, #f -->
+   <form (ngSubmit)="onSignup(f)" #f="ngForm">
+
+    <!-- Email field -->
+    <div class="row">
+      <div class="col-xs-12">
+        <mat-form-field class="full-width">
+          <mat-label for="email">Email</mat-label>
+          <!-- ngModel will register this as a control in the template-driven form -->
+          <input matInput type="email" id="email" name="email" ngModel>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Email field -->
+
+    <!-- Password field -->        
+    <div class="row">
+      <div class="col-xs-12">
+        <mat-form-field class="full-width">
+          <mat-label for="username">Password</mat-label>
+          <input matInput type="password" id="password" ngModel name="password">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Password field -->
+
+    <!-- Action Buttons -->        
+    <div class="row">
+      <div class="col-xs-12">
+        <button mat-flat-button color="primary" type="submit">Sign Up</button>
+      </div>
+    </div>
+    <!-- Action Buttons -->
+
+  </form>
+
+      </div>
+    </div>
+</div>

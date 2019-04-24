@@ -2,82 +2,80 @@
   <mat-toolbar-row>
     <h1>QuickPass</h1>
 
-    <span class="spacer"></span>
 
-    <!-- Search Bar -->
-    <!-- <form class="form">
-      <mat-form-field class="full-width">
-        <input matInput value="">
-      </mat-form-field>
-    </form>
-    <mat-icon class="icon" aria-hidden="false" aria-label=" heart icon">search</mat-icon> -->
-    <!-- /Search Bar -->
-
-    <!-- <div *ngIf="queryParam == '0'">hellooooooooooo</div>
-
-    <div *ngIf="router.url === '/folders'">hello2</div>
-
-    <div *ngIf = "location == '/folders' ">hello3
-    </div> -->
-
-    <!-- <div *ngIf="router.urlTree.contains(router.createUrlTree(['/folders']))"> hello 4</div> -->
-
-
-    <!-- Search Bar for item-list-component.ts - Search Query functionality -->
-    <!-- Only shows on a URl that contains 'items' -->
-    <div *ngIf="router.url.includes('items')">
-          <mat-form-field>
-              <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
-            </mat-form-field>
-    </div>
-
-    <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
-
-    <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
-    <!-- Only shows on a URl that contains 'folders' -->
-    <div *ngIf="router.url.includes('folders')">
-      <mat-form-field>
-        <input matInput (keyup)="onTypeFolderSearchQuery($event.target.value)">
-      </mat-form-field>
-    </div>
-    <!-- only this Search icon will show, there is no icon for the items URL -->
-    <mat-icon class="icon" style="padding-left: 190px;" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
-
-    <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
 
     <span class="spacer"></span>
 
-    <!-- Create New... -->
-    <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false" aria-label=" heart icon"
-      [matMenuTriggerFor]="menu">
-      <mat-icon class="icon">add_circle</mat-icon>
-    </button>
+    <!-- only show these things in the ng-template if the user is not logged in/is not authenticated -->
+    <ng-template [ngIf]="!authService.isAuthenticated()">
+      <a routerLink="/about" style="color: white;">About</a>
+    </ng-template>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/items/new">Create New Password</button>
-      <button mat-menu-item routerLink="/folders/new-folder">Create New Folder</button>
-    </mat-menu>
-    <!-- /Create New -->
+    <!-- only show these things in the ng-template if the user is logged in/is authenticated -->
+    <ng-template [ngIf]="authService.isAuthenticated()">
 
-    <!-- Passwords -->
-    <button mat-icon-button class="icon" matTooltip="Passwords" aria-hidden="false" aria-label=" heart icon"
-      routerLink="/items">
-      <mat-icon class="icon">vpn_key</mat-icon>
-    </button>
-    <!-- /Passwords -->
+      <!-- Search Bar for item-list-component.ts - Search Query functionality -->
+      <!-- Only shows on a URl that contains 'items' -->
+      <div *ngIf="router.url.includes('items')">
+        <mat-form-field>
+          <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
+        </mat-form-field>
+      </div>
 
-    <!-- Folders -->
-    <button mat-icon-button class="icon" matTooltip="Folders" aria-hidden="false" aria-label=" heart icon"
-      routerLink="/folders">
-      <mat-icon class="icon">folder</mat-icon>
-    </button>
-    <!-- /Folders -->
+      <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
 
-    <!-- Log Out -->
-    <button mat-icon-button class="icon" matTooltip="Log Out" aria-hidden="false" aria-label=" delete icon">
-      <mat-icon class="icon">power_settings_new</mat-icon>
-    </button>
-    <!-- /Log Out -->
+      <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
+      <!-- Only shows on a URl that contains 'folders' -->
+      <div *ngIf="router.url.includes('folders')">
+        <mat-form-field>
+          <input matInput (keyup)="onTypeFolderSearchQuery($event.target.value)">
+        </mat-form-field>
+      </div>
+      <!-- only this Search icon will show, there is no icon for the items URL -->
+      <mat-icon class="icon" style="padding-left: 190px;" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+
+      <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
+
+      <span class="spacer"></span>
+
+      <!-- Create New... -->
+      <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false" aria-label=" heart icon"
+        [matMenuTriggerFor]="menu">
+        <mat-icon class="icon">add_circle</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/items/new">Create New Password</button>
+        <button mat-menu-item routerLink="/folders/new-folder">Create New Folder</button>
+      </mat-menu>
+      <!-- /Create New -->
+
+      <!-- Passwords -->
+      <button mat-icon-button class="icon" matTooltip="Passwords" aria-hidden="false" aria-label=" heart icon"
+        routerLink="/items">
+        <mat-icon class="icon">vpn_key</mat-icon>
+      </button>
+      <!-- /Passwords -->
+
+      <!-- Folders -->
+      <button mat-icon-button class="icon" matTooltip="Folders" aria-hidden="false" aria-label=" heart icon"
+        routerLink="/folders">
+        <mat-icon class="icon">folder</mat-icon>
+      </button>
+      <!-- /Folders -->
+
+      <!-- Log Out -->
+      <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()" aria-hidden="false" aria-label=" delete icon">
+        <mat-icon class="icon">power_settings_new</mat-icon>
+      </button>
+      <!-- /Log Out -->
+
+    </ng-template>
+
+
+
+
+
 
   </mat-toolbar-row>
 </mat-toolbar>
