@@ -1,32 +1,11 @@
-/* .margin {
-  margin: 40px;
-} */
-
-/* mat-card {
-  cursor: pointer;
-  width: 453px;
-} */
-
 mat-card {
   margin: 20px 0px;
-  /* width: 100%; */
-  /* border: 1px solid black; */
-  /* background: white; */
 }
 
 .selected-color{
   background:#3f51b5;
   color: white;
 }
-/* 
-mat-card-content {
-  margin-left: 15px;
-}
-
-mat-divider {
-    background-color: blue;
-    padding: 3px;
-} */
 
 table {
   width: 100%;
@@ -47,10 +26,7 @@ th {
 }
 
 mat-form-field {
-  /* font-size: 14px; */
-  /* width: 100%;   this works to make its width 100% */
   width: 100%;
-  /* margin: 10px 20px; */
 }
 
 .toolbar {
