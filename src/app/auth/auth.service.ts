@@ -32,7 +32,7 @@ export class AuthService {
                             (token: string) => this.token = token
                         );
                 }
-            ).catch(
+            ) .catch(
                 (error) => {
                     console.log(error);
                     alert(error);

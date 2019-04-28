@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Item } from '../../shared/item.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
@@ -9,6 +9,7 @@ import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { Folder } from 'src/app/shared/folder.model';
 import { FolderService } from 'src/app/folder/folder.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
 
 @Component({
   selector: 'app-item-list',
@@ -31,12 +32,13 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   constructor(private itemService: ItemService, private folderService: FolderService,
     private router: Router, private route: ActivatedRoute,
-    private typedItemSearchQuery: SearchService) { }
+    private typedItemSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService) { }
 
   ngOnInit() {
 
-    // for populating the "Move to Folder" dropdown in the toolbar in the template
-    this.allFolders = this.folderService.getFolders();
+    // gets the items and folders data from the Firebase DB
+    this.dataStorageInDBService.GETItemsFromDB();
+    this.dataStorageInDBService.GETFoldersFromDB();
 
     // this subscribes to the itemsChanged observable and so it knows whenever the items array has
     // been updated. Then it updates the template with the newly updated item values
@@ -47,6 +49,10 @@ export class ItemListComponent implements OnInit, OnDestroy {
           this.items = items;
           this.setupTable();
           this.initForm();
+
+          // for populating the "Move to Folder" dropdown in the toolbar in the template
+          // and for population the "Filter by Folder" dropdown in the template
+          this.allFolders = this.folderService.getFolders();
         }
       );
     // if the table values have been not been changed, do these things that are outside of the subscribe()
@@ -57,6 +63,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // for Search Query functionality (should be inside ngOnInit)
     this.typedItemSearchQuery.currentItemSearchQuery
       .subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase());
+
   }
 
   // this method is currently unused but I'm keeping it for the syntax:
