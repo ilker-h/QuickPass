@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Item } from '../shared/item.model';
 import { FolderService } from '../folder/folder.service';
@@ -10,7 +10,7 @@ export class ItemService {
     // values are changed/added/removed from the "items" array
     itemsChanged = new Subject<Item[]>();
 
-    constructor(private folderService: FolderService) { };
+    constructor(private folderService: FolderService) { }
 
     private items: Item[] = [
         new Item('Gitlab', 'usernameGitlab', 'passwordGitlab', 'GitlabEmail@email.com', 'www.gitlab.com', 'NotesGitlab',

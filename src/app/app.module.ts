@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -23,6 +23,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './auth/auth.service';
 import { AboutComponent } from './header/about/about.component';
 import { AuthGuard } from './auth/auth-guard.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { DataStorageInDBService } from './auth/data-storage-in-db.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,14 @@ import { AuthGuard } from './auth/auth-guard.service';
     MaterialModule,
     CommonModule
   ],
-  providers: [ItemService, FolderService, SearchService, AuthService, AuthGuard],
+  providers: [ItemService,
+              FolderService,
+              SearchService,
+              AuthService,
+              AuthGuard,
+              DataStorageInDBService,
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+            ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
