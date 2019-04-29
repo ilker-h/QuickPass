@@ -1,12 +1,13 @@
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { DataStorageInDBService } from './data-storage-in-db.service';
 
 @Injectable()
 export class AuthService {
     token: string;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
 
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -31,7 +32,7 @@ export class AuthService {
                             (token: string) => this.token = token
                         );
                 }
-            ).catch(
+            ) .catch(
                 (error) => {
                     console.log(error);
                     alert(error);
@@ -42,6 +43,7 @@ export class AuthService {
     logoutUser() {
         firebase.auth().signOut();
         this.token = null; // reset the token
+        this.router.navigate(['/login']);
     }
 
     getToken() {

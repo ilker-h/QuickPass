@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ItemService } from '../item.service';
 import { FolderService } from '../../folder/folder.service';
 import { Folder } from 'src/app/shared/folder.model';
+import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
 
 @Component({
   selector: 'app-item-edit',
@@ -15,15 +16,16 @@ export class ItemEditComponent implements OnInit {
   id: number; // ID of the item
   editMode = false; // differentiates between "edit" mode and "create new" mode
   itemForm: FormGroup;
-  hide = true; //for masking the password
+  hide = true; // for masking the password
   allFolders: Folder[];
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
-    private folderService: FolderService, private router: Router) { }
+    private folderService: FolderService, private router: Router,
+    private dataStorageInDBService: DataStorageInDBService) { }
 
   ngOnInit() {
 
-    //for populating the Folder dropdown in the template
+    // for populating the Folder dropdown in the template
     this.allFolders = this.folderService.getFolders();
 
     // subscribes to the route's "params" observable and then saves the id 
@@ -33,7 +35,7 @@ export class ItemEditComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.editMode = params['id'] != null;
-          this.initForm()
+          this.initForm();
 
           // if (this.route.params['new']) {
           //   this.hide = false;
@@ -50,7 +52,14 @@ export class ItemEditComponent implements OnInit {
     } else {
       //if you're creating a new item
       this.itemService.addItem(this.itemForm.value)
+      this.router.navigate(['/items']);
     }
+
+    this.dataStorageInDBService.PUTItemsIntoDB()
+    .subscribe(
+      response => console.log(response)
+    );
+
   }
 
   onCancel() {

@@ -1,0 +1,14 @@
+button {
+    margin: 10px;
+}
+.centering-things-inside-this-div {
+    text-align: center;
+}
+
+.centering-inner-things {
+    position: relative;
+}
+
+a {
+    margin: 10px 10px 10px 0px;    
+}

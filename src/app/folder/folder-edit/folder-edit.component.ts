@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FolderService } from 'src/app/folder/folder.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
+import { Folder } from 'src/app/shared/folder.model';
 
 @Component({
   selector: 'app-folder-edit',
@@ -14,18 +17,19 @@ export class FolderEditComponent implements OnInit {
   editMode = false; // differentiates between "edit" mode and "create new" mode
   folderForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router,
+              private dataStorageInDBService: DataStorageInDBService) { }
 
   ngOnInit() {
 
-    // subscribes to the route's "params" observable and then saves the id 
+    // subscribes to the route's "params" observable and then saves the id
     // (the "+" turns the string into a number)
     this.route.params
       .subscribe(
         (params: Params) => {
           this.id = +params['id']; // add "folder" to this?
           this.editMode = params['id'] != null;
-          this.initForm()
+          this.initForm();
 
           // if (this.route.params['new']) {
           //   this.hide = false;
@@ -38,12 +42,20 @@ export class FolderEditComponent implements OnInit {
   onSubmit() {
 
     if (this.editMode) {
-      //if you're editing an existing folder
+      // if you're editing an existing folder
       this.folderService.updateFolder(this.id, this.folderForm.value);
+
     } else {
-      //if you're creating a new folder
-      this.folderService.addFolder(this.folderForm.value)
+      // if you're creating a new folder
+      this.folderService.addFolder(this.folderForm.value);
+
+      this.router.navigate(['/folders']);
+
     }
+    this.dataStorageInDBService.PUTFoldersIntoDB()
+    .subscribe(
+      response => console.log(response)
+    );
   }
 
   onCancel() {
@@ -52,6 +64,7 @@ export class FolderEditComponent implements OnInit {
   }
 
   private initForm() {
+
     let folderName = '';
 
     if (this.editMode) {
@@ -64,7 +77,7 @@ export class FolderEditComponent implements OnInit {
     this.folderForm = new FormGroup({
       // this is the folder name from FolderService
       'name': new FormControl(folderName, Validators.required)
-    })
+    });
 
   }
 
