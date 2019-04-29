@@ -15,6 +15,11 @@ export class DataStorageInDBService {
 
     // _____________________________ Item Communication with Firebase DB _____________________________
 
+    // Note: This HTTP PUT method creates an observable that must be subscribed to before it can send data.
+    // This is because Angular knows that if you haven't subscribed to it to listen to the response,
+    // there's no point of sending out a request because its response won't be heard anyway. So wherever I call
+    //     this.dataStorageInDBService.PUTFoldersIntoDB(), I must also apply something like
+    //  .subscribe( response => console.log(response) ) on it
     PUTItemsIntoDB() {
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/items.json', this.itemService.getItems());
     }
@@ -40,6 +45,11 @@ export class DataStorageInDBService {
 
     // _____________________________ Folder Communication with Firebase DB _____________________________
 
+    // Note: This HTTP PUT method creates an observable that must be subscribed to before it can send data.
+    // This is because Angular knows that if you haven't subscribed to it to listen to the response,
+    // there's no point of sending out a request because its response won't be heard anyway. So wherever I call
+    //     this.dataStorageInDBService.PUTFoldersIntoDB(), I must also apply something like
+    //  .subscribe( response => console.log(response) ) on it
     PUTFoldersIntoDB() {
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/folders.json', this.folderService.getFolders());
     }

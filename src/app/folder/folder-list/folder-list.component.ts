@@ -7,6 +7,7 @@ import { FolderService } from 'src/app/folder/folder.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/header/search.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-folder-list',
@@ -20,7 +21,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
   folderSearchQuery: string; // for Search Query functionality
 
   // for the table
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['select', 'name'];
   dataSource;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,10 +60,13 @@ export class FolderListComponent implements OnInit, OnDestroy {
   //   this.router.navigate(['/', 'new-folder']);
   // }
 
+  selection; // for checkboxes
+
   setupTable() {
     this.dataSource = new MatTableDataSource<Folder>(this.folders); // added in <Folder> - should not cause bug
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.selection = new SelectionModel<Folder>(true, []); // for checkboxes
   }
 
   // The built-in Javascript .map() function lets you convert this.folders,
@@ -81,13 +85,68 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   }
 
+
+// for checkboxes
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    // console.log(this.selection); // this is useful for getting the values of the checkboxes
+    // console.log(this.selection.selected); // this is useful for getting the values of the checkboxes
+    return numSelected === numRows;
+  }
+
+  // for checkboxes
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+
+    console.log(this.selection.hasValue());
+  }
+
+  // for checkboxes
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Folder): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
+  }
+
   // this function is not used:
   //  applyFilter(filterValue: string) {
   //    this.dataSource.filter = filterValue.trim().toLowerCase();
   //  }
 
+
+  stringArrayOfFoldersToDelete;
+  onDeleteItems() {
+
+    // this.selection (and this.selection.selected) are useful because it returns an array of objects
+    // that represents what checkboxes have been selected.
+    // Then, using .map() on that array of objects turns it into a string array of title properties.
+    // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+    this.stringArrayOfFoldersToDelete = this.selection.selected.map((obj) => { return obj.name });
+
+    // this loops through the string array of title properties
+    for (let i of this.stringArrayOfFoldersToDelete) {
+      // this finds the index number of that specific title, and then deletes it
+      this.folderService.deleteFolder(this.findIndexOfFolderName(i));
+    }
+    this.router.navigate(['/folders']);
+
+        // now that the deletion(s) have happened,
+        // this pushes the updated data to the Firebase DB
+        this.dataStorageInDBService.PUTFoldersIntoDB()
+          .subscribe(
+            response => console.log('DELETE: ' + response)
+          );
+  }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription.unsubscribe()
   }
 
 }

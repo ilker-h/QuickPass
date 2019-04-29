@@ -1,5 +1,34 @@
-  <div class="mat-elevation-z8">
+
+<!-- Toolbar -->
+<mat-card class="mat-elevation-z2">
+  <div class="row">
+      <button mat-flat-button (click)="onDeleteItems()" color="warn">Delete</button>
+  </div>
+
+</mat-card>
+<!-- /Toolbar -->  
+ 
+ <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
+
+        
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color='primary' (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <!-- I'm trying to make this checkbox get highlighted at the right time: <td mat-cell *matCellDef="let row; let i = index;" [routerLink]="[i]" *ngIf="router.url.includes('items')"
+        routerLinkActive="selected-color"> -->
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox color='primary' (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <!-- /Checkbox Column -->
 
   <ng-container matColumnDef="name">
     <!-- mat-sort-header attribute goes on this <th> if you want to sort -->
