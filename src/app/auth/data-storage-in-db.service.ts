@@ -18,7 +18,7 @@ export class DataStorageInDBService {
     // Note: This HTTP PUT method creates an observable that must be subscribed to before it can send data.
     // This is because Angular knows that if you haven't subscribed to it to listen to the response,
     // there's no point of sending out a request because its response won't be heard anyway. So wherever I call
-    //     this.dataStorageInDBService.PUTFoldersIntoDB(), I must also apply something like
+    //     this.dataStorageInDBService.PUTItemsIntoDB(), I must also apply something like
     //  .subscribe( response => console.log(response) ) on it
     PUTItemsIntoDB() {
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/items.json', this.itemService.getItems());
