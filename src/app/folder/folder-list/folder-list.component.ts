@@ -146,7 +146,8 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    // unsubscribes in order to avoid memory leaks
+    this.subscription.unsubscribe();
   }
 
 }

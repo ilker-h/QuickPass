@@ -52,7 +52,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
           // for populating the "Move to Folder" dropdown in the toolbar in the template
           // and for population the "Filter by Folder" dropdown in the template
-          this.allFolders = this.folderService.getFolders();
+          this.allFolders = this.folderService.getFolders(); // *** should I also put this outside of the subscribe?
         }
       );
     // if the table values have been not been changed, do these things that are outside of the subscribe()
@@ -81,7 +81,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     this.selection = new SelectionModel<Item>(true, []); // for checkboxes
   }
 
-  // The built-in Javascript .map() function lets you convert this.folders, 
+  // The built-in Javascript .map() function lets you convert this.folders,
   // which is an array of JSON objects,
   // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
   // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
@@ -224,6 +224,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // unsubscribes in order to avoid memory leaks
     this.subscription.unsubscribe();
   }
 

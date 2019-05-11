@@ -22,6 +22,10 @@ export class ItemService {
             this.folderService.getFolderName(5))
     ];
 
+    // the reason .slice() is used to create a (shallow) copy of each array is because arrays are
+    // reference types, so if we just want to copy the original array and not overwrite it,
+    // we can use .slice(). We can also use Object.assign({}, arrayToCopy).
+    // See more info about this at https://academind.com/learn/javascript/reference-vs-primitive-values/
     setItems(items: Item[]) {
         this.items = items;
         this.itemsChanged.next(this.items.slice());

@@ -19,11 +19,15 @@ export class DataStorageInDBService {
     // This is because Angular knows that if you haven't subscribed to it to listen to the response,
     // there's no point of sending out a request because its response won't be heard anyway. So wherever I call
     //     this.dataStorageInDBService.PUTItemsIntoDB(), I must also apply something like
-    //  .subscribe( response => console.log(response) ) on it
+    //  .subscribe( response => console.log(response) ) on it. (But no need to unscubscribe from it because
+    // angular takes care of that for us in these pre-build cases like with HTTP GET).
     PUTItemsIntoDB() {
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/items.json', this.itemService.getItems());
     }
 
+    // by default, the get() method returns the body of the response. If you want another part of the
+    // response, like the header, you'd have to configure it more.
+    // Also, the get() method already turns the JSON into JavaScript
     GETItemsFromDB() {
         this.httpClient.get<Item[]>('https://quickpass-4ed21.firebaseio.com/items.json')
             .pipe(map(
@@ -49,11 +53,15 @@ export class DataStorageInDBService {
     // This is because Angular knows that if you haven't subscribed to it to listen to the response,
     // there's no point of sending out a request because its response won't be heard anyway. So wherever I call
     //     this.dataStorageInDBService.PUTFoldersIntoDB(), I must also apply something like
-    //  .subscribe( response => console.log(response) ) on it
+    //  .subscribe( response => console.log(response) ) on it. (But no need to unscubscribe from it because
+    // angular takes care of that for us in these pre-build cases like with HTTP GET).
     PUTFoldersIntoDB() {
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/folders.json', this.folderService.getFolders());
     }
 
+    // by default, the get() method returns the body of the response. If you want another part of the
+    // response, like the header, you'd have to configure it more.
+    // Also, the get() method already turns the JSON into JavaScript
     GETFoldersFromDB() {
         this.httpClient.get<Folder[]>('https://quickpass-4ed21.firebaseio.com/folders.json')
             .pipe(map(
