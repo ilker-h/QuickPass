@@ -31,7 +31,20 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // gets the folders data from the Firebase DB
+    // I put these PUT calls here because without them, once in a while, the page doesn't load the data into the tables if
+    // I quickly switch between the "Items" and "Folders" tabs, even though most times it works.
+    // See further description in item-list.component.ts.
+        this.dataStorageInDBService.PUTItemsIntoDB()
+        .subscribe(
+          response => console.log(response)
+        );
+      this.dataStorageInDBService.PUTFoldersIntoDB()
+        .subscribe(
+          response => console.log(response)
+        );
+
+    // gets the items and folders data from the Firebase DB
+    this.dataStorageInDBService.GETItemsFromDB();
     this.dataStorageInDBService.GETFoldersFromDB();
 
     // this subscribes to the foldersChanged observable and so it knows whenever the folders array has
@@ -86,7 +99,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
 
-// for checkboxes
+  // for checkboxes
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -135,14 +148,26 @@ export class FolderListComponent implements OnInit, OnDestroy {
       // this finds the index number of that specific title, and then deletes it
       this.folderService.deleteFolder(this.findIndexOfFolderName(i));
     }
+
+    // Problem: If after this deletion, there are 0 items in the "folders" array in folder.service.ts,
+    // then the array becomes automatically deleted and therefore, null (which causes errors all over the place).
+    // Solution: I created this conditional statement so that there is always at least 1 item in
+    //  the array so it can never become deleted and therefore, null.
+    if (this.folderService.getFolders() === null ||
+      this.folderService.getFolders() === undefined ||
+      this.folderService.getFolders().length === 0
+    ) {
+      this.folderService.addFolder(new Folder('4'));
+    }
+
     this.router.navigate(['/folders']);
 
-        // now that the deletion(s) have happened,
-        // this pushes the updated data to the Firebase DB
-        this.dataStorageInDBService.PUTFoldersIntoDB()
-          .subscribe(
-            response => console.log('DELETE: ' + response)
-          );
+    // now that the deletion(s) have happened,
+    // this pushes the updated data to the Firebase DB
+    this.dataStorageInDBService.PUTFoldersIntoDB()
+      .subscribe(
+        response => console.log('DELETE: ' + response)
+      );
   }
 
   ngOnDestroy() {

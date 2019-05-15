@@ -36,6 +36,21 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+        // right when the user logs in, they arrive at this Items page and these PUT methods are called so that the items array
+        // and folders array (which have one value hardcoded into each of them) 
+        // (stored in item.service.ts and folder.service.ts) are pushed to the DB right away so
+        // that the DB's JSON format can be initialized at the user's Firebase userUID/"UID" the first time the user logs in
+        // because before that, the DB has nothing at that user's UID so it doesn't know how to separate each user's data
+        // from other users' data
+        this.dataStorageInDBService.PUTItemsIntoDB()
+        .subscribe(
+          response => console.log(response)
+        );
+      this.dataStorageInDBService.PUTFoldersIntoDB()
+        .subscribe(
+          response => console.log(response)
+        );
+
     // gets the items and folders data from the Firebase DB
     this.dataStorageInDBService.GETItemsFromDB();
     this.dataStorageInDBService.GETFoldersFromDB();
@@ -220,7 +235,24 @@ export class ItemListComponent implements OnInit, OnDestroy {
       // this finds the index number of that specific title, and then deletes it
       this.itemService.deleteItem(this.findIndexOfItemTitle(i));
     }
+
+    // Problem: If after this deletion, there are 0 items in the "folders" array in folder.service.ts,
+    // then the array becomes automatically deleted and therefore, null (which causes errors all over the place).
+    // Solution: I created this conditional statement so that there is always at least 1 item in
+    //  the array so it can never become deleted and therefore, null.
+    if (    this.itemService.getItems() === null ||
+    this.itemService.getItems() === undefined || 
+    this.itemService.getItems().length === 0
+    ) { 
+      this.itemService.addItem(new Item('4', '4', '4', '4', '4', '4', '4'));
+    }
+
     this.router.navigate(['/items']);
+
+    this.dataStorageInDBService.PUTItemsIntoDB()
+    .subscribe(
+      response => console.log(response)
+    );
   }
 
   ngOnDestroy() {
