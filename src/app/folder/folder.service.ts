@@ -15,7 +15,7 @@ export class FolderService {
         // data is separated from everyone else's data
         // (if at least one Folder isn't hardcoded into the array, the array seems to become null
         // and causes errors everywhere)
-        new Folder('3'),
+        new Folder('Example Folder'),
         // new Folder('GitlabFolder2'),
         // new Folder('ToggleFolder2'),
         // new Folder('AvazaFolder2'),

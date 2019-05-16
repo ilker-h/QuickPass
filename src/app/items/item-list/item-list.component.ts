@@ -1,4 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { map } from 'rxjs/operators';
+import * as firebase from 'firebase';
+
 import { Item } from '../../shared/item.model';
 import { Subscription, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -32,28 +37,12 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   constructor(private itemService: ItemService, private folderService: FolderService,
     private router: Router, private route: ActivatedRoute,
-    private typedItemSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService) { }
+    private typedItemSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService,
+    private httpClient: HttpClient) { }
 
   ngOnInit() {
 
-        // right when the user logs in, they arrive at this Items page and these PUT methods are called so that the items array
-        // and folders array (which have one value hardcoded into each of them) 
-        // (stored in item.service.ts and folder.service.ts) are pushed to the DB right away so
-        // that the DB's JSON format can be initialized at the user's Firebase userUID/"UID" the first time the user logs in
-        // because before that, the DB has nothing at that user's UID so it doesn't know how to separate each user's data
-        // from other users' data
-        this.dataStorageInDBService.PUTItemsIntoDB()
-        .subscribe(
-          response => console.log(response)
-        );
-      this.dataStorageInDBService.PUTFoldersIntoDB()
-        .subscribe(
-          response => console.log(response)
-        );
-
-    // gets the items and folders data from the Firebase DB
-    this.dataStorageInDBService.GETItemsFromDB();
-    this.dataStorageInDBService.GETFoldersFromDB();
+    this.initializeFirebaseDBAndFrontendTables();
 
     // this subscribes to the itemsChanged observable and so it knows whenever the items array has
     // been updated. Then it updates the template with the newly updated item values
@@ -78,6 +67,69 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // for Search Query functionality (should be inside ngOnInit)
     this.typedItemSearchQuery.currentItemSearchQuery
       .subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase());
+
+  }
+
+
+
+  initializeFirebaseDBAndFrontendTables() {
+
+    let userID = firebase.auth().currentUser.uid;
+
+    // the purpose of GET here is to just check if that user's node on the DB exists or not (if not, it returns null)
+    this.httpClient.get('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
+      .pipe(map(
+        (response) => {
+          console.log('items worked???? ' + JSON.stringify(response));
+          return response;
+        }
+      ))
+      .subscribe(
+        (response: Response) => {
+          console.log(JSON.stringify(response) + 'error?????????????');
+
+          if (response === null) {
+
+            // if this user doesn't already have their own node on the Firebase DB (based on their UID),
+            // then push the items array and folders array (which have one value hardcoded into each of them)
+            // (stored in item.service.ts and folder.service.ts) to the DB in order to create a node for them
+            // (and you need at least one value stored at that node or else it gets auto-deleted). This process
+            // should only happen the very first time that the user logs in. The reason this is done is that before this,
+            // the DB has nothing at that user's UID so it doesn't know how to separate each user's data
+            // from other users' data (meaning anyone who's logged into any account sees the same data)
+
+            this.dataStorageInDBService.PUTItemsIntoDB()
+            .subscribe(
+              response => { 
+                console.log(response);
+                      // gets the items data from the Firebase DB
+            this.dataStorageInDBService.GETItemsFromDB();
+              }
+            );
+          this.dataStorageInDBService.PUTFoldersIntoDB()
+            .subscribe(
+              response => {
+                console.log(response);
+                    // gets the folders data from the Firebase DB
+                this.dataStorageInDBService.GETFoldersFromDB();}
+            );
+
+            // console.log(userUID + '3333333');
+            this.router.navigate(['/items']);
+            console.log(false);
+
+          } else {
+            // if this User's node exists on the Firebase DB already, then
+            // get their data from the DB and put it into the items array and folders array
+            this.dataStorageInDBService.GETItemsFromDB();
+            this.dataStorageInDBService.GETFoldersFromDB();
+            console.log(this.itemService.getItems());
+            console.log(true);
+
+          }
+          console.log(this.itemService.getItems());
+        }
+      );
 
   }
 
@@ -244,7 +296,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
     this.itemService.getItems() === undefined || 
     this.itemService.getItems().length === 0
     ) { 
-      this.itemService.addItem(new Item('4', '4', '4', '4', '4', '4', '4'));
+      this.itemService.addItem(new Item('Example GitHub Account', 'john-doe', 'john-github_564', 'john-doe@gmail.com', 
+      'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder'));
     }
 
     this.router.navigate(['/items']);

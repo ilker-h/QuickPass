@@ -34,16 +34,17 @@ export class FolderListComponent implements OnInit, OnDestroy {
     // I put these PUT calls here because without them, once in a while, the page doesn't load the data into the tables if
     // I quickly switch between the "Items" and "Folders" tabs, even though most times it works.
     // See further description in item-list.component.ts.
-        this.dataStorageInDBService.PUTItemsIntoDB()
-        .subscribe(
-          response => console.log(response)
-        );
-      this.dataStorageInDBService.PUTFoldersIntoDB()
-        .subscribe(
-          response => console.log(response)
-        );
+      //   this.dataStorageInDBService.PUTItemsIntoDB()
+      //   .subscribe(
+      //     response => console.log(response)
+      //   );
+      // this.dataStorageInDBService.PUTFoldersIntoDB()
+      //   .subscribe(
+      //     response => console.log(response)
+      //   );
 
-    // gets the items and folders data from the Firebase DB
+    // gets the items and folders data from the Firebase DB - I think this is not needed anymore
+    // since it's done in item-list.component.ts anyway
     this.dataStorageInDBService.GETItemsFromDB();
     this.dataStorageInDBService.GETFoldersFromDB();
 
@@ -157,7 +158,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
       this.folderService.getFolders() === undefined ||
       this.folderService.getFolders().length === 0
     ) {
-      this.folderService.addFolder(new Folder('4'));
+      this.folderService.addFolder(new Folder('Example Folder'));
     }
 
     this.router.navigate(['/folders']);

@@ -92,9 +92,10 @@ export class ItemEditComponent implements OnInit {
       itemNotes = item.notes;
       itemFolderMatchedTo = item.folderMatchedTo;
 
+      // this is from FolderService - this doesn't make sense because the folder may not be at the same index as the item
       // this is from FolderService
-      const folder = this.folderService.getFolder(this.id);
-      folderName = folder.name;
+      // const folder = this.folderService.getFolder(this.id);
+      // folderName = folder.name;
     }
 
     // this FormGroup goes into the template
@@ -109,7 +110,7 @@ export class ItemEditComponent implements OnInit {
       'folderMatchedTo': new FormControl(itemFolderMatchedTo, Validators.required),
 
       // this is the folder name from FolderService
-      'name': new FormControl(folderName, Validators.required) // I don't think this is being used anymore
+      // 'name': new FormControl(folderName, Validators.required) // I don't think this is being used anymore
     })
 
   }

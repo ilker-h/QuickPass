@@ -20,7 +20,8 @@ export class ItemService {
         // data is separated from everyone else's data
         // (if at least one Item isn't hardcoded into the array, the array seems to become null
         // and causes errors everywhere)
-        new Item('3', '3', '3', '3', '3', '3', '3')
+        new Item('Example GitHub Account', 'john-doe', 'john-github_564', 'john-doe@gmail.com', 
+        'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder')
         // new Item('Gitlab', 'usernameGitlab', 'passwordGitlab', 'GitlabEmail@email.com', 'www.gitlab.com', 'NotesGitlab',
         //     this.folderService.getFolderName(3)),
         // new Item('Toggl', 'usernameToggle', 'passwordToggl', 'TogglEmail@email.com', 'www.toggl.com', 'NotesToggl',
