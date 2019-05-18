@@ -8,10 +8,12 @@
 }
 
 .inner-div {
-  margin-top: 20px;
+  /* margin-top: 20px;
   margin-bottom: auto;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto; */
+
+  margin: 20px auto;
   width: 200px;
   position: relative;
 }
