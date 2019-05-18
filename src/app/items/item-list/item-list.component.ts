@@ -94,8 +94,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
             // then push the items array and folders array (which have one value hardcoded into each of them)
             // (stored in item.service.ts and folder.service.ts) to the DB in order to create a node for them
             // (and you need at least one value stored at that node or else it gets auto-deleted). This process
-            // should only happen the very first time that the user logs in. The reason this is done is that before this,
-            // the DB has nothing at that user's UID so it doesn't know how to separate each user's data
+            // should only happen the very first time that the user logs in. The reason this is done is that before
+            // this, the DB has nothing at that user's UID so it doesn't know how to separate each user's data
             // from other users' data (meaning anyone who's logged into any account sees the same data)
 
             this.dataStorageInDBService.PUTItemsIntoDB()

@@ -1,51 +1,70 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+<!-- This is the template that works for centering content inside a mat-card -->
+<!-- <div class="container-fluid">
+  <div class="row">
+
+    <div class="mat-card centering">
+      <div class="inner-div">
+        Content m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+      </div>
+    </div>
+
+  </div>
+</div> -->
 
 
-      <!-- ngForm gets access to the underlying form and then upon submitting the form,
-   the form gets passed to the onLogin() method using a reference, #f -->
-      <form (ngSubmit)="onLogin(f)" #f="ngForm">
+<!-- Keeping this for the syntax: -->
+    <!-- <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"> -->
 
-        <!-- Email field -->
-        <div class="row">
-          <div class="col-xs-12">
+
+
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="mat-card centering">
+      <div class="inner-div">
+
+        <!-- ngForm gets access to the underlying form and then upon submitting the form,
+          the form gets passed to the onLogin() method using a reference, #f -->
+        <form (ngSubmit)="onLogin(f)" #f="ngForm">
+
+          <!-- Email field -->
+          <div class="row">
             <mat-form-field class="full-width">
               <mat-label for="email">Email</mat-label>
               <!-- ngModel will register this as a control in the template-driven form -->
               <input matInput type="email" id="email" name="email" ngModel>
             </mat-form-field>
           </div>
-        </div>
-        <!-- Email field -->
+          <!-- Email field -->
 
-        <!-- Password field -->
-        <div class="row">
-          <div class="col-xs-12">
+          <!-- Password field -->
+          <div class="row">
             <mat-form-field class="full-width">
               <mat-label for="username">Password</mat-label>
               <input matInput type="password" id="password" ngModel name="password">
             </mat-form-field>
           </div>
-        </div>
-        <!-- Password field -->
+          <!-- Password field -->
 
-        <!-- Action Buttons -->
-        <div class="row">
-          <div class="col-xs-12">
-            <button mat-flat-button color="primary" type="submit">Log In</button>
+          <!-- Action Buttons -->
+          <div class="row">
+            <button mat-flat-button class="full-width" type="submit" color="primary">Log In</button>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-xs-12">
+          <div class="row" style="margin-top: 15px;">
             <a routerLink="/signup">Don't Have an Account? Register Here</a>
           </div>
-        </div>
-        <!-- Action Buttons -->
+          <!-- Action Buttons -->
 
-      </form>
-
+        </form>
+      </div>
     </div>
+
   </div>
 </div>
