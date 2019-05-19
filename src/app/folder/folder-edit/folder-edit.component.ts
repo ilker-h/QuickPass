@@ -58,6 +58,16 @@ export class FolderEditComponent implements OnInit {
     );
   }
 
+  onDelete() {
+    this.folderService.deleteFolder(this.id);
+    this.router.navigate(['/folders']);
+
+    this.dataStorageInDBService.PUTFoldersIntoDB()
+    .subscribe(
+      response => console.log(response)
+    );
+  }
+
   onCancel() {
     // this.router.navigate(['../'], {relativeTo: this.route}); // I'm keeping this for the syntax
     this.initForm();

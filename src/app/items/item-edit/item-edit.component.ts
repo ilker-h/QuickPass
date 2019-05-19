@@ -62,6 +62,16 @@ export class ItemEditComponent implements OnInit {
 
   }
 
+  onDelete() {
+    this.itemService.deleteItem(this.id);
+    this.router.navigate(['/items']);
+
+    this.dataStorageInDBService.PUTItemsIntoDB()
+    .subscribe(
+      response => console.log(response)
+    );
+  }
+
   onCancel() {
     // this.router.navigate(['../'], {relativeTo: this.route}); // I'm keeping this for syntax
     this.initForm();

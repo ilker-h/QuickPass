@@ -6,7 +6,7 @@ input.ng-invalid.ng-touched, textarea.invalid.ng-touched {
 } */
 
 button {
-  margin-top: 10px;
+  margin: 10px;
   /* margin-bottom: 20px; */
 }
 
@@ -16,7 +16,6 @@ mat-card {
   height: 720px;
   text-align: left;
 }
-
 
 .inner-div {
   margin: 0px auto;

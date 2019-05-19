@@ -18,11 +18,13 @@
 
         <!-- Action Buttons -->
         <div class="row">
-          <div class="col-xs-12">
+          <!-- <div class="col-xs-12"> -->
+            <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
             <button type="submit" mat-flat-button color="primary">Save</button>
-            <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+            <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
+            <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto">Cancel</button>
           </div>
-        </div>
+        <!-- </div> -->
         <!-- /Action Buttons -->
 
       </form>
