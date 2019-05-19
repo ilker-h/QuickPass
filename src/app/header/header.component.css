@@ -1,27 +1,43 @@
+/* https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
+.container-fluid {
+  padding-right: 0; /*15px in bootstrap.css*/
+  padding-left: 0;  /*idem*/
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .icon {
-    /* padding: 0 0px; */
-    margin-bottom: 0.3%;
-    cursor: pointer;
-    font-size: 35px;
-    margin-right: 40px;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
+  /* padding: 0 0px; */
+  margin-bottom: 0.3%;
+  cursor: pointer;
+  font-size: 35px;
+  margin-right: 40px;
+}
+
+/* from CSS example from https://material.angular.io/components/toolbar/examples */
+.spacer {
+  flex: 1 1 auto;
+}
 
 h1 {
-    padding: 0 40px;
-    cursor: pointer;
-    font-size: 30px;
+  padding: 0 40px;
+  cursor: pointer;
+  font-size: 30px;
 }
 
 mat-form-field {
-    min-width: 150px;
-    max-width: 500px;
-    width: 200%;
-  }
-  
-  /* .full-width {
-    width: 100%;
-  } */
+  /* min-width: 100px;
+  max-width: 200px; */
+  width: 150%;
+}
+
+/* .full-width {
+  width: 100%;
+} */
+
+/* Removes annoying blue or orange outline that gets put on the things that you click on.
+ from https://stackoverflow.com/questions/30981429/angular-material-ng-click-strange-border-highlight */
+ *:focus {
+  outline: none;
+  border: 0;
+}

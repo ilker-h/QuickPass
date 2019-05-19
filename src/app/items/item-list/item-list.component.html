@@ -1,42 +1,44 @@
-        <!-- "Filter by Folder" dropdown -->
-        <mat-card class="mat-elevation-z2">
-            <div class="row">
-    
-    <div class="col-md-3">
-        <mat-icon mat-list-icon class="folder-icon">folder</mat-icon>
+
+<!-- "Filter by Folder" dropdown -->
+<mat-card class="mat-elevation-z2">
+  <div class="row">
+
+    <div class="col-sm-3">
+      <mat-icon mat-list-icon class="folder-icon">folder</mat-icon>
     </div>
-    
-                <div class="col-md-9">
-    
-                <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
-                    <mat-form-field class="folder-select">
-                      <mat-label *ngIf="selectedValue !== null">Select Folder To View</mat-label>
-                      <mat-label *ngIf="selectedValue === null">Select Folder To View</mat-label>
-                      <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
-                          <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
-                              All</mat-option>
-                              <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
-                        <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders" [value]="individualFolder.name">
-                          {{ individualFolder.name }}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </form>
-                  
-                </div>
-    
-              </div>
-            </mat-card>
-              <!-- /"Filter by Folder" dropdown -->
+
+    <div class="col-sm-9">
+
+      <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
+        <mat-form-field class="folder-select">
+          <mat-label *ngIf="selectedValue !== null">Select Folder To View</mat-label>
+          <mat-label *ngIf="selectedValue === null">Select Folder To View</mat-label>
+          <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
+            <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
+              All</mat-option>
+            <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
+            <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders"
+              [value]="individualFolder.name">
+              {{ individualFolder.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+
+    </div>
+
+  </div>
+</mat-card>
+<!-- /"Filter by Folder" dropdown -->
 
 
 <!-- Toolbar -->
 <mat-card class="mat-elevation-z2">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-sm-3">
       <button mat-flat-button (click)="onDeleteItems()" color="warn">Delete</button>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-sm-9">
 
       <!-- "Move to Folder" dropdown -->
 
@@ -61,7 +63,8 @@
 </mat-card>
 <!-- /Toolbar -->
 
-<div class="mat-elevation-z8">
+<!-- table - list of items -->
+<div class="mat-elevation-z8" style="margin: 40px 0px 0px 40px;">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Checkbox Column -->
@@ -87,7 +90,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort by Title </th>
       <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
         [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color">
-        {{itemElement.title}}
+        {{ itemElement.title }}
       </td>
     </ng-container>
 
@@ -96,7 +99,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort by Username </th>
       <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
         [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color">
-        {{itemElement.username}}
+        {{ itemElement.username }}
       </td>
     </ng-container>
 
@@ -109,3 +112,5 @@
   <mat-paginator [pageSizeOptions]="[50, 100, 300]" showFirstLastButtons></mat-paginator>
 
 </div>
+<!-- /table - list of items -->
+

@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 import { ItemsComponent } from './items/items.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
@@ -17,7 +17,7 @@ const appRoutes: Routes = [
     { path: 'about', component: AboutComponent },
 
 
-    // if logged in, this is where you can go:
+    // if logged in, the following pages are where you can go:
     { path: '', redirectTo: '/login', pathMatch: 'full' },
 
     {
@@ -33,6 +33,23 @@ const appRoutes: Routes = [
             { path: ':id', component: FolderEditComponent, canActivate: [AuthGuard] }
         ]
     },
+
+    // // if logged in, the following pages are where you can go:
+    // { path: '', redirectTo: '/login', pathMatch: 'full' },
+    // {
+    //     path: 'items', component: ItemsComponent, children: [
+    //         { path: 'new', component: ItemEditComponent }, // , canActivate: [AuthGuard]
+    //         { path: ':id', component: ItemEditComponent },
+    //     ]
+    // },
+    // //keep these in this order because if "new-folder" is below ":id" then the "new folder" feature doesn't work
+    // {
+    //     path: 'folders', component: FolderComponent, children: [
+    //         { path: 'new-folder', component: FolderEditComponent },
+    //         { path: ':id', component: FolderEditComponent}
+    //     ]
+    // },
+
 
 
 ];

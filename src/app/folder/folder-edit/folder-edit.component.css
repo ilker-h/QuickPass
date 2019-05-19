@@ -46,3 +46,10 @@ hr {
   margin-top: 20px;
   margin-bottom: 30px;
 }
+
+/* Removes annoying blue or orange outline that gets put on the things that you click on.
+ from https://stackoverflow.com/questions/30981429/angular-material-ng-click-strange-border-highlight */
+ *:focus {
+  outline: none;
+  border: 0;
+}

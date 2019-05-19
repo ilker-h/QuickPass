@@ -1,8 +1,11 @@
+<!-- Note, I'm hiding the search bar on mobile screens using class="d-none d-sm-block" from
+    https://getbootstrap.com/docs/4.0/utilities/display/ -->
+
+<div class="container-fluid" class="col-xs-12">
+
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <h1 routerLink="/login">QuickPass</h1>
-
-
 
     <span class="spacer"></span>
 
@@ -16,30 +19,29 @@
 
       <!-- Search Bar for item-list-component.ts - Search Query functionality -->
       <!-- Only shows on a URl that contains 'items' -->
-      <div *ngIf="router.url.includes('items')">
-        <mat-form-field>
-          <input matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
+      <div *ngIf="router.url.includes('items')" class="d-none d-sm-block">
+        <mat-form-field class="">
+          <input class="" matInput (keyup)="onTypeSearchQueryItem($event.target.value)">
         </mat-form-field>
       </div>
-
       <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
 
       <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
       <!-- Only shows on a URl that contains 'folders' -->
-      <div *ngIf="router.url.includes('folders')">
+      <div *ngIf="router.url.includes('folders')" class="d-none d-sm-block">
         <mat-form-field>
           <input matInput (keyup)="onTypeFolderSearchQuery($event.target.value)">
         </mat-form-field>
       </div>
       <!-- only this Search icon will show, there is no icon for the items URL -->
-      <mat-icon class="icon" style="padding-left: 190px;" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
+      <mat-icon class="icon d-none d-sm-block" style="padding-left: 100px;" aria-hidden="false" aria-label=" heart icon">search</mat-icon>
 
       <!-- /Search Bar for folder-list-component.ts - Search Query functionality -->
 
       <span class="spacer"></span>
 
       <!-- Create New... -->
-      <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false" aria-label=" heart icon"
+      <button mat-icon-button class="icon" style="margin-left: 30px;" matTooltip="Create New..." aria-hidden="false" aria-label=" heart icon"
         [matMenuTriggerFor]="menu">
         <mat-icon class="icon">add_circle</mat-icon>
       </button>
@@ -65,21 +67,15 @@
       <!-- /Folders -->
 
       <!-- Log Out -->
-      <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()" aria-hidden="false" aria-label=" delete icon">
+      <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()" aria-hidden="false"
+        aria-label=" delete icon">
         <mat-icon class="icon">power_settings_new</mat-icon>
       </button>
       <!-- /Log Out -->
 
     </ng-template>
 
-
-
-
-
-
   </mat-toolbar-row>
 </mat-toolbar>
-
-<div class="mat-toolbar-row">
 
 </div>
