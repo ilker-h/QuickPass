@@ -43,10 +43,10 @@
 
   td {
     cursor: pointer;
-    width: 453px;
-    font-size: 25px;
+    /* width: 453px; */
+    font-size: 20px;
     /* padding: 100px; */
-    height: 70px;
+    /* height: 70px; */
   }
 
   th {

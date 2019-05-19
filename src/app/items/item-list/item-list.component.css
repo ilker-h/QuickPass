@@ -13,9 +13,9 @@ table {
 
 td {
   cursor: pointer;
-  width: 453px;
-  font-size: 25px;
-  height: 70px;
+  /* width: 453px; */
+  font-size: 20px;
+  /* height: 70px; */
 }
 
 th {

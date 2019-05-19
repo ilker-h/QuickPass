@@ -1,67 +1,75 @@
 
-<!-- "Filter by Folder" dropdown -->
-<mat-card class="mat-elevation-z2">
-  <div class="row">
+    <!-- "Filter by Folder" dropdown -->
+    <mat-card class="mat-elevation-z2">
+      <div class="row">
 
-    <div class="col-sm-3">
-      <mat-icon mat-list-icon class="folder-icon">folder</mat-icon>
-    </div>
+        <div class="col-sm-3">
+          <mat-icon mat-list-icon class="folder-icon">folder</mat-icon>
+        </div>
 
-    <div class="col-sm-9">
+        <div class="col-sm-9">
 
-      <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
-        <mat-form-field class="folder-select">
-          <mat-label *ngIf="selectedValue !== null">Select Folder To View</mat-label>
-          <mat-label *ngIf="selectedValue === null">Select Folder To View</mat-label>
-          <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
-            <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
-              All</mat-option>
-            <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
-            <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders"
-              [value]="individualFolder.name">
-              {{ individualFolder.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
+          <form [formGroup]="itemForm" (ngSubmit)="onFilterByFolder()" class="form">
+            <mat-form-field class="folder-select">
+              <mat-label *ngIf="selectedValue !== null">Select Folder To View</mat-label>
+              <mat-label *ngIf="selectedValue === null">Select Folder To View</mat-label>
+              <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
+                <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
+                  All</mat-option>
+                <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
+                <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders"
+                  [value]="individualFolder.name">
+                  {{ individualFolder.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
 
-    </div>
+        </div>
 
-  </div>
-</mat-card>
-<!-- /"Filter by Folder" dropdown -->
+      </div>
+    </mat-card>
+    <!-- /"Filter by Folder" dropdown -->
 
 
-<!-- Toolbar -->
-<mat-card class="mat-elevation-z2">
-  <div class="row">
-    <div class="col-sm-3">
-      <button mat-flat-button (click)="onDeleteItems()" color="warn">Delete</button>
-    </div>
 
-    <div class="col-sm-9">
+    <!-- Toolbar -->
+    <!--  Only show toolbar if at least one checkbox is selected -->
+    <mat-card class="mat-elevation-z2" *ngIf="this.selection.selected.length >= 1">
+      <div class="row">
+        <div class="col-sm-3">
+          <button mat-flat-button (click)="onDeleteItems()" color="warn">Delete</button>
+        </div>
 
-      <!-- "Move to Folder" dropdown -->
+        <div class="col-sm-9">
 
-      <!-- is the class "form" needed? -->
-      <form [formGroup]="itemForm" (ngSubmit)="onMoveToFolder()" class="form">
+          <!-- "Move to Folder" dropdown -->
 
-        <mat-form-field>
-          <mat-label for="folder">Move to Folder</mat-label>
-          <mat-select formControlName="folderMatchedTo">
-            <mat-option (click)="onMoveToFolder()" *ngFor="let individualFolder of allFolders"
-              [value]="individualFolder.name">
-              {{ individualFolder.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <!-- is the class "form" needed? -->
+          <form [formGroup]="itemForm" (ngSubmit)="onMoveToFolder()" class="form">
 
-      </form>
-      <!-- /"Move to Folder" dropdown -->
-    </div>
+            <mat-form-field>
+              <mat-label for="folder">Move to Folder</mat-label>
+              <mat-select formControlName="folderMatchedTo">
+                <mat-option (click)="onMoveToFolder()" *ngFor="let individualFolder of allFolders"
+                  [value]="individualFolder.name">
+                  {{ individualFolder.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-  </div>
+          </form>
+          <!-- /"Move to Folder" dropdown -->
+        </div>
 
-</mat-card>
-<!-- /Toolbar -->
+      </div>
+
+    </mat-card>
+    <!-- /Toolbar -->
+
+
+
+
+
+
 
 <!-- table - list of items -->
 <div class="mat-elevation-z8" style="margin: 40px 0px 0px 40px;">
@@ -87,9 +95,9 @@
 
     <ng-container matColumnDef="title">
       <!-- mat-sort-header attribute goes on this <th> if you want to sort -->
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort by Title </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 30px"> Sort by Title </th>
       <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
-        [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color">
+        [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color" style="padding-left: 30px">
         {{ itemElement.title }}
       </td>
     </ng-container>
@@ -113,4 +121,3 @@
 
 </div>
 <!-- /table - list of items -->
-

@@ -34,24 +34,6 @@ const appRoutes: Routes = [
         ]
     },
 
-    // // if logged in, the following pages are where you can go:
-    // { path: '', redirectTo: '/login', pathMatch: 'full' },
-    // {
-    //     path: 'items', component: ItemsComponent, children: [
-    //         { path: 'new', component: ItemEditComponent }, // , canActivate: [AuthGuard]
-    //         { path: ':id', component: ItemEditComponent },
-    //     ]
-    // },
-    // //keep these in this order because if "new-folder" is below ":id" then the "new folder" feature doesn't work
-    // {
-    //     path: 'folders', component: FolderComponent, children: [
-    //         { path: 'new-folder', component: FolderEditComponent },
-    //         { path: ':id', component: FolderEditComponent}
-    //     ]
-    // },
-
-
-
 ];
 
 @NgModule({
