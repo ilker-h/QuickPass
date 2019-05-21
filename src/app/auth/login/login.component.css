@@ -4,8 +4,8 @@
 
 .centering {
     margin: auto;
-    width: 270px;
-    height: 270px;
+    width: 280px;
+    height: 310px;
     text-align: center;
 }
 
@@ -16,7 +16,7 @@
   margin-right: auto; */
 
   margin: 20px auto;
-  width: 200px;
+  width: 70%;
   position: relative;
 }
 

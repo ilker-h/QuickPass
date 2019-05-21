@@ -11,7 +11,7 @@ button {
 }
 
 mat-card {
-  margin: 40px 40px 0px 0px;
+  margin: 20px 20px 0px 10px;
   max-width: 100%;
   height: 720px;
   text-align: left;
@@ -20,7 +20,7 @@ mat-card {
 .inner-div {
   margin: 0px auto;
   /* min-width: 350px; */
-  width: 80%;
+  width: 85%;
   position: relative;
 }
 
@@ -41,6 +41,14 @@ padding-left: 80px;
 /* padding-top: 80px; */
 /* padding-bottom: 40px; */
 /* background-color: yellow; */
+}
+
+/* only applies to small screens */
+@media (max-width: 575px) {
+
+  mat-card {
+    margin-left: 10px;
+  }
 }
 
 .folder-icon {

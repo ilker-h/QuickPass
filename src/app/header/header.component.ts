@@ -47,4 +47,11 @@ ngOnInit() {
       this.router.navigate(['/', 'login']);
     }
 
+    // this lets the person click into the search bar when it's inside the hamburger menu without closing the menu
+    // because by default, whenever you click somewhere inside the menu, it thinks you selected something and closes the menu
+    // https://stackoverflow.com/questions/51645949/use-mat-input-while-mat-menu-is-opened-in-material2
+    stopPropagation(event){
+      event.stopPropagation();
+  }
+
 }

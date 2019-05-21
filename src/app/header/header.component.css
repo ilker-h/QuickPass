@@ -1,10 +1,3 @@
-/* https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
-.container-fluid {
-  padding-right: 0; /*15px in bootstrap.css*/
-  padding-left: 0;  /*idem*/
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .icon {
   /* padding: 0 0px; */
@@ -25,12 +18,6 @@ h1 {
   font-size: 30px;
 }
 
-mat-form-field {
-  /* min-width: 100px;
-  max-width: 200px; */
-  width: 150%;
-}
-
 /* .full-width {
   width: 100%;
 } */
@@ -41,3 +28,40 @@ mat-form-field {
   outline: none;
   border: 0;
 }
+
+/* for screens less than 1000px wide (which is the point when the icons collide with the search bar and
+CSS issues start to occur and white space happens at the right side of the screen because the
+header's not condensing even though the rest of the page is) */
+@media (max-width: 1000px) {
+.hide-when-collides-with-search-bar {
+  display: none;
+}
+mat-form-field {
+  /* min-width: 100px;
+  max-width: 200px; */
+  width: 65%;
+  /* margin-bottom: 10px; */
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+/* https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
+/* vertical-align: bottom; */
+
+.hide-search-bar-on-small-screens {
+  display: none;
+}
+}
+
+/* for screens more than 1000px wide */
+@media (min-width: 1000px) {
+  .hamburger-menu-shown-when-icons-get-hidden {
+    display: none;
+  }
+
+  mat-form-field {
+    /* min-width: 100px;
+    max-width: 200px; */
+    width: 200%;
+  }
+  }

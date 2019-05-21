@@ -23,6 +23,10 @@
     <div class="mat-card centering mat-elevation-z6">
       <div class="inner-div">
 
+        <!-- If you want to put the text to the left, do this:
+           <h2 style="text-align: left; margin-left: -15px">Sign Up</h2> -->
+          <h3>Sign Up</h3>
+
               <!-- ngForm gets access to the underlying form and then upon submitting the form,
                 the form gets passed to the onSignup() method using a reference, #f -->
               <form (ngSubmit)="onSignup(f)" #f="ngForm">

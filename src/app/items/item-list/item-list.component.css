@@ -1,5 +1,20 @@
 mat-card {
-  margin: 40px 0px 0px 40px;
+  max-width: 100%;
+  height: 80px;
+  text-align: left;
+  /* margin-top: 20px; */
+}
+
+
+.inner-div {
+  margin: 10px auto;
+  /* min-width: 350px; */
+  width: 100%;
+  position: relative;
+}
+
+.everything {
+    margin: 20px 10px 0px 20px;
 }
 
 .selected-color{
@@ -9,6 +24,7 @@ mat-card {
 
 table {
   width: 100%;
+  margin-top: 20px;
 }
 
 td {
@@ -36,10 +52,81 @@ button {
   margin: 13px 0px;
 }
 
-.folder-icon{
+.folder-select {
+  /* width: 410px; */
+  width: 100%;
+  margin-top: -5px;
+  /* padding-top: 80px; */
+  /* padding-bottom: 40px; */
+  /* background-color: yellow; */
+
+  }
+
+  .delete-select {
+    /* width: 410px; */
+    width: 100%;
+    padding-left: 25px;
+    margin-top: -2px;
+  
+    /* padding-top: 80px; */
+    /* padding-bottom: 40px; */
+    /* background-color: yellow; */
+  
+    }
+  
+  
+/* only applies to small screens */
+@media (max-width: 575px) {
+
+  .folder-select {
+    padding-left: 60px;
+    margin-top: -30px;
+    /* background-color: yellow;   */
+  }
+
+  .delete-select {
+    padding-left: 90px;
+    margin-top: -65px;
+    /* background-color: yellow;   */
+  }
+
+  .everything {
+    margin-right: 10px;
+  }
+}
+
+/* only applies at the moment when the "Move to Folder" mat-card
+gets pushed to the row below the "Select Folder to View" mat-card */
+@media (max-width: 990px) {
+
+  .move-to-folder {
+    margin-top: 20px;
+    /* background-color: yellow;   */
+  }
+
+}
+
+
+  
+/* only applies to small screens */
+/* @media (max-width: 575px) {
+
+
+} */
+
+.folder-icon {
   font-size: 50px;
   color: #3f51b5;
-  padding: 8px 13px;
+  /* padding-top: 5px; */
+  /* padding-right: 10px; */
+
+  /* padding: 8px 13px; */
+  /* https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
+vertical-align: bottom;
+}
+
+.delete-button {
+  vertical-align: bottom;
 }
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.
