@@ -37,6 +37,22 @@ export class FolderEditComponent implements OnInit {
           // console.log(this.allItems[params['id']].folder);
         }
       );
+
+// // Note, alternate solution: 
+// // to check if a URL includes a certain ID, instead of doing router.url.includes('folders'),
+// // this also seems to work and is what Max did in "Lecture 65. Creating the "edit" Form": 
+
+// // paramMap is an observable
+// this.route.paramMap.subscribe(
+//   (paramMap: ParamMap) => {
+//     // checks if the URL has "folders" in it
+//     if (paramMap.has('folders')) {
+
+//     }
+// });
+
+
+
   }
 
   onSubmit() {

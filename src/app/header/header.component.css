@@ -7,7 +7,9 @@
   margin-right: 40px;
 }
 
-/* from CSS example from https://material.angular.io/components/toolbar/examples */
+/* Since the toolbar uses flex box by default, this will make sure that the spacer element
+ takes all the available remaining space between the other elements.
+ From CSS example from https://material.angular.io/components/toolbar/examples */
 .spacer {
   flex: 1 1 auto;
 }

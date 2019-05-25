@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     // if logged in, the following pages are where you can go:
     { path: '', redirectTo: '/login', pathMatch: 'full' },
 
-    {
+    {// :id is a dynamic value and is extracted by express (the name can be anything, not just "id")
         path: 'items', component: ItemsComponent, canActivate: [AuthGuard], children: [
             { path: 'new', component: ItemEditComponent, canActivate: [AuthGuard] }, // , canActivate: [AuthGuard]
             { path: ':id', component: ItemEditComponent, canActivate: [AuthGuard] },

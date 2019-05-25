@@ -29,48 +29,53 @@
     <!-- /Image and Social Media Column -->
 
     <!-- Description Column -->
-    <div class="col-lg-8" style="margin: 10px 20px;">
+    <div class="col-lg-8" style=" background-color: #f8f8f8; margin: auto;">
 
-      <div class="row">
-        <h3>About QuickPass</h3>
+      <div class="" style="margin: 20px 20px;">
+
+        <div class="row" >
+          <h3>About QuickPass</h3>
+        </div>
+  
+        <div class="row">
+          <p>This is QuickPass, an easy-to-use password manager that I created as a side project.
+            Feel free to try it out, I hope you like it!
+          </p>
+        </div>
+  
+        <div class="row" >
+  
+          <h5>Built with:</h5>
+  
+        </div>
+  
+        <div class="row">
+  
+          <ul>
+            <li> <strong>Frontend:</strong> Angular 7 (TypeScript-based JavaScript framework)</li>
+            <li> <strong>Backend Hosting:</strong> Google Firebase's Realtime Database (NoSQL)</li>
+            <li> <strong>Layout Styling: </strong> Bootstap 4 (CSS framework)</li>
+            <li> <strong>Element Styling:</strong> Angular Material 7 (UI Component Library)</li>
+          </ul>
+  
+        </div>
+  
+  
+        <!-- <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                id est laborum."
+              </p> -->
+  
+  
+        <div class="row" class="centering-things-inside-this-div">
+          <button mat-flat-button color="primary" routerLink="/login">Back to Login Page</button>
+          <button mat-flat-button color="primary" (click)="downloadFile()">Download Resume</button>
+        </div>
+
       </div>
-
-      <div class="row">
-        <p>This is QuickPass, an easy-to-use password manager that I created as a side project.
-          Feel free to try it out, I hope you like it!
-        </p>
-      </div>
-
-      <div class="row">
-
-        <h5>Built with:</h5>
-
-      </div>
-
-      <div class="row">
-
-        <ul>
-          <li> <strong>Frontend:</strong> Angular 7 (TypeScript-based JavaScript framework)</li>
-          <li> <strong>Backend Hosting:</strong> Google Firebase's Realtime Database (NoSQL)</li>
-          <li> <strong>Layout Styling: </strong> Bootstap 4 (CSS framework)</li>
-          <li> <strong>Element Styling:</strong> Angular Material 7 (UI Component Library)</li>
-        </ul>
-
-      </div>
-
-
-      <!-- <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-              id est laborum."
-            </p> -->
-
-
-      <div class="row" class="centering-things-inside-this-div">
-        <button mat-flat-button color="primary" routerLink="/login">Back to Login Page</button>
-        <button mat-flat-button color="primary" (click)="downloadFile()">Download Resume</button>
-      </div>
+      
 
     </div>
     <!-- /Description Column -->
