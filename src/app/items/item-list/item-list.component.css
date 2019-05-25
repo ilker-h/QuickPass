@@ -5,6 +5,13 @@ mat-card {
   /* margin-top: 20px; */
 }
 
+/* https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
+.container-fluid {
+  padding-right: 0; /*15px in bootstrap.css*/
+  padding-left: 0;  /*idem*/
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .inner-div {
   margin: 10px auto;
@@ -14,7 +21,21 @@ mat-card {
 }
 
 .everything {
-    margin: 20px 10px 0px 20px;
+    margin: 20px 0px 30px 20px;
+}
+
+@media (max-width: 767px) {
+  .everything {
+    /* margin-right: 10px;
+    margin-left: 10px; */
+    margin: 20px 10px 0px 10px;
+    background-color: yellow;  
+  }
+
+  /* .move-to-folder {
+    background-color: yellow;  
+  } */
+
 }
 
 .selected-color{
@@ -66,7 +87,7 @@ button {
     /* width: 410px; */
     width: 100%;
     padding-left: 25px;
-    margin-top: -2px;
+    margin-top: -5px;
   
     /* padding-top: 80px; */
     /* padding-bottom: 40px; */
@@ -107,6 +128,7 @@ gets pushed to the row below the "Select Folder to View" mat-card */
 }
 
 
+
   
 /* only applies to small screens */
 /* @media (max-width: 575px) {
@@ -127,6 +149,8 @@ vertical-align: bottom;
 
 .delete-button {
   vertical-align: bottom;
+  margin-top: 7px;
+
 }
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.

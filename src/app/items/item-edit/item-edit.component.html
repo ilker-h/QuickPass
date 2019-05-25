@@ -1,9 +1,10 @@
 <div class="container-fluid">
-
+<div class="">
 <mat-card class="mat-elevation-z8">
 
   <!-- Edit Item form -->
-  <div class="row">
+
+  <div class="row">   <!-- used to be <div class="row"> but I don't think you need it-->
     <!-- <div class="col-xs-12"> -->
     <div class="inner-div">
 
@@ -118,7 +119,7 @@
             <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
           <button type="submit" mat-flat-button color="primary">Save</button>
           <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
-          <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto">Cancel</button>
+          <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto cancel-button">Cancel</button>
           </div>
         <!-- </div> -->
         <!-- Action Buttons -->
@@ -129,4 +130,5 @@
   </div>
 </mat-card>
 
+</div>
 </div>

@@ -7,6 +7,15 @@
   margin-right: 40px;
 }
 
+.hamburger-menu-icon {
+  /* padding: 0 0px; */
+  margin-bottom: 0.3%;
+  cursor: pointer;
+  font-size: 35px;
+  margin: 0 10px;
+}
+
+
 /* Since the toolbar uses flex box by default, this will make sure that the spacer element
  takes all the available remaining space between the other elements.
  From CSS example from https://material.angular.io/components/toolbar/examples */
@@ -15,9 +24,17 @@
 }
 
 h1 {
-  padding: 0 40px;
+  padding: 0 20px;
   cursor: pointer;
   font-size: 30px;
+}
+
+/* only applies to small mobile screens */
+@media (max-width: 355px) {
+  h1 {
+    padding: 0 5px;
+  }
+
 }
 
 /* .full-width {

@@ -49,7 +49,7 @@
           <div class="hide-when-collides-with-search-bar">
 
             <!-- Create New... -->
-            <button mat-icon-button class="icon" style="margin-left: 30px;" matTooltip="Create New..."
+            <button mat-icon-button class="icon" style="" matTooltip="Create New..."
               aria-hidden="false" aria-label=" heart icon" [matMenuTriggerFor]="menu">
               <mat-icon class="icon">add_circle</mat-icon>
             </button>
@@ -85,16 +85,16 @@
           <div class="hamburger-menu-shown-when-icons-get-hidden">
 
             <!-- Hamburger Menu... -->
-            <button mat-icon-button class="icon" style="margin-left: 30px;" matTooltip="Menu" aria-hidden="false"
+            <button mat-icon-button class="hamburger-menu-icon" style="" matTooltip="Menu" aria-hidden="false"
               aria-label=" heart icon" [matMenuTriggerFor]="hamburgerMenu">
-              <mat-icon class="icon">menu</mat-icon>
+              <mat-icon class="hamburger-menu-icon">menu</mat-icon>
             </button>
 
             <mat-menu #hamburgerMenu="matMenu">
               <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToCreateNew">Create A
                 New...</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/items">My Passwords</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/folders">My Folders</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/items">Passwords</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/folders">Folders</button>
               <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToSearch">Search</button>
               <button style="margin-right: 50px" mat-menu-item (click)="onLogout()">Log Out</button>
             </mat-menu>
