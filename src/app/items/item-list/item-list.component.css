@@ -29,7 +29,7 @@ mat-card {
     /* margin-right: 10px;
     margin-left: 10px; */
     margin: 20px 10px 0px 10px;
-    background-color: yellow;  
+    /* background-color: yellow;   */
   }
 
   /* .move-to-folder {
@@ -74,10 +74,13 @@ button {
 }
 
 .folder-select {
-  /* width: 410px; */
+
   width: 100%;
-  margin-top: -5px;
-  /* padding-top: 80px; */
+  margin-top: -30px;
+  padding-left: 80px;
+  padding-right: 20px;
+
+  /* width: 410px; */
   /* padding-bottom: 40px; */
   /* background-color: yellow; */
 
@@ -85,9 +88,10 @@ button {
 
   .delete-select {
     /* width: 410px; */
-    width: 100%;
-    padding-left: 25px;
-    margin-top: -5px;
+  width: 100%;
+  margin-top: -62px;
+  padding-left: 110px;
+  padding-right: 20px;
   
     /* padding-top: 80px; */
     /* padding-bottom: 40px; */
@@ -100,14 +104,14 @@ button {
 @media (max-width: 575px) {
 
   .folder-select {
-    padding-left: 60px;
-    margin-top: -30px;
+    /* padding-left: 60px;
+    margin-top: -30px; */
     /* background-color: yellow;   */
   }
 
   .delete-select {
-    padding-left: 90px;
-    margin-top: -65px;
+    /* padding-left: 90px;
+    margin-top: -65px; */
     /* background-color: yellow;   */
   }
 
@@ -118,7 +122,7 @@ button {
 
 /* only applies at the moment when the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
-@media (max-width: 990px) {
+@media (max-width: 991px) {
 
   .move-to-folder {
     margin-top: 20px;
@@ -127,6 +131,19 @@ gets pushed to the row below the "Select Folder to View" mat-card */
 
 }
 
+/* only applies before the moment when the "Move to Folder" mat-card
+gets pushed to the row below the "Select Folder to View" mat-card */
+@media (min-width: 991px) {
+
+  .edit-padding-right {
+    padding-right: 10px;
+  }
+  
+  .edit-padding-left {
+    padding-left: 10px;
+  }
+
+}
 
 
   
@@ -140,7 +157,7 @@ gets pushed to the row below the "Select Folder to View" mat-card */
   font-size: 50px;
   color: #3f51b5;
   /* padding-top: 5px; */
-  /* padding-right: 10px; */
+  margin-left: 15px;
 
   /* padding: 8px 13px; */
   /* https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
@@ -148,8 +165,9 @@ vertical-align: bottom;
 }
 
 .delete-button {
-  vertical-align: bottom;
+  /* vertical-align: bottom; */
   margin-top: 7px;
+  margin-left: 20px;
 
 }
 

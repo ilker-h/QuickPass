@@ -30,7 +30,7 @@ mat-card {
     margin: 30px 10px 30px 10px;
     /* margin-right: 10px;
     margin-left: 10px; */
-    background-color: yellow;
+    /* background-color: yellow; */
   }
 
 }
@@ -55,7 +55,7 @@ mat-card {
 .folder-select {
 /* width: 410px; */
 width: 100%;
-padding-left: 80px;
+padding-left: 70px;
 /* padding-top: 80px; */
 /* padding-bottom: 40px; */
 /* background-color: yellow; */
@@ -79,7 +79,7 @@ padding-left: 80px;
 
 .folder-icon {
 font-size: 50px;
-padding-top: 20px;
+padding-top: 25px;
 /* background-color: green; */
 /* https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
 vertical-align: bottom;
