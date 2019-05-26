@@ -48,6 +48,12 @@ table {
   margin-top: 20px;
 }
 
+th {
+  font-size: 17px;
+  color: #3f51b5;
+  font-weight: bold;
+}
+
 td {
   cursor: pointer;
   /* width: 453px; */
@@ -55,10 +61,18 @@ td {
   /* height: 70px; */
 }
 
-th {
-  font-size: 17px;
-  color: #3f51b5;
-  font-weight: bold;
+/* only applies to anything that's larger than a small mobile screen */
+@media (min-width: 355px) {
+  
+.td-padding {
+  padding-left: 30px
+}
+
+
+  .th-padding {
+    padding-left: 30px
+  }
+  
 }
 
 mat-form-field {
@@ -116,7 +130,7 @@ button {
   }
 
   .everything {
-    margin-right: 10px;
+    /* margin-right: 10px; */
   }
 }
 

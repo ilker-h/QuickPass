@@ -12,7 +12,21 @@
   } */
 
   .everything {
-    margin: 20px 0px 30px 40px;
+    margin: 20px 0px 30px 20px;
+}
+
+@media (max-width: 767px) {
+  .everything {
+    /* margin-right: 10px;
+    margin-left: 10px; */
+    margin: 20px 10px 0px 10px;
+    /* background-color: yellow;   */
+  }
+
+  /* .move-to-folder {
+    background-color: yellow;  
+  } */
+
 }
 
 /* https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */

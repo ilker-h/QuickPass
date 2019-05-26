@@ -1,7 +1,11 @@
+<div class="container-fluid">
+  <div class="everything">
+    
+
 <!-- The shadow effect comes from https://material.angular.io/guide/elevation -->
 <mat-card class="margin mat-elevation-z8">
 
-  <div class="row margin">
+  <div class="row">
     <div class="inner-div">
       <form [formGroup]="folderForm" (ngSubmit)="onSubmit()" class="form">
 
@@ -22,7 +26,7 @@
             <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
             <button type="submit" mat-flat-button color="primary">Save</button>
             <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
-            <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto">Cancel</button>
+            <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto cancel-button">Cancel</button>
           </div>
         <!-- </div> -->
         <!-- /Action Buttons -->
@@ -31,3 +35,7 @@
     </div>
   </div>
 </mat-card>
+
+
+</div>
+</div>

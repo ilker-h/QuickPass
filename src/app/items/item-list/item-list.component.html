@@ -113,10 +113,10 @@
 
       <ng-container matColumnDef="title">
         <!-- mat-sort-header attribute goes on this <th> if you want to sort -->
-        <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 30px"> Sort by Title </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="" class="th-padding"> Sort by Title </th>
         <td mat-cell *matCellDef="let itemElement; let i = index;" (click)="findIndexOfItemTitle(itemElement.title)"
           [routerLink]="[findIndexOfItemTitle(itemElement.title)]" routerLinkActive="selected-color"
-          style="padding-left: 30px">
+          style="" class="td-padding">
           {{ itemElement.title }}
         </td>
       </ng-container>
