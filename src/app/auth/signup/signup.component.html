@@ -66,4 +66,29 @@
     </div>
 
   </div>
+
+
+<div class="centering">
+
+
+    <div *ngIf="this.authService.isSignUpSuccessful"  style="margin: 30px 0px; background-color: #21e758;" class="full-width">
+
+        <!-- <mat-chip-list>
+        <mat-chip selected style="background-color: #21e758" class="full-width"> -->
+            <p style=" color: white; padding: 10px">Your account was created successfully! You can now <a style="color: white;" routerLink="/login">log in</a>.</p>
+          <!-- </mat-chip>
+        </mat-chip-list> -->
+    </div>
+
+    <div *ngIf="this.authService.errorMessage && this.authService.isSignUpSuccessful != true"  style="margin: 30px 0px; background-color: red;" class="full-width">
+        <!-- <mat-chip-list style="height: 200px">
+        <mat-chip selected > -->
+            <p style=" color: white; padding: 10px">Error: {{ this.authService.errorMessage }}</p>
+          <!-- </mat-chip>
+        </mat-chip-list> -->
+    </div>
+
+
+</div>
+
 </div>

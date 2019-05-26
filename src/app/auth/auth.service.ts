@@ -6,19 +6,37 @@ import { DataStorageInDBService } from './data-storage-in-db.service';
 @Injectable()
 export class AuthService {
     token: string;
+    isSignUpSuccessful: boolean;
+    errorMessage: string;
 
     constructor(private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
 
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then (
+                (response) => {
+                    // this area only runs if the new user creation was successful
+                    if (response.additionalUserInfo.isNewUser === true) {
+                        this.isSignUpSuccessful = true;
+                        console.log(this.isSignUpSuccessful);
+                        console.log(response.additionalUserInfo.isNewUser);
+                    }
+
+                    console.log('trueeee: ' + JSON.stringify(response.additionalUserInfo.isNewUser));
+                }
+            )
             .catch(
                 (error) => {
                     console.log(error);
-                    alert(error);
+                    // alert(error);
+                        this.isSignUpSuccessful = false;
+                        console.log('falseeee');
+                        this.errorMessage = error.message;
                 }
 
             );
     }
+
 
     loginUser(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)

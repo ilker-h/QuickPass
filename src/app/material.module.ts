@@ -1,4 +1,4 @@
-import { MatCheckboxModule, MatSortModule, MatPaginatorModule } from '@angular/material';
+import { MatCheckboxModule, MatSortModule, MatPaginatorModule, MatChipsModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +31,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatMenuModule],
+    MatMenuModule,
+    MatChipsModule],
 
   exports: [
     MatButtonModule,
@@ -49,6 +50,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatMenuModule],
+    MatMenuModule,
+    MatChipsModule],
 })
 export class MaterialModule { }

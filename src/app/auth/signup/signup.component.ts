@@ -20,4 +20,5 @@ export class SignupComponent implements OnInit {
     this.authService.signupUser(email, password);
   }
 
+
 }
