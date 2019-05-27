@@ -15,6 +15,7 @@ import { Folder } from 'src/app/shared/folder.model';
 import { FolderService } from 'src/app/folder/folder.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-list',
@@ -38,7 +39,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   constructor(private itemService: ItemService, private folderService: FolderService,
     private router: Router, private route: ActivatedRoute,
     private typedItemSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient, private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -312,7 +313,5 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // unsubscribes in order to avoid memory leaks
     this.subscription.unsubscribe();
   }
-
-
 
 }

@@ -55,8 +55,8 @@
                     <button mat-flat-button class="full-width" type="submit" color="primary">Sign Up</button>
                 </div>
 
-                <div class="row" style="margin: 15px 10px;">
-                    <a routerLink="/login">Or Return to Login Page</a>
+                <div class="row" style="margin-top: 15px;">
+                    <a routerLink="/login" class="full-width">Or Return to Login Page</a>
                   </div>
                 <!-- Action Buttons -->
 
@@ -80,10 +80,10 @@
         </mat-chip-list> -->
     </div>
 
-    <div *ngIf="this.authService.errorMessage && this.authService.isSignUpSuccessful != true"  style="margin: 30px 0px; background-color: red;" class="full-width">
+    <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true"  style="margin: 30px 0px; background-color: red;" class="full-width">
         <!-- <mat-chip-list style="height: 200px">
         <mat-chip selected > -->
-            <p style=" color: white; padding: 10px">Error: {{ this.authService.errorMessage }}</p>
+            <p style=" color: white; padding: 10px">Error: {{ this.authService.signUpErrorMessage }}</p>
           <!-- </mat-chip>
         </mat-chip-list> -->
     </div>

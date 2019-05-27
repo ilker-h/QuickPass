@@ -125,4 +125,22 @@ let userID = firebase.auth().currentUser.uid;
             );
     }
 
+
+// ___________________________
+
+    DELETEAllOfThisUsersDataFromDB() {
+// getting the current user's id/"User UID",
+// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+let userID = firebase.auth().currentUser.uid;
+
+
+this.httpClient.delete('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
+.subscribe(
+    (response) => {
+        console.log("deleted! " + response);
+    }
+);
+
+    }
+
 }

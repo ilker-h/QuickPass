@@ -25,6 +25,7 @@ import { AboutComponent } from './header/about/about.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DataStorageInDBService } from './auth/data-storage-in-db.service';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DataStorageInDBService } from './auth/data-storage-in-db.service';
     FolderEditComponent,
     SignupComponent,
     LoginComponent,
-    AboutComponent
+    AboutComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

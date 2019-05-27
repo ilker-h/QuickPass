@@ -102,7 +102,8 @@ export class FolderEditComponent implements OnInit {
     // this FormGroup goes into the template
     this.folderForm = new FormGroup({
       // this is the folder name from FolderService
-      'name': new FormControl(folderName, Validators.required)
+      // 'name': new FormControl(folderName, Validators.required) // if you want to add validators, this is the syntax
+      'name': new FormControl(folderName)
     });
 
   }

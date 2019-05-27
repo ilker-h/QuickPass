@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="everything">
+
+      <!-- <div class="centering">
+<div class="inner-div"> -->
+
+      <div class="row">
+        <h3>Delete Account</h3>
+      </div>
+
+      <div class="row">
+        <p>Caution! Once you delete your account, all of your passwords and folders will be gone.</p>
+      </div>
+
+      <div class="row">
+        <button mat-flat-button color="warn" (click)="onDeleteAccount()">Delete Account</button>
+      </div>
+
+      <div class="row">
+        <div *ngIf="areYouSure">
+          <!-- <p>Are you sure? Click Here to Confirm</p> -->
+          <!-- Note: for some reason, you can't style an anchor element directly,  -->
+
+          <div class="anchor">
+              <a (click)="onDeleteAccountYesIAmSure()">Are you sure? Click here to confirm.</a>
+            </div>
+    
+          </div>
+      </div>
+
+      <!-- </div>
+</div> -->
+
+
+    </div>
+
+  </div>
+
+</div>

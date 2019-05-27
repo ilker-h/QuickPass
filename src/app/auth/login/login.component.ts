@@ -13,6 +13,10 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+// resets the logInErrorMessage because if this is not done, the error
+// message will still be there even if I leave the page and then come back later
+this.authService.logInErrorMessage = null;
+
   }
 
   onLogin(form: NgForm) {

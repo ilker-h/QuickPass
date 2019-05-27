@@ -111,13 +111,14 @@ export class ItemEditComponent implements OnInit {
     // this FormGroup goes into the template
     this.itemForm = new FormGroup({
       // these are from ItemService
-      'title': new FormControl(itemTitle, Validators.required),
-      'username': new FormControl(itemUsername, Validators.required),
-      'password': new FormControl(itemPassword, Validators.required),
-      'email': new FormControl(itemEmail, Validators.required),
-      'url': new FormControl(itemUrl, Validators.required),
-      'notes': new FormControl(itemNotes, Validators.required),
-      'folderMatchedTo': new FormControl(itemFolderMatchedTo, Validators.required),
+      // 'title': new FormControl(itemTitle, Validators.required),  // if you want to add validators, this is the syntax
+      'title': new FormControl(itemTitle),
+      'username': new FormControl(itemUsername),
+      'password': new FormControl(itemPassword),
+      'email': new FormControl(itemEmail),
+      'url': new FormControl(itemUrl),
+      'notes': new FormControl(itemNotes),
+      'folderMatchedTo': new FormControl(itemFolderMatchedTo),
 
       // this is the folder name from FolderService
       // 'name': new FormControl(folderName, Validators.required) // I don't think this is being used anymore

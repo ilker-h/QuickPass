@@ -48,10 +48,10 @@ h1 {
   border: 0;
 }
 
-/* for screens less than 1000px wide (which is the point when the icons collide with the search bar and
+/* for screens less than 1050px wide (which is the point when the icons collide with the search bar and
 CSS issues start to occur and white space happens at the right side of the screen because the
 header's not condensing even though the rest of the page is) */
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
 .hide-when-collides-with-search-bar {
   display: none;
 }
@@ -72,8 +72,8 @@ mat-form-field {
 }
 }
 
-/* for screens more than 1000px wide */
-@media (min-width: 1000px) {
+/* for screens more than 1050px wide show the hamburger menu when the icons get hidden */
+@media (min-width: 1050px) {
   .hamburger-menu-shown-when-icons-get-hidden {
     display: none;
   }

@@ -63,7 +63,7 @@
           </div>
 
           <div class="row" style="margin-top: 15px;">
-            <a routerLink="/signup">Don't Have an Account? Register Here</a>
+            <a routerLink="/signup" class="full-width">Don't Have an Account? Register Here</a>
           </div>
           <!-- Action Buttons -->
 
@@ -72,4 +72,19 @@
     </div>
 
   </div>
+
+
+  <div class="centering">
+      <div *ngIf="this.authService.logInErrorMessage"  style="margin: 30px 0px; background-color: red;" class="full-width">
+          <!-- <mat-chip-list style="height: 200px">
+          <mat-chip selected > -->
+              <p style=" color: white; padding: 10px">Error: {{ this.authService.logInErrorMessage }}</p>
+            <!-- </mat-chip>
+          </mat-chip-list> -->
+      </div>
+  
+  
+  </div>
+
+
 </div>

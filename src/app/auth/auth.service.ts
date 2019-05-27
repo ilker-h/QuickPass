@@ -7,7 +7,8 @@ import { DataStorageInDBService } from './data-storage-in-db.service';
 export class AuthService {
     token: string;
     isSignUpSuccessful: boolean;
-    errorMessage: string;
+    signUpErrorMessage: string;
+    logInErrorMessage: string;
 
     constructor(private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
 
@@ -31,7 +32,7 @@ export class AuthService {
                     // alert(error);
                         this.isSignUpSuccessful = false;
                         console.log('falseeee');
-                        this.errorMessage = error.message;
+                        this.signUpErrorMessage = error.message;
                 }
 
             );
@@ -53,7 +54,9 @@ export class AuthService {
             ) .catch(
                 (error) => {
                     console.log(error);
-                    alert(error);
+                    // alert(error);
+                    this.logInErrorMessage = error.message;
+
                 }
             );
     }
@@ -76,6 +79,21 @@ export class AuthService {
         // Checks if the token is valid/not expired, meaning you're authenticated.
         // Returns true if the token is valid.
         return this.token != null;
+    }
+
+    deleteAccount() {
+
+        firebase.auth().currentUser.delete()
+        .catch(
+            (error) => {
+                console.log(error);
+                alert(error);
+            }
+        ).then(
+            () => {
+                alert('Your account was successfully deleted.');
+            }
+        );
     }
 
 }

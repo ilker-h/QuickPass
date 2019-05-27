@@ -8,6 +8,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AboutComponent } from './header/about/about.component';
 import { AuthGuard } from './auth/auth-guard.service';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
 
@@ -19,6 +20,8 @@ const appRoutes: Routes = [
 
     // if logged in, the following pages are where you can go:
     { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+    { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
 
     {// :id is a dynamic value and is extracted by express (the name can be anything, not just "id")
         path: 'items', component: ItemsComponent, canActivate: [AuthGuard], children: [
