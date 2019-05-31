@@ -17,6 +17,7 @@
               <mat-form-field class="folder-select">
                 <mat-label for="folder">Folder</mat-label>
                 <mat-select formControlName="folderMatchedTo">
+                    <mat-option [value]="''">None (Not in a Folder)</mat-option>
                   <mat-option *ngFor="let individualFolder of allFolders" [value]="individualFolder.name">
                     {{ individualFolder.name }}</mat-option>
                 </mat-select>
