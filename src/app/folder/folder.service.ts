@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Subject } from 'rxjs';
 
-import { Folder } from '../shared/folder.model';
+import { Folder } from '../folder/folder.model';
 
 @Injectable()
 export class FolderService {
@@ -16,12 +17,6 @@ export class FolderService {
         // (if at least one Folder isn't hardcoded into the array, the array seems to become null
         // and causes errors everywhere)
         new Folder('Example Folder'),
-        // new Folder('GitlabFolder2'),
-        // new Folder('ToggleFolder2'),
-        // new Folder('AvazaFolder2'),
-        // new Folder('GitlabFolderMatched3'),
-        // new Folder('TogglFolderMatched3'),
-        // new Folder('AvazaFolderMatched3')
     ];
 
     // the reason .slice() is used to create a (shallow) copy of each array is because arrays are

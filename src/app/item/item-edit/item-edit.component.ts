@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+
 import { ItemService } from '../item.service';
 import { FolderService } from '../../folder/folder.service';
-import { Folder } from 'src/app/shared/folder.model';
+import { Folder } from 'src/app/folder/folder.model';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class ItemEditComponent implements OnInit {
     // for populating the Folder dropdown in the template
     this.allFolders = this.folderService.getFolders();
 
-    // subscribes to the route's "params" observable and then saves the id 
+    // subscribes to the route's "params" observable and then saves the id
     // (the "+" turns the string into a number)
     this.route.params
       .subscribe(
@@ -36,10 +37,6 @@ export class ItemEditComponent implements OnInit {
           this.id = +params['id'];
           this.editMode = params['id'] != null;
           this.initForm();
-
-          // if (this.route.params['new']) {
-          //   this.hide = false;
-          // }
         }
       );
   }
@@ -47,18 +44,20 @@ export class ItemEditComponent implements OnInit {
   onSubmit() {
 
     if (this.editMode) {
-      //if you're editing an existing item
+      // if you're editing an existing item
       this.itemService.updateItem(this.id, this.itemForm.value);
     } else {
-      //if you're creating a new item
-      this.itemService.addItem(this.itemForm.value)
+      // if you're creating a new item
+      this.itemService.addItem(this.itemForm.value);
       this.router.navigate(['/items']);
     }
 
+    // now that the edit(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTItemsIntoDB()
-    .subscribe(
-      response => console.log(response)
-    );
+      .subscribe(
+        // response => console.log(response)
+      );
 
   }
 
@@ -66,14 +65,15 @@ export class ItemEditComponent implements OnInit {
     this.itemService.deleteItem(this.id);
     this.router.navigate(['/items']);
 
+    // now that the deletion(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTItemsIntoDB()
-    .subscribe(
-      response => console.log(response)
-    );
+      .subscribe(
+        // response => console.log(response)
+      );
   }
 
   onCancel() {
-    // this.router.navigate(['../'], {relativeTo: this.route}); // I'm keeping this for syntax
     this.initForm();
   }
 
@@ -89,10 +89,7 @@ export class ItemEditComponent implements OnInit {
     let itemNotes = '';
     let itemFolderMatchedTo;
 
-    let folderName = '';
-
     if (this.editMode) {
-      // these are from ItemService
       const item = this.itemService.getItem(this.id);
       itemTitle = item.title;
       itemUsername = item.username;
@@ -101,16 +98,10 @@ export class ItemEditComponent implements OnInit {
       itemUrl = item.url;
       itemNotes = item.notes;
       itemFolderMatchedTo = item.folderMatchedTo;
-
-      // this is from FolderService - this doesn't make sense because the folder may not be at the same index as the item
-      // this is from FolderService
-      // const folder = this.folderService.getFolder(this.id);
-      // folderName = folder.name;
     }
 
     // this FormGroup goes into the template
     this.itemForm = new FormGroup({
-      // these are from ItemService
       // 'title': new FormControl(itemTitle, Validators.required),  // if you want to add validators, this is the syntax
       'title': new FormControl(itemTitle),
       'username': new FormControl(itemUsername),
@@ -119,10 +110,10 @@ export class ItemEditComponent implements OnInit {
       'url': new FormControl(itemUrl),
       'notes': new FormControl(itemNotes),
       'folderMatchedTo': new FormControl(itemFolderMatchedTo),
-
-      // this is the folder name from FolderService
-      // 'name': new FormControl(folderName, Validators.required) // I don't think this is being used anymore
-    })
+    });
 
   }
+
+  // I'm keeping this for syntax
+  // this.router.navigate(['../'], {relativeTo: this.route});
 }

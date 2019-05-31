@@ -8,11 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
-import { ItemListComponent } from './items/item-list/item-list.component';
-import { ItemService } from './items/item.service';
+import { ItemListComponent } from './item/item-list/item-list.component';
+import { ItemService } from './item/item.service';
 import { AppRoutingModule } from './app-routing.module';
-import { ItemsComponent } from './items/items.component';
-import { ItemEditComponent } from './items/item-edit/item-edit.component';
+import { ItemComponent } from './item/items.component';
+import { ItemEditComponent } from './item/item-edit/item-edit.component';
 import { FolderComponent } from './folder/folder.component';
 import { FolderService } from './folder/folder.service';
 import { FolderListComponent } from './folder/folder-list/folder-list.component';
@@ -32,7 +32,7 @@ import { SettingsComponent } from './settings/settings.component';
     AppComponent,
     HeaderComponent,
     ItemListComponent,
-    ItemsComponent,
+    ItemComponent,
     ItemEditComponent,
     FolderComponent,
     FolderListComponent,
@@ -52,14 +52,15 @@ import { SettingsComponent } from './settings/settings.component';
     MaterialModule,
     CommonModule
   ],
-  providers: [ItemService,
-              FolderService,
-              SearchService,
-              AuthService,
-              AuthGuard,
-              DataStorageInDBService,
-              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-            ],
+  providers: [
+    ItemService,
+    FolderService,
+    SearchService,
+    AuthService,
+    AuthGuard,
+    DataStorageInDBService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

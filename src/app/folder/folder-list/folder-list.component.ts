@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
-
-import { Folder } from 'src/app/shared/folder.model';
-import { Subscription } from 'rxjs';
-import { FolderService } from 'src/app/folder/folder.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+
+import { Subscription } from 'rxjs';
+
+import { Folder } from 'src/app/folder/folder.model';
+import { FolderService } from 'src/app/folder/folder.service';
 import { SearchService } from 'src/app/header/search.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
-import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-folder-list',
@@ -17,7 +18,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class FolderListComponent implements OnInit, OnDestroy {
 
   folders: Folder[];
-  subscription: Subscription;
+  folderSubscription: Subscription;
   folderSearchQuery: string; // for Search Query functionality
 
   // for the table
@@ -31,18 +32,6 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // I put these PUT calls here because without them, once in a while, the page doesn't load the data into the tables if
-    // I quickly switch between the "Items" and "Folders" tabs, even though most times it works.
-    // See further description in item-list.component.ts.
-      //   this.dataStorageInDBService.PUTItemsIntoDB()
-      //   .subscribe(
-      //     response => console.log(response)
-      //   );
-      // this.dataStorageInDBService.PUTFoldersIntoDB()
-      //   .subscribe(
-      //     response => console.log(response)
-      //   );
-
     // gets the items and folders data from the Firebase DB - I think this is not needed anymore
     // since it's done in item-list.component.ts anyway
     this.dataStorageInDBService.GETItemsFromDB();
@@ -50,7 +39,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
     // this subscribes to the foldersChanged observable and so it knows whenever the folders array has
     // been updated. Then it updates the template with the newly updated folder values
-    this.subscription = this.folderService.foldersChanged
+    this.folderSubscription = this.folderService.foldersChanged
       .subscribe(
         (folders: Folder[]) => {
           // if the table values have been changed, do these things
@@ -69,19 +58,15 @@ export class FolderListComponent implements OnInit, OnDestroy {
       );
   }
 
-  // this method is unused but I'm keeping it for the syntax
-  // onNewFolder() {
-  //   this.router.navigate(['/', 'new-folder']);
-  // }
 
   selection; // for checkboxes
-
   setupTable() {
     this.dataSource = new MatTableDataSource<Folder>(this.folders); // added in <Folder> - should not cause bug
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.selection = new SelectionModel<Folder>(true, []); // for checkboxes
   }
+
 
   // The built-in Javascript .map() function lets you convert this.folders,
   // which is an array of JSON objects,
@@ -92,8 +77,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
     return this.folders.map(
 
-      //  (obj) => {return obj.name}
-      obj => obj.name
+      obj => { return obj.name; }
 
     ).indexOf(folderName);
 
@@ -110,15 +94,16 @@ export class FolderListComponent implements OnInit, OnDestroy {
     return numSelected === numRows;
   }
 
+
   // for checkboxes
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
-
-    console.log(this.selection.hasValue());
+    // console.log(this.selection.hasValue()); // useful for seeing if Master Toggle is selected (returns true) or not (returns false)
   }
+
 
   // for checkboxes
   /** The label for the checkbox on the passed row */
@@ -129,11 +114,6 @@ export class FolderListComponent implements OnInit, OnDestroy {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
   }
 
-  // this function is not used:
-  //  applyFilter(filterValue: string) {
-  //    this.dataSource.filter = filterValue.trim().toLowerCase();
-  //  }
-
 
   stringArrayOfFoldersToDelete;
   onDeleteItems() {
@@ -142,7 +122,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfFoldersToDelete = this.selection.selected.map((obj) => { return obj.name });
+    this.stringArrayOfFoldersToDelete = this.selection.selected.map(obj => { return obj.name; });
 
     // this loops through the string array of title properties
     for (let i of this.stringArrayOfFoldersToDelete) {
@@ -163,17 +143,27 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['/folders']);
 
-    // now that the deletion(s) have happened,
-    // this pushes the updated data to the Firebase DB
+    // now that the deletion(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTFoldersIntoDB()
       .subscribe(
-        response => console.log('DELETE: ' + response)
+        // response => console.log('DELETE: ' + response)
       );
   }
 
   ngOnDestroy() {
     // unsubscribes in order to avoid memory leaks
-    this.subscription.unsubscribe();
+    this.folderSubscription.unsubscribe();
   }
+
+  // this method is unused but I'm keeping it for the syntax
+  // onNewFolder() {
+  //   this.router.navigate(['/', 'new-folder']);
+  // }
+
+  // this method is not used but the syntax may be useful in the future (it's for the search bar/filter):
+  //  applyFilter(filterValue: string) {
+  //    this.dataSource.filter = filterValue.trim().toLowerCase();
+  //  }
 
 }

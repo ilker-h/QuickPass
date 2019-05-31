@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import * as firebase from 'firebase';
+import { map } from 'rxjs/operators';
 
 import { FolderService } from '../folder/folder.service';
-import { AuthService } from './auth.service';
-import { Folder } from '../shared/folder.model';
-import { map } from 'rxjs/operators';
-import { ItemService } from '../items/item.service';
-import { Item } from '../shared/item.model';
+import { Folder } from '../folder/folder.model';
+import { ItemService } from '../item/item.service';
+import { Item } from '../item/item.model';
 
 @Injectable()
 export class DataStorageInDBService {
 
-    constructor(private httpClient: HttpClient, private itemService: ItemService,
-        private folderService: FolderService) { }
+    constructor(private httpClient: HttpClient, private itemService: ItemService, private folderService: FolderService) { }
 
     // _____________________________ Item Communication with Firebase DB _____________________________
 
@@ -25,33 +24,33 @@ export class DataStorageInDBService {
     // angular takes care of that for us in these pre-built cases like with HTTP GET).
     PUTItemsIntoDB() {
 
-                // getting the current user's id/"User UID",
-// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
-let userID = firebase.auth().currentUser.uid;
+        // getting the current user's id/"User UID",
+        // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+        let userID = firebase.auth().currentUser.uid;
 
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/' + userID + '/items.json', this.itemService.getItems());
     }
+
 
     // by default, the get() method returns the body of the response. If you want another part of the
     // response, like the header, you'd have to configure it more.
     // Also, the get() method already turns the JSON into JavaScript so you don't need to do .json() to transform it anymore
     GETItemsFromDB() {
 
-                // getting the current user's id/"User UID",
-// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
-let userID = firebase.auth().currentUser.uid;
+        // getting the current user's id/"User UID",
+        // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+        let userID = firebase.auth().currentUser.uid;
 
         this.httpClient.get<Item[]>('https://quickpass-4ed21.firebaseio.com/' + userID + '/items.json')
             .pipe(map(
                 // .map() operator transforms the JSON string you get back to whatever you want.
                 // However, after an RxJS update, you now have to do .pipe(map(___)) to do the same thing.
                 // I'm not sure if I need .pipe(map(___)) anymore though
-                                // from https://www.udemy.com/the-complete-guide-to-angular-2/learn/lecture/6656640#questions
+                // from https://www.udemy.com/the-complete-guide-to-angular-2/learn/lecture/6656640#questions
                 // (lecture 260. Transforming Response Data to Prevent Errors)
                 // and https://www.udemy.com/the-complete-guide-to-angular-2/learn/lecture/5402690#questions
                 // (lecture 253. Catching Errors without rxjs-compat)
                 (items) => {
-                    console.log('items worked: ' + items);
                     return items;
                 }
             ))
@@ -61,6 +60,7 @@ let userID = firebase.auth().currentUser.uid;
                 }
             );
     }
+
 
 
     // _____________________________ Folder Communication with Firebase DB _____________________________
@@ -73,22 +73,22 @@ let userID = firebase.auth().currentUser.uid;
     // angular takes care of that for us in these pre-built cases like with HTTP GET).
     PUTFoldersIntoDB() {
 
-        
-// getting the current user's id/"User UID",
-// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
-let userID = firebase.auth().currentUser.uid;
+        // getting the current user's id/"User UID",
+        // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+        let userID = firebase.auth().currentUser.uid;
 
         return this.httpClient.put('https://quickpass-4ed21.firebaseio.com/' + userID + '/folders.json', this.folderService.getFolders());
     }
+
 
     // by default, the get() method returns the body of the response. If you want another part of the
     // response, like the header, you'd have to configure it more.
     // Also, the get() method already turns the JSON into JavaScript so you don't need to do .json() to transform it anymore
     GETFoldersFromDB() {
 
-// getting the current user's id/"User UID",
-// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
-let userID = firebase.auth().currentUser.uid;
+        // getting the current user's id/"User UID",
+        // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+        let userID = firebase.auth().currentUser.uid;
 
         this.httpClient.get<Folder[]>('https://quickpass-4ed21.firebaseio.com/' + userID + '/folders.json')
             .pipe(map(
@@ -100,23 +100,19 @@ let userID = firebase.auth().currentUser.uid;
                 // and https://www.udemy.com/the-complete-guide-to-angular-2/learn/lecture/5402690#questions
                 // (lecture 253. Catching Errors without rxjs-compat)
                 (response) => {
+
                     let folders: Folder[] = response;
-                        if (!folders) {
+                    if (!folders) {
                         folders = [];
-                        }
+                    }
 
-                        for ( let folder of folders) {
-                            if (!folder['name']) {
-                                folder['name'] = '';
-                            }
+                    for (let folder of folders) {
+                        if (!folder['name']) {
+                            folder['name'] = '';
                         }
-                        return response;
+                    }
+                    return response;
                 }
-                // (folders) => {
-
-                //     console.log('folders worked: ' + folders);
-                //     return folders;
-                // }
             ))
             .subscribe(
                 (folders: Folder[]) => {
@@ -126,21 +122,20 @@ let userID = firebase.auth().currentUser.uid;
     }
 
 
-// ___________________________
+
+    // _____________________________ Delete the user's entire node (and the data nested in it) from Firebase DB ____________________________
 
     DELETEAllOfThisUsersDataFromDB() {
-// getting the current user's id/"User UID",
-// from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
-let userID = firebase.auth().currentUser.uid;
+        // getting the current user's id/"User UID",
+        // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
+        let userID = firebase.auth().currentUser.uid;
 
 
-this.httpClient.delete('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
-.subscribe(
-    (response) => {
-        console.log("deleted! " + response);
-    }
-);
-
+        this.httpClient.delete('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
+            .subscribe(
+                (response) => {
+                }
+            );
     }
 
 }

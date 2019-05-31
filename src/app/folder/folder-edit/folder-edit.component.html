@@ -1,41 +1,34 @@
+<!-- This page uses a reactive form -->
+
 <div class="container-fluid">
   <div class="everything">
-    
 
-<!-- The shadow effect comes from https://material.angular.io/guide/elevation -->
-<mat-card class="margin mat-elevation-z8">
+    <!-- The shadow effect comes from https://material.angular.io/guide/elevation -->
+    <mat-card class="mat-elevation-z8">
+      <div class="row">
+        <div class="inner-div">
+          <form [formGroup]="folderForm" (ngSubmit)="onSubmit()" class="form">
 
-  <div class="row">
-    <div class="inner-div">
-      <form [formGroup]="folderForm" (ngSubmit)="onSubmit()" class="form">
-
-        <!-- Folder field -->
-         <!-- <div class="row"> -->
-          <!--<div class="col-xs-12"> -->
+            <!-- Folder field -->
             <mat-form-field class="full-width">
               <mat-label for="folder">Folder</mat-label>
               <input matInput type="text" id="name" formControlName="name">
             </mat-form-field>
-          <!-- </div>-->
-        <!-- </div>  -->
-        <!-- /Folder field -->
+            <!-- /Folder field -->
 
-        <!-- Action Buttons -->
-        <div class="row">
-          <!-- <div class="col-xs-12"> -->
-            <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
-            <button type="submit" mat-flat-button color="primary">Save</button>
-            <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
-            <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto cancel-button">Cancel</button>
-          </div>
-        <!-- </div> -->
-        <!-- /Action Buttons -->
+            <!-- Action Buttons -->
+            <div class="row">
+              <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
+              <button type="submit" mat-flat-button color="primary">Save</button>
+              <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
+              <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto cancel-button">Cancel</button>
+            </div>
+            <!-- /Action Buttons -->
 
-      </form>
-    </div>
+          </form>
+        </div>
+      </div>
+    </mat-card>
+
   </div>
-</mat-card>
-
-
-</div>
 </div>

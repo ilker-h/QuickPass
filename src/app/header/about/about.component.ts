@@ -20,6 +20,6 @@ export class AboutComponent implements OnInit {
     link.href = 'assets\\images\\Ilker-Hadzhalaran.jpg';
     link.click();
     link.remove();
-}
+  }
 
 }

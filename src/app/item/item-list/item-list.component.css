@@ -19,6 +19,72 @@
   }
 }
 
+mat-card {
+  max-width: 100%;
+  height: 80px;
+  text-align: left;
+}
+
+.inner-div {
+  margin: 10px auto;
+  width: 100%;
+  position: relative;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.folder-select {
+  width: 100%;
+  margin-top: -30px;
+  padding-left: 80px;
+  padding-right: 20px;
+}
+
+.delete-select {
+  width: 100%;
+  margin-top: -62px;
+  padding-left: 110px;
+  padding-right: 20px;
+}
+
+/* only applies at the moment when the "Move to Folder" mat-card
+gets pushed to the row below the "Select Folder to View" mat-card */
+@media (max-width: 991px) {
+  .move-to-folder {
+    margin-top: 20px;
+  }
+}
+
+/* only applies before the moment when the "Move to Folder" mat-card
+gets pushed to the row below the "Select Folder to View" mat-card */
+@media (min-width: 991px) {
+  .edit-padding-right {
+    padding-right: 10px;
+  }
+  .edit-padding-left {
+    padding-left: 10px;
+  }
+}
+
+.folder-icon {
+  font-size: 50px;
+  color: #3f51b5;
+  margin-left: 15px;
+  vertical-align: bottom;
+  /* from https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
+}
+
+.delete-button {
+  margin-top: 7px;
+  margin-left: 20px;
+}
+
+button {
+  margin: 13px 0px;
+}
+
 /* For the table ________________________________________*/
 
 table {
@@ -37,12 +103,18 @@ width: 64px; /* explained in: https://stackoverflow.com/questions/53210628/mater
 th {
   font-size: 16px;
   color: #3f51b5;
-  padding-left: 25px;
 }
 
 td {
   cursor: pointer;
   font-size: 16px;
+}
+
+.th-padding {
+  padding-left: 25px;
+}
+
+.td-padding {
   padding-left: 25px;
 }
 
@@ -55,14 +127,7 @@ td {
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.
  from https://stackoverflow.com/questions/30981429/angular-material-ng-click-strange-border-highlight */
-
 *:focus {
   outline: none;
   border: 0;
 }
-
-/* Note: at 768px at below, the whole right side of the page (the "edit folder" area)
- moves below the left side of the page (the table). So this information is useful for adding @media queries like:
-
- @media (min-width: 768px) {
-  } */

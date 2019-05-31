@@ -1,94 +1,112 @@
-<!-- This is the template that works for centering content inside a mat-card -->
-<!-- This was somewhat helpful: https://www.w3.org/Style/Examples/007/center.en.html#block -->
-<!-- <div class="container-fluid">
+<!-- This page uses a template-driven form -->
+
+<div class="container-fluid">
+
+  <div class="row">
+    <mat-card class="centering mat-elevation-z6">
+      <div class="inner-div">
+
+        <!-- If you want to put the text to the left, which looks good too, do this:
+           <h2 style="text-align: left; margin-left: -15px">Sign Up</h2> -->
+        <h3>Sign Up</h3>
+
+        <!-- ngForm gets access to the underlying form and then upon submitting the form,
+                the form gets passed to the onSignup() method using a reference, #f -->
+        <form (ngSubmit)="onSignup(f)" #f="ngForm">
+
+          <!-- Email field -->
+          <div class="row">
+            <mat-form-field class="full-width">
+              <mat-label for="email">Email</mat-label>
+              <!-- ngModel will register this as a control in the template-driven form -->
+              <input matInput type="email" id="email" name="email" ngModel>
+            </mat-form-field>
+          </div>
+          <!-- Email field -->
+
+          <!-- Password field -->
+          <div class="row">
+            <mat-form-field class="full-width">
+              <mat-label for="username">Password</mat-label>
+              <input matInput type="password" id="password" ngModel name="password">
+            </mat-form-field>
+          </div>
+          <!-- Password field -->
+
+          <!-- Action Buttons -->
+          <div class="row">
+            <button mat-flat-button class="full-width" type="submit" color="primary">Sign Up</button>
+          </div>
+
+          <div class="row" style="margin-top: 15px;">
+            <a routerLink="/login" class="full-width">Or Return to Login Page</a>
+          </div>
+          <!-- Action Buttons -->
+
+        </form>
+
+      </div>
+    </mat-card>
+  </div>
+
+
+  <!-- Error/Success Notifications -->
+  <div class="centering">
+
+    <div *ngIf="this.authService.isSignUpSuccessful" style="margin: 30px 0px; background-color: #21e758;"
+      class="full-width">
+      <p style=" color: white; padding: 10px">Your account was created successfully! You can now <a
+          style="color: white;" routerLink="/login">log in</a>.</p>
+    </div>
+
+    <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true"
+      style="margin: 30px 0px; background-color: red;" class="full-width">
+      <p style=" color: white; padding: 10px">Error: {{ this.authService.signUpErrorMessage }}</p>
+    </div>
+
+  </div>
+  <!-- /Error/Success Notifications -->
+
+</div>
+
+<!--
+This is the template that works for centering content inside a mat-card
+This was somewhat helpful: https://www.w3.org/Style/Examples/007/center.en.html#block
+<div class="container-fluid">
   <div class="row">
 
     <div class="mat-card centering">
       <div class="inner-div">
-        Content m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        <div class="full-width">
+          Content m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        </div>
       </div>
     </div>
 
   </div>
-</div> -->
-
-<div class="container-fluid">
-  <div class="row">
-
-    <div class="mat-card centering mat-elevation-z6">
-      <div class="inner-div">
-
-        <!-- If you want to put the text to the left, do this:
-           <h2 style="text-align: left; margin-left: -15px">Sign Up</h2> -->
-          <h3>Sign Up</h3>
-
-              <!-- ngForm gets access to the underlying form and then upon submitting the form,
-                the form gets passed to the onSignup() method using a reference, #f -->
-              <form (ngSubmit)="onSignup(f)" #f="ngForm">
-
-                <!-- Email field -->
-                <div class="row">
-                    <mat-form-field class="full-width">
-                      <mat-label for="email">Email</mat-label>
-                      <!-- ngModel will register this as a control in the template-driven form -->
-                      <input matInput type="email" id="email" name="email" ngModel>
-                    </mat-form-field>
-                </div>
-                <!-- Email field -->
-
-                <!-- Password field -->
-                <div class="row">
-                    <mat-form-field class="full-width">
-                      <mat-label for="username">Password</mat-label>
-                      <input matInput type="password" id="password" ngModel name="password">
-                    </mat-form-field>
-                </div>
-                <!-- Password field -->
-
-                <!-- Action Buttons -->
-                <div class="row">
-                    <button mat-flat-button class="full-width" type="submit" color="primary">Sign Up</button>
-                </div>
-
-                <div class="row" style="margin-top: 15px;">
-                    <a routerLink="/login" class="full-width">Or Return to Login Page</a>
-                  </div>
-                <!-- Action Buttons -->
-
-              </form>
-
-      </div>
-    </div>
-
-  </div>
-
-
-<div class="centering">
-
-
-    <div *ngIf="this.authService.isSignUpSuccessful"  style="margin: 30px 0px; background-color: #21e758;" class="full-width">
-
-        <!-- <mat-chip-list>
-        <mat-chip selected style="background-color: #21e758" class="full-width"> -->
-            <p style=" color: white; padding: 10px">Your account was created successfully! You can now <a style="color: white;" routerLink="/login">log in</a>.</p>
-          <!-- </mat-chip>
-        </mat-chip-list> -->
-    </div>
-
-    <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true"  style="margin: 30px 0px; background-color: red;" class="full-width">
-        <!-- <mat-chip-list style="height: 200px">
-        <mat-chip selected > -->
-            <p style=" color: white; padding: 10px">Error: {{ this.authService.signUpErrorMessage }}</p>
-          <!-- </mat-chip>
-        </mat-chip-list> -->
-    </div>
-
-
 </div>
 
-</div>
+And use this template with these CSS Classes:
+
+.centering {
+margin: auto;
+width: 280px;
+height: 285px;
+text-align: center;
+}
+
+.inner-div {
+margin: 20px auto;
+width: 70%;
+position: relative;
+}
+
+.full-width {
+width: 100%;
+} 
+-->

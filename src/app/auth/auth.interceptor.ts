@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // by writing " '?auth=' + TOKEN " everytime you create a request somewhere in the application
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        console.log('intercepted!', req);
+        // console.log('intercepted!', req);
         const copiedReq = req.clone(
             { params: req.params.set('auth', this.authService.getToken()) }
         );

@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import * as firebase from 'firebase';
 
-import { Item } from '../../shared/item.model';
-import { Subscription, Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Item } from '../item.model';
 import { ItemService } from '../item.service';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { SearchService } from 'src/app/header/search.service';
-import { SelectionModel, DataSource } from '@angular/cdk/collections';
-import { Folder } from 'src/app/shared/folder.model';
+import { Folder } from 'src/app/folder/folder.model';
 import { FolderService } from 'src/app/folder/folder.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -25,7 +25,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class ItemListComponent implements OnInit, OnDestroy {
 
   items: Item[]; // turn this into allItems?
-  subscription: Subscription;
+  itemSubscription: Subscription;
+  folderSubscription: Subscription;
   itemSearchQuery: string; // for Search Query functionality
   allFolders: Folder[];
   itemForm: FormGroup;
@@ -37,9 +38,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private itemService: ItemService, private folderService: FolderService,
-    private router: Router, private route: ActivatedRoute,
-    private typedItemSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService,
-    private httpClient: HttpClient, private authService: AuthService) { }
+    private router: Router, private route: ActivatedRoute, private typedItemSearchQuery: SearchService,
+    private dataStorageInDBService: DataStorageInDBService, private httpClient: HttpClient) { }
 
   ngOnInit() {
 
@@ -47,30 +47,39 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
     // this subscribes to the itemsChanged observable and so it knows whenever the items array has
     // been updated. Then it updates the template with the newly updated item values
-    this.subscription = this.itemService.itemsChanged
+    this.itemSubscription = this.itemService.itemsChanged
       .subscribe(
         (items: Item[]) => {
           // if the table values have been changed, do these things
           this.items = items;
           this.setupTable();
           this.initForm();
-
-          // for populating the "Move to Folder" dropdown in the toolbar in the template
-          // and for population the "Filter by Folder" dropdown in the template
-          this.allFolders = this.folderService.getFolders(); // *** should I also put this outside of the subscribe?
         }
       );
+
     // if the table values have been not been changed, do these things that are outside of the subscribe()
     this.items = this.itemService.getItems();
     this.setupTable();
     this.initForm();
 
+    // this subscribes to the foldersChanged observable and so it knows whenever the folders array has
+    // been updated. Then it updates the template with the newly updated folder values.
+    // This is for populating the "Move to Folder" dropdown in the toolbar
+    // and for populating the "Filter by Folder" dropdown
+    this.folderSubscription = this.folderService.foldersChanged
+      .subscribe(
+        (folders: Folder[]) => {
+          this.allFolders = folders;
+        }
+      );
+
+    // if the folders array has not been changed, do these things that are outside of the subscribe()
+    this.allFolders = this.folderService.getFolders();
+
     // for Search Query functionality (should be inside ngOnInit)
     this.typedItemSearchQuery.currentItemSearchQuery
       .subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase());
-
   }
-
 
 
   initializeFirebaseDBAndFrontendTables() {
@@ -87,7 +96,6 @@ export class ItemListComponent implements OnInit, OnDestroy {
       ))
       .subscribe(
         (response: Response) => {
-          console.log(JSON.stringify(response) + 'error?????????????');
 
           if (response === null) {
 
@@ -100,72 +108,60 @@ export class ItemListComponent implements OnInit, OnDestroy {
             // from other users' data (meaning anyone who's logged into any account sees the same data)
 
             this.dataStorageInDBService.PUTItemsIntoDB()
-            .subscribe(
-              response => { 
-                console.log(response);
-                      // gets the items data from the Firebase DB
-            this.dataStorageInDBService.GETItemsFromDB();
-              }
-            );
-          this.dataStorageInDBService.PUTFoldersIntoDB()
-            .subscribe(
-              response => {
-                console.log(response);
-                    // gets the folders data from the Firebase DB
-                this.dataStorageInDBService.GETFoldersFromDB();}
-            );
+              .subscribe(
+                response => {
+                  // gets the items data from the Firebase DB
+                  this.dataStorageInDBService.GETItemsFromDB();
+                }
+              );
+            this.dataStorageInDBService.PUTFoldersIntoDB()
+              .subscribe(
+                response => {
+                  // gets the folders data from the Firebase DB
+                  this.dataStorageInDBService.GETFoldersFromDB();
+                }
+              );
 
-            // console.log(userUID + '3333333');
             this.router.navigate(['/items']);
-            console.log(false);
 
           } else {
             // if this User's node exists on the Firebase DB already, then
             // get their data from the DB and put it into the items array and folders array
             this.dataStorageInDBService.GETItemsFromDB();
             this.dataStorageInDBService.GETFoldersFromDB();
-            console.log(this.itemService.getItems());
-            console.log(true);
-
           }
-          console.log(this.itemService.getItems());
         }
       );
 
   }
 
-  // this method is currently unused but I'm keeping it for the syntax:
-  // onNewItem() {
-  //   this.router.navigate(['/', 'new']); // using ['../new'] also works but I think this other one is better
-  //   // this.router.navigate(['new'], {relativeTo: this.route});  <== it used to be this but I changed it
-  // }
 
-  selection; // for checkboxes
-
+  selection; // for table's checkboxes
   setupTable() {
     this.dataSource = new MatTableDataSource<Item>(this.items);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.selection = new SelectionModel<Item>(true, []); // for checkboxes
+    this.selection = new SelectionModel<Item>(true, []); // for  table's checkboxes
   }
+
 
   // The built-in Javascript .map() function lets you convert this.folders,
   // which is an array of JSON objects,
   // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
   // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
-  // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties 
+  // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
   findIndexOfItemTitle(itemTitle: string) {
 
     return this.items.map(
 
-      (obj) => { return obj.title }
+      obj => { return obj.title; }
 
-    ).indexOf(itemTitle)
+    ).indexOf(itemTitle);
 
   }
 
 
-  /** Whether the number of selected elements matches the total number of rows. */
+  // Whether the number of selected elements matches the total number of rows
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -174,16 +170,17 @@ export class ItemListComponent implements OnInit, OnDestroy {
     return numSelected === numRows;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+
+  // Selects all rows if they are not all selected; otherwise clear selection
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
-
-    console.log(this.selection.hasValue());
+    // console.log(this.selection.hasValue()); // useful for seeing if Master Toggle is selected (returns true) or not (returns false)
   }
 
-  /** The label for the checkbox on the passed row */
+
+  // The label for the checkbox on the passed row
   checkboxLabel(row?: Item): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -200,9 +197,10 @@ export class ItemListComponent implements OnInit, OnDestroy {
       // these are from ItemService
       'folderMatchedTo': new FormControl(itemFolderMatchedTo),
       'All': new FormControl() // I don't know if this is being used
-    })
+    });
 
   }
+
 
   folderNameToFilterBy;
   allItems;
@@ -227,7 +225,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
       // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
       // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
       this.allItems = this.itemService.getItems().map(
-        (obj) => { return obj.folderMatchedTo }
+        (obj) => { return obj.folderMatchedTo; }
       );
 
       // Gets all indices of the values in an array
@@ -248,8 +246,6 @@ export class ItemListComponent implements OnInit, OnDestroy {
       this.router.navigate(['/items']);
 
     }
-
-    // Also, fix the name duplications of the forms like "folderMatchedTo" and clean up this file in general
   }
 
   stringArrayOfItemsToMoveToFolder;
@@ -261,7 +257,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // so it turns from [{title: "folder1"}, {title: "folder2"}] to ["folder1", "folder2"]
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map((obj) => { return obj.title });
+    this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map( obj => { return obj.title; });
 
     this.folderNameToMoveTo = this.itemForm.value['folderMatchedTo'];
 
@@ -272,7 +268,15 @@ export class ItemListComponent implements OnInit, OnDestroy {
     }
     this.router.navigate(['/items']);
 
+    // now that the move(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
+    this.dataStorageInDBService.PUTItemsIntoDB()
+      .subscribe(
+        // response => console.log(response)
+      );
+
   }
+
 
   stringArrayOfItemsToDelete;
   onDeleteItems() {
@@ -281,7 +285,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToDelete = this.selection.selected.map((obj) => { return obj.title });
+    this.stringArrayOfItemsToDelete = this.selection.selected.map( obj => { return obj.title; });
 
     // this loops through the string array of title properties
     for (let i of this.stringArrayOfItemsToDelete) {
@@ -293,25 +297,36 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // then the array becomes automatically deleted and therefore, null (which causes errors all over the place).
     // Solution: I created this conditional statement so that there is always at least 1 item in
     //  the array so it can never become deleted and therefore, null.
-    if (    this.itemService.getItems() === null ||
-    this.itemService.getItems() === undefined || 
-    this.itemService.getItems().length === 0
-    ) { 
-      this.itemService.addItem(new Item('Example GitHub Account', 'john-doe', 'john-github_564', 'john-doe@gmail.com', 
-      'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder'));
+    if (this.itemService.getItems() === null ||
+      this.itemService.getItems() === undefined ||
+      this.itemService.getItems().length === 0
+    ) {
+      this.itemService.addItem(new Item('Example GitHub Account', 'john-doe', 'john-github_564', 'john-doe@gmail.com',
+        'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder'));
     }
 
     this.router.navigate(['/items']);
 
+    // now that the deletion(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTItemsIntoDB()
-    .subscribe(
-      response => console.log(response)
-    );
+      .subscribe(
+        // response => console.log(response)
+      );
   }
+
 
   ngOnDestroy() {
     // unsubscribes in order to avoid memory leaks
-    this.subscription.unsubscribe();
+    this.itemSubscription.unsubscribe();
+    this.folderSubscription.unsubscribe();
   }
+
+
+  // this method is currently unused but I'm keeping it for the syntax:
+  // onNewItem() {
+  //   this.router.navigate(['/', 'new']); // using ['../new'] also works but I think this other one is better
+  //   // this.router.navigate(['new'], {relativeTo: this.route});  <== it used to be this but I changed it
+  // }
 
 }

@@ -1,38 +1,14 @@
-<!-- This is the template that works for centering content inside a mat-card -->
-<!-- This was somewhat helpful: https://www.w3.org/Style/Examples/007/center.en.html#block -->
-<!-- <div class="container-fluid">
-  <div class="row">
-
-    <div class="mat-card centering">
-      <div class="inner-div">
-        Content m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-        m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
-      </div>
-    </div>
-
-  </div>
-</div> -->
-
-
-<!-- Keeping this for the syntax: -->
-    <!-- <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"> -->
-
-
-
+<!-- This page uses a template-driven form -->
 
 <div class="container-fluid">
-  <div class="row">
 
-    <div class="mat-card centering mat-elevation-z6">
+  <div class="row">
+    <mat-card class="centering mat-elevation-z6">
       <div class="inner-div">
 
         <!-- If you want to put the text to the left, do this:
-           <h2 style="text-align: left; margin-left: -15px">Sign Up</h2> -->
-           <h3>Log In</h3>
+           <h2 style="text-align: left; margin-left: -15px">Log In</h2> -->
+        <h3>Log In</h3>
 
         <!-- ngForm gets access to the underlying form and then upon submitting the form,
           the form gets passed to the onLogin() method using a reference, #f -->
@@ -68,23 +44,69 @@
           <!-- Action Buttons -->
 
         </form>
+
+      </div>
+    </mat-card>
+
+  </div>
+
+
+  <!-- Error Notifications -->
+  <div class="centering">
+
+    <div *ngIf="this.authService.logInErrorMessage" style="margin: 30px 0px; background-color: red;" class="full-width">
+      <p style=" color: white; padding: 10px">Error: {{ this.authService.logInErrorMessage }}</p>
+    </div>
+
+  </div>
+  <!-- /Error Notifications -->
+
+</div>
+
+
+<!-- Keeping this for the syntax: -->
+<!-- <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"> -->
+
+<!-- ________________________________________________________________ -->
+
+<!--
+This is the template that works for centering content inside a mat-card
+This was somewhat helpful: https://www.w3.org/Style/Examples/007/center.en.html#block
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="mat-card centering">
+      <div class="inner-div">
+        <div class="full-width">
+          Content m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+          m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m m
+        </div>
       </div>
     </div>
 
   </div>
-
-
-  <div class="centering">
-      <div *ngIf="this.authService.logInErrorMessage"  style="margin: 30px 0px; background-color: red;" class="full-width">
-          <!-- <mat-chip-list style="height: 200px">
-          <mat-chip selected > -->
-              <p style=" color: white; padding: 10px">Error: {{ this.authService.logInErrorMessage }}</p>
-            <!-- </mat-chip>
-          </mat-chip-list> -->
-      </div>
-  
-  
-  </div>
-
-
 </div>
+
+And use this template with these CSS Classes:
+
+.centering {
+margin: auto;
+width: 280px;
+height: 285px;
+text-align: center;
+}
+
+.inner-div {
+margin: 20px auto;
+width: 70%;
+position: relative;
+}
+
+.full-width {
+width: 100%;
+} 
+-->

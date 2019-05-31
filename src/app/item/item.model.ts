@@ -1,4 +1,4 @@
-import { Folder } from './folder.model';
+import { Folder } from '../folder/folder.model';
 
 export class Item {
 

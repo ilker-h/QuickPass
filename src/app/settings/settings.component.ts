@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { DataStorageInDBService } from '../auth/data-storage-in-db.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -8,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  areYouSure: boolean = false;
+  areYouSure = false;
 
   constructor(private dataStorageInDBService: DataStorageInDBService, private authService: AuthService) { }
 
@@ -18,12 +19,11 @@ export class SettingsComponent implements OnInit {
   onDeleteAccount() {
     this.areYouSure = true;
   }
-  
+
   onDeleteAccountYesIAmSure() {
     this.dataStorageInDBService.DELETEAllOfThisUsersDataFromDB();
     this.authService.deleteAccount();
     this.authService.logoutUser();
-  
   }
 
 }

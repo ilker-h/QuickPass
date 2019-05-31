@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+
 import { FolderService } from 'src/app/folder/folder.service';
-import { AuthService } from 'src/app/auth/auth.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
-import { Folder } from 'src/app/shared/folder.model';
 
 @Component({
   selector: 'app-folder-edit',
@@ -18,7 +17,7 @@ export class FolderEditComponent implements OnInit {
   folderForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router,
-              private dataStorageInDBService: DataStorageInDBService) { }
+    private dataStorageInDBService: DataStorageInDBService) { }
 
   ngOnInit() {
 
@@ -30,29 +29,8 @@ export class FolderEditComponent implements OnInit {
           this.id = +params['id']; // add "folder" to this?
           this.editMode = params['id'] != null;
           this.initForm();
-
-          // if (this.route.params['new']) {
-          //   this.hide = false;
-          // }
-          // console.log(this.allItems[params['id']].folder);
         }
       );
-
-// // Note, alternate solution: 
-// // to check if a URL includes a certain ID, instead of doing router.url.includes('folders'),
-// // this also seems to work and is what Max did in "Lecture 65. Creating the "edit" Form": 
-
-// // paramMap is an observable
-// this.route.paramMap.subscribe(
-//   (paramMap: ParamMap) => {
-//     // checks if the URL has "folders" in it
-//     if (paramMap.has('folders')) {
-
-//     }
-// });
-
-
-
   }
 
   onSubmit() {
@@ -68,24 +46,28 @@ export class FolderEditComponent implements OnInit {
       this.router.navigate(['/folders']);
 
     }
+
+    // now that the edit(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTFoldersIntoDB()
-    .subscribe(
-      response => console.log(response)
-    );
+      .subscribe(
+        // response => console.log(response)
+      );
   }
 
   onDelete() {
     this.folderService.deleteFolder(this.id);
     this.router.navigate(['/folders']);
 
+    // now that the deletion(s) has happened in the local array,
+    // this pushes the updated local array of data to the remote Firebase DB
     this.dataStorageInDBService.PUTFoldersIntoDB()
-    .subscribe(
-      response => console.log(response)
-    );
+      .subscribe(
+        // response => console.log(response)
+      );
   }
 
   onCancel() {
-    // this.router.navigate(['../'], {relativeTo: this.route}); // I'm keeping this for the syntax
     this.initForm();
   }
 
@@ -101,11 +83,28 @@ export class FolderEditComponent implements OnInit {
 
     // this FormGroup goes into the template
     this.folderForm = new FormGroup({
-      // this is the folder name from FolderService
-      // 'name': new FormControl(folderName, Validators.required) // if you want to add validators, this is the syntax
       'name': new FormControl(folderName)
+      // 'name': new FormControl(folderName, Validators.required) // if you want to add validators, this is the syntax
     });
 
   }
+
+  // I'm keeping this for the syntax:
+  // this.router.navigate(['../'], {relativeTo: this.route});
+
+
+  // // Note, alternate solution:
+  // // to check if a URL includes a certain ID, instead of doing router.url.includes('folders'),
+  // // this also seems to work and is what Max did in "Lecture 65. Creating the "edit" Form":
+
+  // // paramMap is an observable
+  // this.route.paramMap.subscribe(
+  //   (paramMap: ParamMap) => {
+  //     // checks if the URL has "folders" in it
+  //     if (paramMap.has('folders')) {
+
+  //     }
+  // });
+
 
 }

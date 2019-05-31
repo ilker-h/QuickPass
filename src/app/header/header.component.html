@@ -1,25 +1,27 @@
-<!-- Note, I'm hiding the search bar on mobile screens using class="d-none d-sm-block" from
-    https://getbootstrap.com/docs/4.0/utilities/display/ -->
-
 <div class="container-fluid">
   <div class="row">
-
     <mat-toolbar color="primary">
       <mat-toolbar-row>
 
         <!-- only show these things in the ng-template if the user is not logged in/is not authenticated -->
         <ng-template [ngIf]="!authService.isAuthenticated()">
 
-          <h1 routerLink="/login">QuickPass</h1>
+          <h1 routerLink="/login"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
+              style="margin-top: -5px; margin-right: 2px;" alt="">uickPass</h1>
           <span class="spacer"></span>
           <a routerLink="/about" style="color: white; text-decoration: none;">About</a>
 
         </ng-template>
+        <!-- /only show these things in the ng-template if the user is not logged in/is not authenticated -->
+
+
 
         <!-- only show these things in the ng-template if the user is logged in/is authenticated -->
         <ng-template [ngIf]="authService.isAuthenticated()">
 
-          <h1 routerLink="/items">QuickPass</h1>
+          <!-- <h1 routerLink="/items">QuickPass</h1> -->
+          <h1 routerLink="/items"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
+              style="margin-top: -5px; margin-right: 2px;" alt="">uickPass</h1>
 
           <span class="spacer"></span>
 
@@ -57,10 +59,12 @@
 
           <span class="spacer"></span>
 
+
+
           <div class="hide-when-collides-with-search-bar">
 
             <!-- Create New... -->
-            <button mat-icon-button class="icon" style="" matTooltip="Create New..." aria-hidden="false"
+            <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false"
               aria-label=" heart icon" [matMenuTriggerFor]="menu">
               <mat-icon class="icon">add_circle</mat-icon>
             </button>
@@ -100,10 +104,12 @@
             <!-- /Log Out -->
           </div>
 
+
+
           <div class="hamburger-menu-shown-when-icons-get-hidden">
 
             <!-- Hamburger Menu... -->
-            <button mat-icon-button class="hamburger-menu-icon" style="" matTooltip="Menu" aria-hidden="false"
+            <button mat-icon-button class="hamburger-menu-icon" matTooltip="Menu" aria-hidden="false"
               aria-label=" heart icon" [matMenuTriggerFor]="hamburgerMenu">
               <mat-icon class="hamburger-menu-icon">menu</mat-icon>
             </button>
@@ -129,7 +135,7 @@
               <!-- Only shows on a URl that contains 'items' -->
               <div class="container">
                 <div class="row">
-                  <div *ngIf="router.url.includes('items')" class="" style="" (click)="stopPropagation($event)">
+                  <div *ngIf="router.url.includes('items')" (click)="stopPropagation($event)">
                     <mat-form-field class="">
                       <input class="" matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
                     </mat-form-field>
@@ -144,7 +150,7 @@
               <!-- Only shows on a URl that contains 'folders' -->
               <div class="container">
                 <div class="row">
-                  <div *ngIf="router.url.includes('folders')" class="" style="" (click)="stopPropagation($event)">
+                  <div *ngIf="router.url.includes('folders')" (click)="stopPropagation($event)">
                     <mat-form-field>
                       <input matInput routerLink="/folders" (keyup)="onTypeFolderSearchQuery($event.target.value)">
                     </mat-form-field>
@@ -164,10 +170,10 @@
         </ng-template>
         <!-- /only show these things in the ng-template if the user is logged in/is authenticated -->
 
-
-
       </mat-toolbar-row>
     </mat-toolbar>
-
   </div>
 </div>
+
+<!-- Note, the syntax for hiding the search bar on mobile screens using class="d-none d-sm-block" from
+    https://getbootstrap.com/docs/4.0/utilities/display/ but I didn't end up using this way-->

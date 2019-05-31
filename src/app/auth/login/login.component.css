@@ -3,26 +3,21 @@
 }
 
 .centering {
-    margin: auto;
-    width: 280px;
-    height: 310px;
-    text-align: center;
+  margin: auto;
+  width: 280px;
+  height: 310px;
+  text-align: center;
 }
 
 .inner-div {
-  /* margin-top: 20px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto; */
-
   margin: 20px auto;
   width: 70%;
   position: relative;
 }
 
 .full-width {
-    width: 100%;
-  }
+  width: 100%;
+}
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.
  from https://stackoverflow.com/questions/30981429/angular-material-ng-click-strange-border-highlight */

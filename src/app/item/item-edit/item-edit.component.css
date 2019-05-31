@@ -2,7 +2,6 @@
    the padding cancels out. But in this case, I only have a container without a row in it so this is how
    to fix it.
  https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
-
 .container-fluid {
   padding-right: 0;
   padding-left: 0;
@@ -11,7 +10,7 @@
 }
 
 .everything {
-  margin: 77px 20px 30px 0px;
+  margin: 20px 20px 30px 0px;
 }
 
 @media (max-width: 767px) {
@@ -22,41 +21,42 @@
 
 mat-card {
   max-width: 100%;
-  height: 160px;
+  height: 740px;
   text-align: left;
 }
 
-/* A container comes with its own padding and so does a row, and when a row is inside a container,
-   the padding cancels out. But in this case, I only have a container without a row in it so this is how
-   to fix it.
- https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
-.row {
-  padding-right: 0;
-  padding-left: 0;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .inner-div {
-  margin: 10px auto;
-  /* min-width: 350px; */
-  width: 95%;
+  margin: 0px auto;
+  width: 85%;
   position: relative;
-}
-
-/* only applies to mobile screens */
-@media (max-width: 360px) {
-  .cancel-button {
-    display: none;
-  }
 }
 
 .full-width {
   width: 100%;
 }
 
+.folder-select {
+  width: 100%;
+  padding-left: 70px;
+}
+
 button {
   margin: 10px;
+}
+
+/* only applies to small mobile screens */
+@media (max-width: 355px) {
+  .cancel-button {
+    display: none;
+  }
+}
+
+.folder-icon {
+  font-size: 50px;
+  padding-top: 25px;
+  vertical-align: bottom;
+  /* from https://stackoverflow.com/questions/49657545/mat-icon-does-not-center-in-its-div */
+  color: #3f51b5;
 }
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.
@@ -65,16 +65,6 @@ button {
   outline: none;
   border: 0;
 }
-
-/* ______________________________________________________ */
-
-/* Note: at 768px at below, the whole right side of the page (the "edit folder" area)
- moves below the left side of the page (the table). So this information is useful for adding @media queries like:
-
- @media (max-width: 768px) {
-  } */
-
-/* ______________________________________________________ */
 
 /* 
 Syntax for checking if the form is valid: 
@@ -85,5 +75,3 @@ input.ng-invalid.ng-touched, textarea.invalid.ng-touched {
 
 And then add this to the Save button: [disabled]="!itemForm.valid"
  */
-
-/* ______________________________________________________ */

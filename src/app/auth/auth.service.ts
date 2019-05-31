@@ -1,7 +1,7 @@
-import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DataStorageInDBService } from './data-storage-in-db.service';
+
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
@@ -10,31 +10,25 @@ export class AuthService {
     signUpErrorMessage: string;
     logInErrorMessage: string;
 
-    constructor(private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
+    constructor(private router: Router) { }
 
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then (
+            .then(
                 (response) => {
                     // this area only runs if the new user creation was successful
                     if (response.additionalUserInfo.isNewUser === true) {
                         this.isSignUpSuccessful = true;
-                        console.log(this.isSignUpSuccessful);
-                        console.log(response.additionalUserInfo.isNewUser);
                     }
-
-                    console.log('trueeee: ' + JSON.stringify(response.additionalUserInfo.isNewUser));
+                    // console.log(JSON.stringify(response.additionalUserInfo.isNewUser));
                 }
             )
             .catch(
                 (error) => {
-                    console.log(error);
                     // alert(error);
-                        this.isSignUpSuccessful = false;
-                        console.log('falseeee');
-                        this.signUpErrorMessage = error.message;
+                    this.isSignUpSuccessful = false;
+                    this.signUpErrorMessage = error.message;
                 }
-
             );
     }
 
@@ -45,15 +39,13 @@ export class AuthService {
                 (response) => {
                     this.router.navigate(['/items']); // this only redirects the user if the token was successful
 
-                    console.log(response);
                     firebase.auth().currentUser.getIdToken()
                         .then(
                             (token: string) => this.token = token
                         );
                 }
-            ) .catch(
+            ).catch(
                 (error) => {
-                    console.log(error);
                     // alert(error);
                     this.logInErrorMessage = error.message;
 
@@ -82,18 +74,9 @@ export class AuthService {
     }
 
     deleteAccount() {
-
         firebase.auth().currentUser.delete()
-        .catch(
-            (error) => {
-                console.log(error);
-                alert(error);
-            }
-        ).then(
-            () => {
-                alert('Your account was successfully deleted.');
-            }
-        );
+            .catch(error => { })
+            .then(() => alert('Your account was successfully deleted.'));
     }
 
 }
