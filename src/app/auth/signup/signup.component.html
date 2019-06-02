@@ -40,7 +40,8 @@
           </div>
 
           <div class="row" style="margin-top: 15px;">
-            <a routerLink="/login" class="full-width">Or Return to Login Page</a>
+            <a routerLink="/login" class="full-width" (click)="setTitle('QuickPass | Log In')">Or Return to Login
+              Page</a>
           </div>
           <!-- Action Buttons -->
 
@@ -58,8 +59,8 @@
     <div class="row" style="margin: 30px 0px;">
       <div class="centering-notification" style=" color: white; background-color: #21e758;">
         <div class="inner-div-notification">
-          <p class="full-width">Your account was created successfully! You can now <a class="anchor"
-              routerLink="/login">log in</a>.</p>
+          <p class="full-width">Your account was created successfully! You can now <a class="anchor" routerLink="/login"
+              (click)="setTitle('QuickPass | Log In')">log in</a>.</p>
         </div>
       </div>
     </div>

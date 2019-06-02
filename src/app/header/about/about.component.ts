@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
   }
@@ -21,5 +22,12 @@ export class AboutComponent implements OnInit {
   //   link.click();
   //   link.remove();
   // }
+
+  // For changing the DOM's title (the one shown in a browser tab),
+  // originally from the index.html file's <head> tag.
+  // Documentation: https://angular.io/guide/set-document-title
+  private setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
 
 }

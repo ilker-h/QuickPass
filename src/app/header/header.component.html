@@ -6,7 +6,7 @@
         <!-- only show these things in the ng-template if the user is not logged in/is not authenticated -->
         <ng-template [ngIf]="!authService.isAuthenticated()">
 
-            <div class="row logo-when-not-logged-in" routerLink="/login">
+            <div class="row logo-when-not-logged-in" routerLink="/login" (click)="setTitle('QuickPass | Log In')">
                   <h1 style="font-size: 30px;">
                     <img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" style="margin-top: -5px; margin-right: -5px;">
                     uickPass</h1> 
@@ -15,7 +15,7 @@
             </div>
 
           <span class="spacer"></span>
-          <a class="about" routerLink="/about">About</a>
+          <a class="about" routerLink="/about" (click)="setTitle('QuickPass | About')">About</a>
 
         </ng-template>
         <!-- /only show these things in the ng-template if the user is not logged in/is not authenticated -->
@@ -26,7 +26,7 @@
         <ng-template [ngIf]="authService.isAuthenticated()">
 
           <!-- <h1 routerLink="/items">QuickPass</h1> -->
-          <h1 class="logo-when-logged-in" routerLink="/items"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" 
+          <h1 class="logo-when-logged-in" routerLink="/items" (click)="setTitle('QuickPass | Passwords')"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" 
              style="margin-top: -5px; margin-right: 2px;">uickPass</h1>
 
           <span class="spacer"></span>
@@ -74,31 +74,31 @@
             </button>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="/items/new">Create New Password</button>
-              <button mat-menu-item routerLink="/folders/new-folder">Create New Folder</button>
+              <button mat-menu-item routerLink="/items/new" (click)="setTitle('QuickPass | Create New Password')">Create New Password</button>
+              <button mat-menu-item routerLink="/folders/new-folder" (click)="setTitle('QuickPass | Create New Folder')">Create New Folder</button>
             </mat-menu>
             <!-- /Create New -->
 
             <!-- Passwords -->
-            <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items">
+            <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items" (click)="setTitle('QuickPass | Passwords')">
               <mat-icon class="icon">vpn_key</mat-icon>
             </button>
             <!-- /Passwords -->
 
             <!-- Folders -->
-            <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders">
+            <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders" (click)="setTitle('QuickPass | Folders')">
               <mat-icon class="icon">folder</mat-icon>
             </button>
             <!-- /Folders -->
 
             <!-- Settings -->
-            <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings">
+            <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings" (click)="setTitle('QuickPass | Settings')">
               <mat-icon class="icon">settings</mat-icon>
             </button>
             <!-- /Settings -->
 
             <!-- Log Out -->
-            <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()">
+            <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout();">
               <mat-icon class="icon">power_settings_new</mat-icon>
             </button>
             <!-- /Log Out -->
@@ -117,15 +117,15 @@
               <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToSearch">Search</button>
               <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToCreateNew">Create A
                 New...</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/items">Passwords</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/folders">Folders</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/settings">Settings</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/items" (click)="setTitle('QuickPass | Passwords')">Passwords</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/folders" (click)="setTitle('QuickPass | Folders')">Folders</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/settings" (click)="setTitle('QuickPass | Settings')">Settings</button>
               <button style="margin-right: 50px" mat-menu-item (click)="onLogout()">Log Out</button>
             </mat-menu>
 
             <mat-menu #submenuToCreateNew="matMenu">
-              <button style="margin-right: 50px" mat-menu-item routerLink="/items/new">Password</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/folders/new-folder">Folder</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/items/new" (click)="setTitle('QuickPass | Create New Password')">Password</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/folders/new-folder" (click)="setTitle('QuickPass | New Folder')">Folder</button>
             </mat-menu>
 
             <mat-menu #submenuToSearch="matMenu">

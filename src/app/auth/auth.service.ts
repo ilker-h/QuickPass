@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import * as firebase from 'firebase';
 
@@ -10,7 +11,7 @@ export class AuthService {
     signUpErrorMessage: string;
     logInErrorMessage: string;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private titleService: Title) { }
 
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -38,6 +39,7 @@ export class AuthService {
             .then(
                 (response) => {
                     this.router.navigate(['/items']); // this only redirects the user if the token was successful
+                    this.setTitle('QuickPass | Passwords');
 
                     firebase.auth().currentUser.getIdToken()
                         .then(
@@ -57,6 +59,7 @@ export class AuthService {
         firebase.auth().signOut();
         this.token = null; // reset the token
         this.router.navigate(['/login']);
+        this.setTitle('QuickPass | Log In');
     }
 
     getToken() {
@@ -77,6 +80,13 @@ export class AuthService {
         firebase.auth().currentUser.delete()
             .catch(error => { })
             .then(() => alert('Your account was successfully deleted.'));
+    }
+
+    // For changing the DOM's title (the one shown in a browser tab),
+    // originally from the index.html file's <head> tag.
+    // Documentation: https://angular.io/guide/set-document-title
+    private setTitle(newTitle: string) {
+        this.titleService.setTitle(newTitle);
     }
 
 }

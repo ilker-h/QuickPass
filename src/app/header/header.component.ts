@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { SearchService } from './search.service';
 import { AuthService } from '../auth/auth.service';
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public location = '';
 
   constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute,
-    private router: Router, private authService: AuthService) {
+    private router: Router, private authService: AuthService, private titleService: Title) {
     this.location = router.url;
   }
 
@@ -40,6 +41,14 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logoutUser();
     this.router.navigate(['/', 'login']);
+    this.setTitle('QuickPass | Log In');
+  }
+
+  // For changing the DOM's title (the one shown in a browser tab),
+  // originally from the index.html file's <head> tag.
+  // Documentation: https://angular.io/guide/set-document-title
+  private setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   // this lets the person click into the search bar when it's inside the hamburger menu without closing the menu

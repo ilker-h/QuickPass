@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { AuthService } from '../auth.service';
 
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private titleService: Title) { }
 
   ngOnInit() {
     // resets the signUpErrorMessage because if this is not done, the error
@@ -22,6 +23,13 @@ export class SignupComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.signupUser(email, password);
+  }
+
+  // For changing the DOM's title (the one shown in a browser tab),
+  // originally from the index.html file's <head> tag.
+  // Documentation: https://angular.io/guide/set-document-title
+  private setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
 }
