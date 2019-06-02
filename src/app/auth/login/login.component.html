@@ -2,7 +2,38 @@
 
 <div class="container-fluid">
 
-  <div class="row">
+  <!-- "How to Use" Section -->
+  <div class="row" style="margin: 30px 0px;">
+    <div class="col-sm-8 col-lg-6" style="background-color: #f8f8f8; margin: auto;">
+      <div style="margin: 20px;">
+
+        <div class="row">
+          <h3>How to Use</h3>
+        </div>
+
+        <div class="row">
+
+          <p>QuickPass is only for demo purposes and should not be used to store any real passwords.
+            Feel free to try it out by either:
+          </p>
+
+        </div>
+
+        <div class="row">
+          <ul>
+            <li> Signing up for an account (you always have the option of deleting your account later) </li>
+            <li> Or logging into a demo account with the email "demo@demo.com" and password "password". </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- /"How to Use" Section -->
+
+
+  <!-- Log In Form -->
+  <div class="row" style="margin: 30px 0px;">
     <div class="centering mat-elevation-z6">
       <div class="inner-div">
 
@@ -49,13 +80,19 @@
     </div>
 
   </div>
+  <!-- /Log In Form -->
+
 
 
   <!-- Error Notifications -->
-  <div class="centering">
+  <div *ngIf="this.authService.logInErrorMessage">
 
-    <div *ngIf="this.authService.logInErrorMessage" style="margin: 30px 0px; background-color: red;" class="full-width">
-      <p style=" color: white; padding: 10px">Error: {{ this.authService.logInErrorMessage }}</p>
+    <div class="row" style="margin: 30px 0px;">
+      <div class="centering-notification" style=" color: white; background-color: red;">
+        <div class="inner-div-notification">
+          <p class="full-width">Error: {{ this.authService.logInErrorMessage }}</p>
+        </div>
+      </div>
     </div>
 
   </div>

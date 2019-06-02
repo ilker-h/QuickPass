@@ -15,7 +15,6 @@ import { SearchService } from 'src/app/header/search.service';
 import { Folder } from 'src/app/folder/folder.model';
 import { FolderService } from 'src/app/folder/folder.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-item-list',

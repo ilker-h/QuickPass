@@ -2,7 +2,8 @@
 
 <div class="container-fluid">
 
-  <div class="row">
+  <!-- Sign Up Form -->
+  <div class="row" style="margin: 30px 0px;">
     <div class="centering mat-elevation-z6">
       <div class="inner-div">
 
@@ -48,24 +49,34 @@
       </div>
     </div>
   </div>
+  <!-- /Sign Up Form -->
 
 
-  <!-- Error/Success Notifications -->
-  <div class="centering">
 
-    <div *ngIf="this.authService.isSignUpSuccessful" style="margin: 30px 0px; background-color: #21e758;"
-      class="full-width">
-      <p style=" color: white; padding: 10px">Your account was created successfully! You can now <a
-          style="color: white;" routerLink="/login">log in</a>.</p>
+  <!-- Success Notifications-->
+  <div *ngIf="this.authService.isSignUpSuccessful">
+    <div class="row" style="margin: 30px 0px;">
+      <div class="centering-notification" style=" color: white; background-color: #21e758;">
+        <div class="inner-div-notification">
+          <p class="full-width">Your account was created successfully! You can now <a class="anchor"
+              routerLink="/login">log in</a>.</p>
+        </div>
+      </div>
     </div>
-
-    <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true"
-      style="margin: 30px 0px; background-color: red;" class="full-width">
-      <p style=" color: white; padding: 10px">Error: {{ this.authService.signUpErrorMessage }}</p>
-    </div>
-
   </div>
-  <!-- /Error/Success Notifications -->
+  <!-- /Success Notifications-->
+
+  <!-- Error Notifications-->
+  <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true">
+    <div class="row" style="margin: 30px 0px;">
+      <div class="centering-notification" style=" color: white; background-color: red;">
+        <div class="inner-div-notification">
+          <p class="full-width">Error: {{ this.authService.signUpErrorMessage }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Error Notifications-->
 
 </div>
 

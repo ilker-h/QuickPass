@@ -6,10 +6,16 @@
         <!-- only show these things in the ng-template if the user is not logged in/is not authenticated -->
         <ng-template [ngIf]="!authService.isAuthenticated()">
 
-          <h1 routerLink="/login"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
-              style="margin-top: -5px; margin-right: 2px;" alt="">uickPass</h1>
+            <div class="row logo-when-not-logged-in" routerLink="/login">
+                  <h1 style="font-size: 30px;">
+                    <img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" style="margin-top: -5px; margin-right: -5px;">
+                    uickPass</h1> 
+                    <h2 style="font-size: 30px;  margin-left: 8px; margin-right: 8px;"> | </h2>
+                      <h3 style="margin-top: 2px;">Password Manager</h3>  
+            </div>
+
           <span class="spacer"></span>
-          <a routerLink="/about" style="color: white; text-decoration: none;">About</a>
+          <a class="about" routerLink="/about">About</a>
 
         </ng-template>
         <!-- /only show these things in the ng-template if the user is not logged in/is not authenticated -->
@@ -20,16 +26,16 @@
         <ng-template [ngIf]="authService.isAuthenticated()">
 
           <!-- <h1 routerLink="/items">QuickPass</h1> -->
-          <h1 routerLink="/items"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
-              style="margin-top: -5px; margin-right: 2px;" alt="">uickPass</h1>
+          <h1 class="logo-when-logged-in" routerLink="/items"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" 
+             style="margin-top: -5px; margin-right: 2px;">uickPass</h1>
 
           <span class="spacer"></span>
 
           <!-- Search Bar for item-list-component.ts - Search Query functionality -->
           <!-- Only shows on a URl that contains 'items' -->
           <div *ngIf="router.url.includes('items')" class="hide-search-bar-on-small-screens">
-            <mat-form-field class="">
-              <input class="" matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
+            <mat-form-field>
+              <input matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
             </mat-form-field>
           </div>
           <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
@@ -45,14 +51,13 @@
 
           <!-- Search Icon -->
           <div *ngIf="router.url.includes('items')">
-            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;"
-              aria-hidden="false" aria-label=" heart icon">search
-            </mat-icon>
+            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;">
+              search</mat-icon>
           </div>
 
           <div *ngIf="router.url.includes('folders')">
-            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;"
-              aria-hidden="false" aria-label=" heart icon">search
+            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;">
+              search
             </mat-icon>
           </div>
           <!-- /Search Icon -->
@@ -64,8 +69,7 @@
           <div class="hide-when-collides-with-search-bar">
 
             <!-- Create New... -->
-            <button mat-icon-button class="icon" matTooltip="Create New..." aria-hidden="false"
-              aria-label=" heart icon" [matMenuTriggerFor]="menu">
+            <button mat-icon-button class="icon" matTooltip="Create New..." [matMenuTriggerFor]="menu">
               <mat-icon class="icon">add_circle</mat-icon>
             </button>
 
@@ -76,29 +80,25 @@
             <!-- /Create New -->
 
             <!-- Passwords -->
-            <button mat-icon-button class="icon" matTooltip="Passwords" aria-hidden="false" aria-label=" heart icon"
-              routerLink="/items">
+            <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items">
               <mat-icon class="icon">vpn_key</mat-icon>
             </button>
             <!-- /Passwords -->
 
             <!-- Folders -->
-            <button mat-icon-button class="icon" matTooltip="Folders" aria-hidden="false" aria-label=" heart icon"
-              routerLink="/folders">
+            <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders">
               <mat-icon class="icon">folder</mat-icon>
             </button>
             <!-- /Folders -->
 
             <!-- Settings -->
-            <button mat-icon-button class="icon" matTooltip="Settings" aria-hidden="false" aria-label=" heart icon"
-              routerLink="/settings">
+            <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings">
               <mat-icon class="icon">settings</mat-icon>
             </button>
             <!-- /Settings -->
 
             <!-- Log Out -->
-            <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()" aria-hidden="false"
-              aria-label=" delete icon">
+            <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout()">
               <mat-icon class="icon">power_settings_new</mat-icon>
             </button>
             <!-- /Log Out -->
@@ -109,8 +109,7 @@
           <div class="hamburger-menu-shown-when-icons-get-hidden">
 
             <!-- Hamburger Menu... -->
-            <button mat-icon-button class="hamburger-menu-icon" matTooltip="Menu" aria-hidden="false"
-              aria-label=" heart icon" [matMenuTriggerFor]="hamburgerMenu">
+            <button mat-icon-button class="hamburger-menu-icon" matTooltip="Menu" [matMenuTriggerFor]="hamburgerMenu">
               <mat-icon class="hamburger-menu-icon">menu</mat-icon>
             </button>
 
@@ -136,11 +135,10 @@
               <div class="container">
                 <div class="row">
                   <div *ngIf="router.url.includes('items')" (click)="stopPropagation($event)">
-                    <mat-form-field class="">
-                      <input class="" matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
+                    <mat-form-field>
+                      <input matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;" aria-hidden="false"
-                      aria-label=" heart icon">search</mat-icon>
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;">search</mat-icon>
                   </div>
                 </div>
               </div>
@@ -154,8 +152,7 @@
                     <mat-form-field>
                       <input matInput routerLink="/folders" (keyup)="onTypeFolderSearchQuery($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;" aria-hidden="false"
-                      aria-label=" heart icon">search</mat-icon>
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;">search</mat-icon>
                   </div>
                 </div>
               </div>

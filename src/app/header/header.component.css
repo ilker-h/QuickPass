@@ -19,17 +19,55 @@
   flex: 1 1 auto;
 }
 
-h1 {
+.logo-when-not-logged-in {
+  padding: 0px 20px;
+  cursor: pointer;
+}
+
+.logo-when-logged-in {
   padding: 0 20px;
   cursor: pointer;
   font-size: 30px;
 }
 
+.about {
+  padding: 0 20px;
+  color: white; 
+  text-decoration: none;
+}
+
 /* only applies to small mobile screens */
 @media (max-width: 355px) {
-  h1 {
+  .logo-when-logged-in {
     padding: 0 5px;
   }
+
+  .logo-when-not-logged-in {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .about {
+    padding: 0 5px;
+
+  }
+}
+
+/* only applies to small mobile screens */
+@media (max-width: 488px) {
+
+  .logo-when-not-logged-in {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  h2 {
+    display: none;
+  }
+
+  h3 {
+    display: none;
+  }
+
 }
 
 /* for screens less than 1050px wide (which is the point when the icons collide with the search bar and

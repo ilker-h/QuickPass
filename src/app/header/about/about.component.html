@@ -8,13 +8,13 @@
         <!-- Note: adding the "full-width" class makes that specific item centered, which is why the 
           "Ilker Hadzhalaran" and social media icons don't have that class and are left-aligned -->
         <div class="row " class="full-width">
-          <img src="assets\images\Ilker-Hadzhalaran.jpg" height="200" class="" alt="">
+          <img src="assets\images\Ilker-Hadzhalaran.jpg" height="200">
         </div>
 
         <div style="margin-left: 40px;">
 
           <div class="row">
-            <h5 style="margin-top: 10px;">Ilker Hadzhalaran</h5>
+            <h5 style="margin-top: 10px;">By: Ilker Hadzhalaran</h5>
           </div>
 
           <div class="row">
@@ -33,18 +33,18 @@
     <!-- Description Column -->
     <div class="col-lg-8" style=" background-color: #f8f8f8; margin: auto;">
 
-      <div class="" style="margin: 20px 20px;">
+      <div style="margin: 20px;">
 
         <div class="row">
           <h3>About
-            <img src="assets\images\QuickPass-Short_Logo.png" height="27" style="margin-top: -5px; margin-right: 0.5px;"
-              alt="">uickPass</h3>
+            <img src="assets\images\QuickPass-Short_Logo.png" height="27" style="margin-top: -5px; margin-right: -7px;">
+            uickPass</h3>
           <!-- This used to be: <h3>About QuickPass</h3> -->
         </div>
 
         <div class="row">
-          <p>This is QuickPass, an easy-to-use password manager that I created as a side project.
-            Feel free to try it out, I hope you like it!
+          <p>QuickPass is an easy-to-use password manager that I created as a side project.
+            Feel free to try it out!
           </p>
         </div>
 
@@ -54,16 +54,18 @@
 
         <div class="row">
           <ul>
-            <li> <strong>Frontend:</strong> Angular 7 (TypeScript-based JavaScript framework)</li>
-            <li> <strong>Backend Hosting:</strong> Google Firebase's Realtime Database (NoSQL)</li>
-            <li> <strong>Layout Styling: </strong> Bootstap 4 (CSS framework)</li>
-            <li> <strong>Element Styling:</strong> Angular Material 7 (UI Component Library)</li>
+            <li> <strong>Frontend:</strong> Angular 7 (TypeScript-based JavaScript framework) </li>
+            <li> <strong>Database Hosting:</strong> Google Firebase's Realtime Database (NoSQL) </li>
+            <li> <strong>Layout Styling: </strong> Bootstap 4 (CSS framework) </li>
+            <li> <strong>Element Styling:</strong> Angular Material 7 (UI Component Library) </li>
+            <li> <strong>Major Dependencies:</strong> @angular et al., Bootstrap, Core.js, Firebase, RxJS, tslib, Webpack, Zone.js </li>
+            <li> <strong>Other:</strong> HTML5 / CSS3, Material.io Icons, FontAwesome Icons </li>
           </ul>
         </div>
 
         <div class="row" class="centering-things-inside-this-div">
           <button mat-flat-button color="primary" routerLink="/login">Back to Login Page</button>
-          <button mat-flat-button color="primary" (click)="downloadFile()">Download Resume</button>
+          <!-- <button mat-flat-button color="primary" (click)="downloadFile()">Download Resume</button> -->
         </div>
 
       </div>
