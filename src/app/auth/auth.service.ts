@@ -7,9 +7,6 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AuthService {
     token: string;
-    isSignUpSuccessful: boolean;
-    signUpErrorMessage: string;
-    logInErrorMessage: string;
 
     constructor(private router: Router, private titleService: Title) { }
 
@@ -19,16 +16,14 @@ export class AuthService {
                 (response) => {
                     // this area only runs if the new user creation was successful
                     if (response.additionalUserInfo.isNewUser === true) {
-                        this.isSignUpSuccessful = true;
+                        alert('Your account was created successfully! You can now log in.');
                     }
                     // console.log(JSON.stringify(response.additionalUserInfo.isNewUser));
                 }
             )
             .catch(
                 (error) => {
-                    // alert(error);
-                    this.isSignUpSuccessful = false;
-                    this.signUpErrorMessage = error.message;
+                    alert('Error: ' + error.message);
                 }
             );
     }
@@ -48,12 +43,10 @@ export class AuthService {
                 }
             ).catch(
                 (error) => {
-                    // alert(error);
                     if (error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
-                        this.logInErrorMessage = 'There is no user account with that email address. Please try again.';
-
+                        alert('Error: No user with that email address exists. Please try again.');
                     } else {
-                        this.logInErrorMessage = error.message;
+                        alert('Error: ' + error.message);
                     }
                 }
             );
@@ -82,7 +75,7 @@ export class AuthService {
 
     deleteAccount() {
         firebase.auth().currentUser.delete()
-            .catch(error => { })
+            .catch(error => { alert('Error: ' + error.message); } )
             .then(() => alert('Your account was successfully deleted.'));
     }
 

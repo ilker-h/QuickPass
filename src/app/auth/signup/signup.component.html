@@ -52,33 +52,6 @@
   </div>
   <!-- /Sign Up Form -->
 
-
-
-  <!-- Success Notifications-->
-  <div *ngIf="this.authService.isSignUpSuccessful">
-    <div class="row" style="margin: 30px 0px;">
-      <div class="centering-notification" style=" color: white; background-color: #21e758;">
-        <div class="inner-div-notification">
-          <p class="full-width">Your account was created successfully! You can now <a class="anchor" routerLink="/login"
-              (click)="setTitle('QuickPass | Log In')">log in</a>.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /Success Notifications-->
-
-  <!-- Error Notifications-->
-  <div *ngIf="this.authService.signUpErrorMessage && this.authService.isSignUpSuccessful != true">
-    <div class="row" style="margin: 30px 0px;">
-      <div class="centering-notification" style=" color: white; background-color: red;">
-        <div class="inner-div-notification">
-          <p class="full-width">Error: {{ this.authService.signUpErrorMessage }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /Error Notifications-->
-
 </div>
 
 <!--

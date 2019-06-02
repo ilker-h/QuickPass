@@ -11,18 +11,6 @@
   position: relative;
 }
 
-.centering-notification {
-  margin: auto;
-  width: 280px;
-  text-align: center;
-}
-
-.inner-div-notification {
-  margin: 10px auto;
-  width: 95%;
-  position: relative;
-}
-
 .full-width {
   width: 100%;
 }

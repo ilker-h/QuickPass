@@ -14,9 +14,6 @@ export class SignupComponent implements OnInit {
   constructor(public authService: AuthService, private titleService: Title) { }
 
   ngOnInit() {
-    // resets the signUpErrorMessage because if this is not done, the error
-    // message will still be there even if I leave the page and then come back later
-    this.authService.signUpErrorMessage = null;
   }
 
   onSignup(form: NgForm) {
