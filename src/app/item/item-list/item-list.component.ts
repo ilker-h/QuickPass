@@ -29,6 +29,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   itemSearchQuery: string; // for Search Query functionality
   allFolders: Folder[];
   itemForm: FormGroup;
+  selectedValue: any;
 
   // for the table
   displayedColumns: string[] = ['select', 'title', 'username'];

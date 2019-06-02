@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public location = '';
 
   constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute,
-    private router: Router, private authService: AuthService, private titleService: Title) {
+    private router: Router, public authService: AuthService, private titleService: Title) {
     this.location = router.url;
   }
 
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.
   // Documentation: https://angular.io/guide/set-document-title
-  private setTitle(newTitle: string) {
+  public setTitle(newTitle: string) {
     this.titleService.setTitle( newTitle );
   }
 

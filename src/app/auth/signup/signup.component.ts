@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService, private titleService: Title) { }
+  constructor(public authService: AuthService, private titleService: Title) { }
 
   ngOnInit() {
     // resets the signUpErrorMessage because if this is not done, the error
@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.
   // Documentation: https://angular.io/guide/set-document-title
-  private setTitle(newTitle: string) {
+  public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 

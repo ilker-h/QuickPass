@@ -49,8 +49,12 @@ export class AuthService {
             ).catch(
                 (error) => {
                     // alert(error);
-                    this.logInErrorMessage = error.message;
+                    if (error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+                        this.logInErrorMessage = 'There is no user account with that email address. Please try again.';
 
+                    } else {
+                        this.logInErrorMessage = error.message;
+                    }
                 }
             );
     }
@@ -85,7 +89,7 @@ export class AuthService {
     // For changing the DOM's title (the one shown in a browser tab),
     // originally from the index.html file's <head> tag.
     // Documentation: https://angular.io/guide/set-document-title
-    private setTitle(newTitle: string) {
+    public setTitle(newTitle: string) {
         this.titleService.setTitle(newTitle);
     }
 
