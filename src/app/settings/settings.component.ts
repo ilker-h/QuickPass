@@ -26,4 +26,8 @@ export class SettingsComponent implements OnInit {
     this.authService.logoutUser();
   }
 
+  getEmailOfLoggedInUser() {
+    return this.authService.emailOfLoggedInUser;
+  }
+
 }

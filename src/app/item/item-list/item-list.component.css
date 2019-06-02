@@ -51,7 +51,7 @@ mat-form-field {
 
 /* only applies at the moment when the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
   .move-to-folder {
     margin-top: 20px;
   }
@@ -59,7 +59,7 @@ gets pushed to the row below the "Select Folder to View" mat-card */
 
 /* only applies before the moment when the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
-@media (min-width: 991px) {
+@media (min-width: 1200px) {
   .edit-padding-right {
     padding-right: 10px;
   }

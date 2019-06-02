@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AuthService {
     token: string;
+    emailOfLoggedInUser: string;
 
     constructor(private router: Router, private titleService: Title) { }
 
@@ -35,6 +36,7 @@ export class AuthService {
                 (response) => {
                     this.router.navigate(['/items']); // this only redirects the user if the token was successful
                     this.setTitle('QuickPass | Passwords');
+                    this.emailOfLoggedInUser = response.user.email; // or firebase.auth().currentUser.email;
 
                     firebase.auth().currentUser.getIdToken()
                         .then(
@@ -75,7 +77,7 @@ export class AuthService {
 
     deleteAccount() {
         firebase.auth().currentUser.delete()
-            .catch(error => { alert('Error: ' + error.message); } )
+            .catch(error => { } )
             .then(() => alert('Your account was successfully deleted.'));
     }
 

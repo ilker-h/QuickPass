@@ -90,7 +90,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     this.httpClient.get('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
       .pipe(map(
         (response) => {
-          console.log('items worked???? ' + JSON.stringify(response));
+          // console.log('items worked???? ' + JSON.stringify(response));
           return response;
         }
       ))

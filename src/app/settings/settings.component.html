@@ -6,12 +6,17 @@
         <h3>Delete Account</h3>
       </div>
 
-      <div class="row">
+      <div *ngIf="getEmailOfLoggedInUser() === 'demo@demo.com' ">
+         <p>You can't delete this demo account.</p>
+      </div>
+
+      <div class="row" *ngIf="getEmailOfLoggedInUser() !== 'demo@demo.com' ">
         <p>Caution! Once you delete your account, all of your passwords and folders will be gone.</p>
       </div>
 
       <div class="row">
-        <button mat-flat-button color="warn" (click)="onDeleteAccount()">Delete Account</button>
+        <button mat-flat-button color="warn" (click)="onDeleteAccount()"
+        [disabled]="getEmailOfLoggedInUser() === 'demo@demo.com'   ">Delete Account</button>
       </div>
 
       <div class="row">
