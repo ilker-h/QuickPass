@@ -11,6 +11,7 @@ export class AuthService {
 
     constructor(private router: Router, private titleService: Title) { }
 
+
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(
@@ -54,12 +55,14 @@ export class AuthService {
             );
     }
 
+
     logoutUser() {
         firebase.auth().signOut();
         this.token = null; // reset the token
         this.router.navigate(['/login']);
         this.setTitle('QuickPass | Log In');
     }
+
 
     getToken() {
         firebase.auth().currentUser.getIdToken()
@@ -69,17 +72,20 @@ export class AuthService {
         return this.token;
     }
 
+
     isAuthenticated() {
         // Checks if the token is valid/not expired, meaning you're authenticated.
         // Returns true if the token is valid.
         return this.token != null;
     }
 
+
     deleteAccount() {
         firebase.auth().currentUser.delete()
             .catch(error => { } )
             .then(() => alert('Your account was successfully deleted.'));
     }
+
 
     // For changing the DOM's title (the one shown in a browser tab),
     // originally from the index.html file's <head> tag.

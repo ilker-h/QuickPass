@@ -13,14 +13,17 @@ export class SignupComponent implements OnInit {
 
   constructor(public authService: AuthService, private titleService: Title) { }
 
+
   ngOnInit() {
   }
+
 
   onSignup(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.signupUser(email, password);
   }
+
 
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.

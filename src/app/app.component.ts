@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'QuickPass';
   loadedFeature = 'item';
 
+
   ngOnInit() {
     // Configure and initialize Firebase SDK backend when app starts
     firebase.initializeApp({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
       messagingSenderId: '969326079197'
     });
   }
+
 
   onNavigate(feature: string) {
     this.loadedFeature = feature;

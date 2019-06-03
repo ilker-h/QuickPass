@@ -10,8 +10,10 @@ export class AboutComponent implements OnInit {
 
   constructor(private titleService: Title) { }
 
+
   ngOnInit() {
   }
+
 
   // downloadFile() {
   //   // from https://stackoverflow.com/questions/50907542/download-a-file-from-asset-folder-when-clicking-on-a-button
@@ -22,6 +24,7 @@ export class AboutComponent implements OnInit {
   //   link.click();
   //   link.remove();
   // }
+
 
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.

@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     this.location = router.url;
   }
 
+
   queryParam;
   ngOnInit() {
     // is this being used?
@@ -28,15 +29,18 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+
   // for Search Query functionality for Folders
   onTypeFolderSearchQuery(folderSearchQuery: string) {
     this.typedSearchQuery.changeFolderSearchQuery(folderSearchQuery);
   }
 
+
   // for Search Query functionality for Items
   onTypeSearchQueryItem(itemSearchQuery: string) {
     this.typedSearchQuery.changeSearchQueryItem(itemSearchQuery);
   }
+
 
   onLogout() {
     this.authService.logoutUser();
@@ -44,12 +48,14 @@ export class HeaderComponent implements OnInit {
     this.setTitle('QuickPass | Log In');
   }
 
+
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.
   // Documentation: https://angular.io/guide/set-document-title
   public setTitle(newTitle: string) {
     this.titleService.setTitle( newTitle );
   }
+
 
   // this lets the person click into the search bar when it's inside the hamburger menu without closing the menu
   // because by default, whenever you click somewhere inside the menu, it thinks you selected something and closes the menu

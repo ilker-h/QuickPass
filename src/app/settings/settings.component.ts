@@ -13,18 +13,22 @@ export class SettingsComponent implements OnInit {
 
   constructor(private dataStorageInDBService: DataStorageInDBService, private authService: AuthService) { }
 
+
   ngOnInit() {
   }
+
 
   onDeleteAccount() {
     this.areYouSure = true;
   }
+
 
   onDeleteAccountYesIAmSure() {
     this.dataStorageInDBService.DELETEAllOfThisUsersDataFromDB();
     this.authService.deleteAccount();
     this.authService.logoutUser();
   }
+
 
   getEmailOfLoggedInUser() {
     return this.authService.emailOfLoggedInUser;

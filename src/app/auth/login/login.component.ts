@@ -14,14 +14,17 @@ export class LoginComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router, private titleService: Title) { }
 
+
   ngOnInit() {
   }
+
 
   onLogin(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.loginUser(email, password);
   }
+
 
   // For changing the DOM's title (the one shown in a browser tab),
   // originally from the index.html file's <head> tag.

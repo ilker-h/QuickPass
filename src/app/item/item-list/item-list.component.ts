@@ -221,8 +221,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
       // stores the dropdown Folder Name that was selected
       this.folderNameToFilterBy = this.itemForm.value['folderMatchedTo'];
 
-      // get all items in the form of an array of objects then map() it into an array of arrays
-      // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+      // get all items in the form of an array of objects then map() it into an array of values (of type string)
       // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
       this.allItems = this.itemService.getItems().map(
         (obj) => { return obj.folderMatchedTo; }

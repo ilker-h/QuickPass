@@ -21,7 +21,7 @@
                   <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
                     <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
                       All</mat-option>
-                    <mat-option (click)="onFilterByFolder()" [value]="''">None (Not in a Folder)</mat-option>
+                    <mat-option (click)="onFilterByFolder()" [value]="'None'">None (Not in a Folder)</mat-option>
                     <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
                     <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders"
                       [value]="individualFolder.name">
@@ -39,19 +39,19 @@
 
       <!-- Toolbar -->
       <div class="col-xs-12 col-xl-6 edit-padding-left">
-        <!-- Toolbar is only shown if at least one checkbox is selected -->
-        <mat-card class="mat-elevation-z3 move-to-folder" *ngIf="this.selection.selected.length >= 1">
+        <mat-card class="mat-elevation-z3 move-to-folder">
           <div class="inner-div">
             <div class="row">
 
-              <button mat-flat-button (click)="onDeleteItems()" color="warn" class="delete-button">Delete</button>
+              <button mat-flat-button (click)="onDeleteItems()" color="warn" class="delete-button"
+              [disabled]="this.selection.selected.length === 0">Delete</button>
 
               <!-- "Move to Folder" dropdown -->
               <!-- is the class "form" needed? -->
               <form [formGroup]="itemForm" (ngSubmit)="onMoveToFolder()" class="delete-select">
                 <mat-form-field>
                   <mat-label for="folder">Move to Folder</mat-label>
-                  <mat-select formControlName="folderMatchedTo">
+                  <mat-select formControlName="folderMatchedTo" [disabled]="this.selection.selected.length === 0">
                     <mat-option (click)="onMoveToFolder()" [value]="''">None (Not in a Folder)</mat-option>
                     <mat-option (click)="onMoveToFolder()" *ngFor="let individualFolder of allFolders"
                       [value]="individualFolder.name">
@@ -123,3 +123,6 @@
 
   </div>
 </div>
+
+<!--  Syntax for only showing things in the div if at least one checkbox is selected:
+           <div *ngIf="this.selection.selected.length >= 1"></div> -->

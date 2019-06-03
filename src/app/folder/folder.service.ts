@@ -19,6 +19,7 @@ export class FolderService {
         new Folder('Example Folder'),
     ];
 
+
     // the reason .slice() is used to create a (shallow) copy of each array is because arrays are
     // reference types, so if we just want to copy the original array and not overwrite it,
     // we can use .slice(). We can also use Object.assign({}, arrayToCopy).
@@ -30,11 +31,13 @@ export class FolderService {
         }
     }
 
+
     getFolders() {
         if (this.folders !== null) {
             return this.folders.slice();
         }
     }
+
 
     getFolderName(index: number) {
         if (this.folders !== null) {
@@ -42,11 +45,13 @@ export class FolderService {
         }
     }
 
+
     getFolder(index: number) {
         if (this.folders !== null) {
             return this.folders[index];
         }
     }
+
 
     addFolder(folder: Folder) {
         this.folders.push(folder);
@@ -55,6 +60,7 @@ export class FolderService {
         }
     }
 
+
     updateFolder(index: number, newFolder: Folder) {
         this.folders[index] = newFolder;
         if (this.folders !== null) {
@@ -62,12 +68,14 @@ export class FolderService {
         }
     }
 
+
     updateFolderName(index: number, newFolderName: Folder['name']) {
         this.folders[index].name = newFolderName;
         if (this.folders !== null) {
             this.foldersChanged.next(this.folders.slice());
         }
     }
+
 
     deleteFolder(index: number) {
         if (this.folders !== null) {

@@ -10,6 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     constructor(private authService: AuthService) { }
 
+
     // the whole point of this interceptor is to intercept the outgoing HTTP request
     // and add a query param to it so that it can add the auth Token to the end of the URL
     // whenever it communicates with Firebase's DB. In other words, it turns

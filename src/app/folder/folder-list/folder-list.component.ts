@@ -30,6 +30,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
   constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute,
     private typedFolderSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService) { }
 
+  
   ngOnInit() {
 
     // gets the items and folders data from the Firebase DB - I think this is not needed anymore
@@ -150,6 +151,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
         // response => console.log('DELETE: ' + response)
       );
   }
+
 
   ngOnDestroy() {
     // unsubscribes in order to avoid memory leaks

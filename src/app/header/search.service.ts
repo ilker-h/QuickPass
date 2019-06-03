@@ -10,10 +10,12 @@ export class SearchService {
     // for searching items:
     currentItemSearchQuery = this.searchItemQuerySource;
 
+
     // for searching folders:
     changeFolderSearchQuery(newFolderSearchQuery: string) {
         this.FolderSearchQuerySource.next(newFolderSearchQuery);
     }
+
 
     // for searching items:
     changeSearchQueryItem(newSearchQueryItem: string) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { ItemService } from '../item.service';
@@ -18,11 +18,14 @@ export class ItemEditComponent implements OnInit {
   editMode = false; // differentiates between "edit" mode and "create new" mode
   itemForm: FormGroup;
   hide = true; // for masking the password
+  allItems;
   allFolders: Folder[];
+  defaultSelectionIsNone = 'None';
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
     private dataStorageInDBService: DataStorageInDBService) { }
+
 
   ngOnInit() {
 
@@ -41,25 +44,54 @@ export class ItemEditComponent implements OnInit {
       );
   }
 
+
   onSubmit() {
 
-    if (this.editMode) {
-      // if you're editing an existing item
-      this.itemService.updateItem(this.id, this.itemForm.value);
-    } else {
-      // if you're creating a new item
-      this.itemService.addItem(this.itemForm.value);
-      this.router.navigate(['/items']);
+    // get all items in the form of an array of objects then map() it into an array of values (of type string)
+    // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+    // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
+    this.allItems = this.itemService.getItems().map(
+      (obj) => { return obj.title; }
+    );
+
+    // Checks if the title that was inputted is the same as a previously existing title,
+    // because there should be no two identical titles
+    for (let i = 0; i < this.allItems.length; i++) {
+      if (this.allItems[i].trim() === this.itemForm.value.title.trim()) {
+        alert('Error: The "Title" you entered already exists. Please enter a unique "Title".');
+        return;
+      }
     }
 
-    // now that the edit(s) has happened in the local array,
-    // this pushes the updated local array of data to the remote Firebase DB
-    this.dataStorageInDBService.PUTItemsIntoDB()
-      .subscribe(
-        // response => console.log(response)
-      );
+    // every Item must have a filled-in Title field
+    if (this.itemForm.value.title.trim() === '' || null || undefined) {
+      alert('Error: You must fill in the "Title" field.');
+      return;
+
+    } else {
+
+      if (this.editMode) {
+        // if you're editing an existing item
+        this.itemService.updateItem(this.id, this.itemForm.value);
+
+      } else {
+        // if you're creating a new item
+        this.itemService.addItem(this.itemForm.value);
+        this.router.navigate(['/items']);
+
+      }
+
+      // now that the edit(s) has happened in the local array,
+      // this pushes the updated local array of data to the remote Firebase DB
+      this.dataStorageInDBService.PUTItemsIntoDB()
+        .subscribe(
+          // response => console.log(response)
+        );
+
+    }
 
   }
+
 
   onDelete() {
     this.itemService.deleteItem(this.id);
@@ -73,9 +105,15 @@ export class ItemEditComponent implements OnInit {
       );
   }
 
+
   onCancel() {
-    this.initForm();
+    if (this.editMode === true) {
+      this.initForm();
+    } else {
+      this.router.navigate(['/items']);
+    }
   }
+
 
   private initForm() {
 
@@ -103,7 +141,7 @@ export class ItemEditComponent implements OnInit {
     // this FormGroup goes into the template
     this.itemForm = new FormGroup({
       // 'title': new FormControl(itemTitle, Validators.required),  // if you want to add validators, this is the syntax
-      'title': new FormControl(itemTitle),
+      'title': new FormControl(itemTitle, Validators.required),
       'username': new FormControl(itemUsername),
       'password': new FormControl(itemPassword),
       'email': new FormControl(itemEmail),

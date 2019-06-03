@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { FolderService } from 'src/app/folder/folder.service';
@@ -15,9 +15,11 @@ export class FolderEditComponent implements OnInit {
   id: number; // ID of the folder
   editMode = false; // differentiates between "edit" mode and "create new" mode
   folderForm: FormGroup;
+  allFolders;
 
   constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router,
     private dataStorageInDBService: DataStorageInDBService) { }
+
 
   ngOnInit() {
 
@@ -33,27 +35,54 @@ export class FolderEditComponent implements OnInit {
       );
   }
 
+
   onSubmit() {
 
-    if (this.editMode) {
-      // if you're editing an existing folder
-      this.folderService.updateFolder(this.id, this.folderForm.value);
+    // get all folders in the form of an array of objects then map() it into an array of values (of type string)
+    // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+    // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
+    this.allFolders = this.folderService.getFolders().map(
+      (obj) => { return obj.name; }
+    );
+
+    // Checks if the name that was inputted is the same as a previously existing name,
+    // because there should be no two identical names
+    for (let i = 0; i < this.allFolders.length; i++) {
+      if (this.allFolders[i].trim() === this.folderForm.value.name.trim()) {
+        alert('Error: The "Folder Name" you entered already exists. Please enter a unique "Folder Name".');
+        return;
+      }
+    }
+
+    // every Folder must have a filled-in Name field
+    if (this.folderForm.value.name.trim() === '' || null || undefined) {
+      alert('Error: You must fill in the "Folder Name" field.');
+      return;
 
     } else {
-      // if you're creating a new folder
-      this.folderService.addFolder(this.folderForm.value);
 
-      this.router.navigate(['/folders']);
+      if (this.editMode) {
+        // if you're editing an existing folder
+        this.folderService.updateFolder(this.id, this.folderForm.value);
+
+      } else {
+        // if you're creating a new folder
+        this.folderService.addFolder(this.folderForm.value);
+        this.router.navigate(['/folders']);
+
+      }
+
+      // now that the edit(s) has happened in the local array,
+      // this pushes the updated local array of data to the remote Firebase DB
+      this.dataStorageInDBService.PUTFoldersIntoDB()
+        .subscribe(
+          // response => console.log(response)
+        );
 
     }
 
-    // now that the edit(s) has happened in the local array,
-    // this pushes the updated local array of data to the remote Firebase DB
-    this.dataStorageInDBService.PUTFoldersIntoDB()
-      .subscribe(
-        // response => console.log(response)
-      );
   }
+
 
   onDelete() {
     this.folderService.deleteFolder(this.id);
@@ -67,9 +96,15 @@ export class FolderEditComponent implements OnInit {
       );
   }
 
+
   onCancel() {
-    this.initForm();
+    if (this.editMode === true) {
+      this.initForm();
+    } else {
+      this.router.navigate(['/folders']);
+    }
   }
+
 
   private initForm() {
 
@@ -83,7 +118,7 @@ export class FolderEditComponent implements OnInit {
 
     // this FormGroup goes into the template
     this.folderForm = new FormGroup({
-      'name': new FormControl(folderName)
+      'name': new FormControl(folderName, Validators.required)
       // 'name': new FormControl(folderName, Validators.required) // if you want to add validators, this is the syntax
     });
 

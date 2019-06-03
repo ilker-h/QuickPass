@@ -23,6 +23,7 @@ export class ItemService {
             'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder')
     ];
 
+
     // the reason .slice() is used to create a (shallow) copy of each array is because arrays are
     // reference types, so if we just want to copy the original array and not overwrite it,
     // we can use .slice(). We can also use Object.assign({}, arrayToCopy).
@@ -34,17 +35,20 @@ export class ItemService {
         }
     }
 
+
     getItems() {
         if (this.items !== null) {
             return this.items.slice();
         }
     }
 
+
     getItem(index: number) {
         if (this.items !== null) {
             return this.items[index];
         }
     }
+
 
     addItem(item: Item) {
         this.items.push(item);
@@ -53,6 +57,7 @@ export class ItemService {
         }
     }
 
+
     updateItem(index: number, newItem: Item) {
         this.items[index] = newItem;
         if (this.items !== null) {
@@ -60,12 +65,14 @@ export class ItemService {
         }
     }
 
+
     updateItemFolder(index: number, folderNameToMoveTo: Folder['name']) {
         this.items[index].folderMatchedTo = folderNameToMoveTo;
         if (this.items !== null) {
             this.itemsChanged.next(this.items.slice());
         }
     }
+
 
     deleteItem(index: number) {
         if (this.items !== null) {

@@ -4,7 +4,9 @@
   <div class="everything">
 
     <!-- Toolbar -->
-    <button mat-flat-button (click)="onDeleteItems()" color="warn">Delete</button>
+    <!-- Button is only enabled if at least one checkbox is selected -->
+    <button mat-flat-button (click)="onDeleteItems()" color="warn"
+      [disabled]="this.selection.selected.length === 0">Delete</button>
     <!-- /Toolbar -->
 
     <div class="mat-elevation-z8">
