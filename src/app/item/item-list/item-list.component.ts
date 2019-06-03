@@ -300,8 +300,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
       this.itemService.getItems() === undefined ||
       this.itemService.getItems().length === 0
     ) {
-      this.itemService.addItem(new Item('Example GitHub Account', 'john-doe', 'john-github_564', 'john-doe@gmail.com',
-        'https://accounts.google.com/login?hl=en', 'Only for business use', 'Example Folder'));
+      this.itemService.addItem(new Item('Example GitHub Account', 'john849', 'john-github_564', 'john-doe@gmail.com',
+        'https://github.com/login', 'Only for business use', 'Example Folder'));
     }
 
     this.router.navigate(['/items']);

@@ -112,6 +112,7 @@ export class FolderEditComponent implements OnInit {
 
   }
 
+
   // Note: I think I can simplify this code because it's a little repetitive
   didTheUserEnterADuplicateFolderName() {
 

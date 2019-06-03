@@ -20,7 +20,6 @@ export class ItemEditComponent implements OnInit {
   hide = true; // for masking the password
   allItems;
   allFolders: Folder[];
-  defaultSelectionIsNone = 'None';
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
@@ -113,7 +112,7 @@ export class ItemEditComponent implements OnInit {
     let itemEmail = '';
     let itemUrl = '';
     let itemNotes = '';
-    let itemFolderMatchedTo;
+    let itemFolderMatchedTo = '';
 
     if (this.editMode) {
       const item = this.itemService.getItem(this.id);
@@ -140,6 +139,7 @@ export class ItemEditComponent implements OnInit {
 
   }
 
+
   // Note: I think I can simplify this code because it's a little repetitive
   didTheUserEnterADuplicateTitle() {
 
@@ -157,8 +157,6 @@ export class ItemEditComponent implements OnInit {
       // Checks if the title that was inputted is the same as a previously existing title,
       // because there should be no two identical titles
       for (let i = 0; i < this.allItems.length; i++) {
-        console.log(i + 'iiiiiiiiiiii');
-        console.log(this.id + 'idddddddddddddd');
         if ( ( this.allItems[i].trim() === this.itemForm.value.title.trim() ) && (i !== this.id) ) {
           numberOfDuplicates++;
         }

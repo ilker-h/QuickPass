@@ -21,7 +21,7 @@
                   <mat-select formControlName="folderMatchedTo" [(value)]="selectedValue">
                     <mat-option (click)="onFilterByFolder()" [value]="'All'" (click)="selectedValue = null">
                       All</mat-option>
-                    <mat-option (click)="onFilterByFolder()" [value]="'None'">None (Not in a Folder)</mat-option>
+                    <mat-option (click)="onFilterByFolder()" [value]="''">None (Not in a Folder)</mat-option>
                     <!-- Clear Selected Value is from https://stackoverflow.com/questions/42006622/how-to-unselect-selected-option-in-md-select-angular2 -->
                     <mat-option (click)="onFilterByFolder()" *ngFor="let individualFolder of allFolders"
                       [value]="individualFolder.name">
