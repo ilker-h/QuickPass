@@ -23,15 +23,21 @@
 
 table {
   width: 100%;
-  margin-top: 20px;
+}
+
+.fixed-height-causes-scroll-bar {
+  height: 795px;
+  overflow: auto;
 }
 
 .th-checkbox-padding {
-  width: 64; /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
+  width: 64;
+  /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
 }
 
 .td-checkbox-padding {
-width: 64px; /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
+  width: 64px;
+  /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
 }
 
 th {
@@ -55,7 +61,6 @@ td {
 
 /* Removes annoying blue or orange outline that gets put on the things that you click on.
  from https://stackoverflow.com/questions/30981429/angular-material-ng-click-strange-border-highlight */
-
 *:focus {
   outline: none;
   border: 0;

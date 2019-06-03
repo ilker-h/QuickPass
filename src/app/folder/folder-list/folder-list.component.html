@@ -9,45 +9,47 @@
       [disabled]="this.selection.selected.length === 0">Delete</button>
     <!-- /Toolbar -->
 
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+    <div class="mat-elevation-z8" style="margin-top: 20px;">
+      <div class="fixed-height-causes-scroll-bar">
+        <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef class="th-checkbox-padding">
-            <mat-checkbox color='primary' (change)="$event ? masterToggle() : null"
-              [checked]="selection.hasValue() && isAllSelected()" [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-          </th>
-          <!-- I'm trying to make this checkbox get highlighted at the right time: <td mat-cell *matCellDef="let row; let i = index;" [routerLink]="[i]" *ngIf="router.url.includes('items')"
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef class="th-checkbox-padding">
+              <mat-checkbox color='primary' (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <!-- I'm trying to make this checkbox get highlighted at the right time: <td mat-cell *matCellDef="let row; let i = index;" [routerLink]="[i]" *ngIf="router.url.includes('items')"
         routerLinkActive="selected-color"> -->
-          <td mat-cell *matCellDef="let row" class="td-checkbox-padding">
-            <mat-checkbox color='primary' (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
-              [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <!-- /Checkbox Column -->
+            <td mat-cell *matCellDef="let row" class="td-checkbox-padding">
+              <mat-checkbox color='primary' (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <!-- /Checkbox Column -->
 
-        <!-- Name field -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort </th>
-          <td mat-cell *matCellDef="let folderElement; let i = index;"
-            (click)="findIndexOfFolderName(folderElement.name)"
-            [routerLink]="[findIndexOfFolderName(folderElement.name)]" routerLinkActive="selected-color">
-            {{folderElement.name}}
-          </td>
-        </ng-container>
-        <!-- /Name field -->
+          <!-- Name field -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sort </th>
+            <td mat-cell *matCellDef="let folderElement; let i = index;"
+              (click)="findIndexOfFolderName(folderElement.name)"
+              [routerLink]="[findIndexOfFolderName(folderElement.name)]" routerLinkActive="selected-color">
+              {{folderElement.name}}
+            </td>
+          </ng-container>
+          <!-- /Name field -->
 
-        <!-- Note: add the "hidden" attribute to the tr element if you want to hide it -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Note: add the "hidden" attribute to the tr element if you want to hide it -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-      </table>
+        </table>
+      </div>
 
-      <mat-paginator [pageSizeOptions]="[50, 100, 300]" showFirstLastButtons></mat-paginator>
+      <mat-paginator hidden [pageSizeOptions]="[50, 100, 300]" showFirstLastButtons></mat-paginator>
     </div>
 
   </div>

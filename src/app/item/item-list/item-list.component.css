@@ -49,15 +49,20 @@ mat-form-field {
   padding-right: 20px;
 }
 
-/* only applies at the moment when the "Move to Folder" mat-card
+/* only applies at the moment AFTER the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
 @media (max-width: 1200px) {
   .move-to-folder {
     margin-top: 20px;
   }
+  /* for the table */
+  .fixed-height-causes-scroll-bar {
+    height: 655px;
+    overflow: auto;
+  }
 }
 
-/* only applies before the moment when the "Move to Folder" mat-card
+/* only applies BEFORE the moment when the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
 @media (min-width: 1200px) {
   .edit-padding-right {
@@ -65,6 +70,11 @@ gets pushed to the row below the "Select Folder to View" mat-card */
   }
   .edit-padding-left {
     padding-left: 10px;
+  }
+  /* for the table */
+  .fixed-height-causes-scroll-bar {
+    height: 755px;
+    overflow: auto;
   }
 }
 
@@ -89,15 +99,16 @@ button {
 
 table {
   width: 100%;
-  margin-top: 20px;
 }
 
 .th-checkbox-padding {
-  width: 64; /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
+  width: 64;
+  /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
 }
 
 .td-checkbox-padding {
-width: 64px; /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
+  width: 64px;
+  /* explained in: https://stackoverflow.com/questions/53210628/material-table-column-fixed-width */
 }
 
 th {

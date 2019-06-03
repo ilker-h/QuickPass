@@ -79,6 +79,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // for Search Query functionality (should be inside ngOnInit)
     this.typedItemSearchQuery.currentItemSearchQuery
       .subscribe(itemSearchQuery => this.dataSource.filter = itemSearchQuery.trim().toLowerCase());
+
   }
 
 
