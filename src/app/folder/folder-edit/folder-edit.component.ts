@@ -38,20 +38,8 @@ export class FolderEditComponent implements OnInit {
 
   onSubmit() {
 
-    // get all folders in the form of an array of objects then map() it into an array of values (of type string)
-    // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
-    this.allFolders = this.folderService.getFolders().map(
-      (obj) => { return obj.name; }
-    );
-
-    // Checks if the name that was inputted is the same as a previously existing name,
-    // because there should be no two identical names
-    for (let i = 0; i < this.allFolders.length; i++) {
-      if (this.allFolders[i].trim() === this.folderForm.value.name.trim()) {
-        alert('Error: The "Folder Name" you entered already exists. Please enter a unique "Folder Name".');
-        return;
-      }
+    if (this.didTheUserEnterADuplicateFolderName()) {
+      return;
     }
 
     // every Folder must have a filled-in Name field
@@ -124,6 +112,59 @@ export class FolderEditComponent implements OnInit {
 
   }
 
+  // Note: I think I can simplify this code because it's a little repetitive
+  didTheUserEnterADuplicateFolderName() {
+
+    // If you're in edit mode, there can be 1 duplicate folder name (which is the folder you're currently on).
+    // If you're not in edit mode (like when creating a new folder), there can be no folder name duplicates.
+    if (this.editMode) {
+      // get all folders in the form of an array of objects then map() it into an array of values (of type string)
+      // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+      // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
+      this.allFolders = this.folderService.getFolders().map(
+        (obj) => { return obj.name; }
+      );
+
+      let numberOfDuplicates = 0;
+      // Checks if the folder name that was inputted is the same as a previously existing folder name,
+      // because there should be no two identical folder names
+      for (let i = 0; i < this.allFolders.length; i++) {
+        if ( ( this.allFolders[i].trim() === this.folderForm.value.name.trim() )  && (i !== this.id) ) {
+          numberOfDuplicates++;
+        }
+      }
+
+      if (numberOfDuplicates > 0) {
+        alert('Error: The "Folder Name" you entered already exists. Please enter a unique "Folder Name".');
+        return true;
+      }
+
+    } else {
+      // get all folders in the form of an array of objects then map() it into an array of values (of type string)
+      // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
+      // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
+      this.allFolders = this.folderService.getFolders().map(
+        (obj) => { return obj.name; }
+      );
+
+      let numberOfDuplicates = 0;
+      // Checks if the folder name that was inputted is the same as a previously existing folder name,
+      // because there should be no two identical folder names
+      for (let i = 0; i < this.allFolders.length; i++) {
+        if (this.allFolders[i].trim() === this.folderForm.value.name.trim()) {
+          numberOfDuplicates++;
+        }
+      }
+
+      if (numberOfDuplicates > 0) {
+        alert('Error: The "Folder Name" you entered already exists. Please enter a unique "Folder Name".');
+        return true;
+      }
+
+    }
+
+  }
+
   // I'm keeping this for the syntax:
   // this.router.navigate(['../'], {relativeTo: this.route});
 
@@ -140,6 +181,5 @@ export class FolderEditComponent implements OnInit {
 
   //     }
   // });
-
 
 }

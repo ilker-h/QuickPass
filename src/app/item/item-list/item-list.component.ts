@@ -145,7 +145,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  // The built-in Javascript .map() function lets you convert this.folders,
+  // The built-in Javascript .map() function lets you convert this.items,
   // which is an array of JSON objects,
   // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
   // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
