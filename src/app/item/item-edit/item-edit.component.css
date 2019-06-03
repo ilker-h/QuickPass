@@ -45,9 +45,27 @@ button {
   margin: 10px;
 }
 
-/* only applies to small mobile screens */
-@media (max-width: 355px) {
-  .cancel-button {
+/* Only applies to small mobile screens.
+I made this because the cancel button goes onto the next row on small mobile screens and
+ that causes it to get out of the mat-card */
+ @media (max-width: 351px) {
+  .all-buttons {
+    text-align: center;
+    margin: auto;
+  }
+  mat-card {
+    height: 915px;
+  }
+  .cancel-button-larger-screens {
+    display: none;
+  }
+}
+
+/* only applies to anything larger than small mobile screens. 
+I made this because the cancel button goes onto the next row on small mobile screens and
+ that causes it to get out of the mat-card */
+@media (min-width: 352px) {
+  .cancel-button-very-small-screen {
     display: none;
   }
 }

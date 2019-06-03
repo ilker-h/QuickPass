@@ -20,6 +20,7 @@ export class ItemEditComponent implements OnInit {
   hide = true; // for masking the password
   allItems;
   allFolders: Folder[];
+  isSaveSuccessful = false;
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
@@ -73,12 +74,20 @@ export class ItemEditComponent implements OnInit {
       this.dataStorageInDBService.PUTItemsIntoDB()
         .subscribe(
           // response => console.log(response)
+          () => {
+            this.isSaveSuccessful = true;
+            setTimeout(this.turnOff, 5000);
+
+          }
         );
 
     }
 
   }
+  turnOff() {
+    this.isSaveSuccessful = false;
 
+  }
 
   onDelete() {
     this.itemService.deleteItem(this.id);
@@ -157,7 +166,7 @@ export class ItemEditComponent implements OnInit {
       // Checks if the title that was inputted is the same as a previously existing title,
       // because there should be no two identical titles
       for (let i = 0; i < this.allItems.length; i++) {
-        if ( ( this.allItems[i].trim() === this.itemForm.value.title.trim() ) && (i !== this.id) ) {
+        if ((this.allItems[i].trim() === this.itemForm.value.title.trim()) && (i !== this.id)) {
           numberOfDuplicates++;
         }
       }

@@ -2,7 +2,6 @@
    the padding cancels out. But in this case, I only have a container without a row in it so this is how
    to fix it.
  https://stackoverflow.com/questions/17560818/twitter-bootstrap-white-space-on-left-and-right-side-in-smaller-screen-widths */
-
 .container-fluid {
   padding-right: 0;
   padding-left: 0;
@@ -44,9 +43,27 @@ mat-card {
   position: relative;
 }
 
-/* only applies to mobile screens */
-@media (max-width: 360px) {
-  .cancel-button {
+/* Only applies to small mobile screens.
+I made this because the cancel button goes onto the next row on small mobile screens and
+ that causes it to get out of the mat-card */
+@media (max-width: 372px) {
+  .all-buttons {
+    text-align: center;
+    margin: auto;
+  }
+  mat-card {
+    height: 210px;
+  }
+  .cancel-button-larger-screens {
+    display: none;
+  }
+}
+
+/* only applies to anything larger than small mobile screens. 
+I made this because the cancel button goes onto the next row on small mobile screens and
+ that causes it to get out of the mat-card */
+@media (min-width: 373px) {
+  .cancel-button-very-small-screen {
     display: none;
   }
 }

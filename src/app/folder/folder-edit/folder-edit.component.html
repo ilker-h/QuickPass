@@ -18,10 +18,18 @@
 
             <!-- Action Buttons -->
             <div class="row">
-              <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
-              <button type="submit" mat-flat-button color="primary">Save</button>
-              <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
-              <button mat-stroked-button color="warn" (click)="onCancel()" class="ml-auto cancel-button">Cancel</button>
+
+              <div class="all-buttons">
+                <!-- Align buttons to the right: https://stackoverflow.com/questions/41894792/align-button-to-the-right/41894896 -->
+                <button type="submit" mat-flat-button color="primary">Save</button>
+                <button mat-flat-button color="warn" (click)="onDelete()">Delete</button>
+                <button mat-stroked-button color="warn" (click)="onCancel()"
+                  class="cancel-button-very-small-screen">Cancel</button>
+              </div>
+
+              <button mat-stroked-button color="warn" (click)="onCancel()"
+                class="ml-auto cancel-button-larger-screens">Cancel</button>
+
             </div>
             <!-- /Action Buttons -->
 
