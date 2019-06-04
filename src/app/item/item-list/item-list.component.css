@@ -10,12 +10,14 @@
 }
 
 .everything {
-  margin: 20px 0px 30px 20px;
+  margin: 20px 0px 20px 20px;
 }
 
+/* only applies at the moment AFTER the "Item-Edit" form on the right side of the page
+gets pushed to the row below the "Item-List" table on the left side of the page */
 @media (max-width: 767px) {
   .everything {
-    margin: 20px 10px 0px 10px;
+    margin: 20px 10px 10px 10px;
   }
 }
 
@@ -142,3 +144,13 @@ td {
   outline: none;
   border: 0;
 }
+
+/* ______________________________________________________ */
+
+/* Note: at 767px and below, the whole right side of the page (the "edit item" area)
+ moves below the left side of the page (the table). So this information is useful for adding @media queries like:
+
+ @media (max-width: 767px) {
+  } */
+
+/* ______________________________________________________ */

@@ -10,12 +10,14 @@
 }
 
 .everything {
-  margin: 20px 0px 30px 20px;
+  margin: 20px 0px 20px 20px;
 }
 
+/* only applies at the moment AFTER the "Folder-Edit" form on the right side of the page
+gets pushed to the row below the "Folder-List" table on the left side of the page */
 @media (max-width: 767px) {
   .everything {
-    margin: 20px 10px 0px 10px;
+    margin: 20px 10px 10px 10px;
   }
 }
 
@@ -66,8 +68,12 @@ td {
   border: 0;
 }
 
-/* Note: at 768px at below, the whole right side of the page (the "edit folder" area)
+/* ______________________________________________________ */
+
+/* Note: at 767px and below, the whole right side of the page (the "edit folder" area)
  moves below the left side of the page (the table). So this information is useful for adding @media queries like:
 
- @media (min-width: 768px) {
+ @media (max-width: 767px) {
   } */
+
+/* ______________________________________________________ */

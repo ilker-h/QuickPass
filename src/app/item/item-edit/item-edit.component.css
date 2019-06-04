@@ -10,18 +10,19 @@
 }
 
 .everything {
-  margin: 20px 20px 30px 0px;
+  margin: 20px 20px 20px 0px;
 }
 
+/* only applies at the moment AFTER the "Item-Edit" form on the right side of the page
+gets pushed to the row below the "Item-List" table on the left side of the page */
 @media (max-width: 767px) {
   .everything {
-    margin: 30px 10px 30px 10px;
+    margin: 10px 10px 30px 10px;
   }
 }
 
 mat-card {
   max-width: 100%;
-  /* height: 740px; */
   height: 855px;
   text-align: left;
 }
@@ -94,3 +95,13 @@ input.ng-invalid.ng-touched, textarea.invalid.ng-touched {
 
 And then add this to the Save button: [disabled]="!itemForm.valid"
  */
+
+/* ______________________________________________________ */
+
+/* Note: at 767px and below, the whole right side of the page (the "edit item" area)
+ moves below the left side of the page (the table). So this information is useful for adding @media queries like:
+
+ @media (max-width: 767px) {
+  } */
+
+/* ______________________________________________________ */

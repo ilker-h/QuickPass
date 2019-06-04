@@ -6,13 +6,14 @@
         <!-- only show these things in the ng-template if the user is not logged in/is not authenticated -->
         <ng-template [ngIf]="!authService.isAuthenticated()">
 
-            <div class="row logo-when-not-logged-in" routerLink="/login" (click)="setTitle('QuickPass | Log In')">
-                  <h1 style="font-size: 30px;">
-                    <img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" style="margin-top: -5px; margin-right: -5px;">
-                    uickPass</h1> 
-                    <h2 style="font-size: 30px;  margin-left: 8px; margin-right: 8px;"> | </h2>
-                      <h3 style="margin-top: 2px;">Password Manager</h3>  
-            </div>
+          <div class="row logo-when-not-logged-in" routerLink="/login" (click)="setTitle('QuickPass | Log In')">
+            <h1 style="font-size: 30px;">
+              <img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
+                style="margin-top: -5px; margin-right: -5px;">
+              uickPass</h1>
+            <h2 style="font-size: 30px;  margin-left: 8px; margin-right: 8px;"> | </h2>
+            <h3 style="margin-top: 2px;">Password Manager</h3>
+          </div>
 
           <span class="spacer"></span>
           <a class="about" routerLink="/about" (click)="setTitle('QuickPass | About')">About</a>
@@ -26,14 +27,15 @@
         <ng-template [ngIf]="authService.isAuthenticated()">
 
           <!-- <h1 routerLink="/items">QuickPass</h1> -->
-          <h1 class="logo-when-logged-in" routerLink="/items" (click)="setTitle('QuickPass | Passwords')"><img src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35" 
-             style="margin-top: -5px; margin-right: 2px;">uickPass</h1>
+          <h1 class="logo-when-logged-in" routerLink="/items" (click)="setTitle('QuickPass | Passwords')"><img
+              src="assets\images\QuickPass-Short_Logo-Alternative_Colours.png" height="35"
+              style="margin-top: -5px; margin-right: 2px;">uickPass</h1>
 
           <span class="spacer"></span>
 
           <!-- Search Bar for item-list-component.ts - Search Query functionality -->
           <!-- Only shows on a URl that contains 'items' -->
-          <div *ngIf="router.url.includes('items')" class="hide-search-bar-on-small-screens">
+          <div *ngIf="router.url.includes('items')" class="hide-larger-search-bar-on-small-screens">
             <mat-form-field>
               <input matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
             </mat-form-field>
@@ -42,7 +44,7 @@
 
           <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
           <!-- Only shows on a URl that contains 'folders' -->
-          <div *ngIf="router.url.includes('folders')" class="hide-search-bar-on-small-screens">
+          <div *ngIf="router.url.includes('folders')" class="hide-larger-search-bar-on-small-screens">
             <mat-form-field>
               <input matInput routerLink="/folders" (keyup)="onTypeFolderSearchQuery($event.target.value)">
             </mat-form-field>
@@ -51,12 +53,14 @@
 
           <!-- Search Icon -->
           <div *ngIf="router.url.includes('items')">
-            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;">
+            <mat-icon class="icon hide-larger-search-bar-on-small-screens"
+              style="padding-left: 190px; margin-top: 15px;">
               search</mat-icon>
           </div>
 
           <div *ngIf="router.url.includes('folders')">
-            <mat-icon class="icon hide-search-bar-on-small-screens" style="padding-left: 190px; margin-top: 15px;">
+            <mat-icon class="icon hide-larger-search-bar-on-small-screens"
+              style="padding-left: 190px; margin-top: 15px;">
               search
             </mat-icon>
           </div>
@@ -74,25 +78,30 @@
             </button>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="/items/new" (click)="setTitle('QuickPass | Create New Password')">Create New Password</button>
-              <button mat-menu-item routerLink="/folders/new-folder" (click)="setTitle('QuickPass | Create New Folder')">Create New Folder</button>
+              <button mat-menu-item routerLink="/items/new" (click)="setTitle('QuickPass | Create New Password')">Create
+                New Password</button>
+              <button mat-menu-item routerLink="/folders/new-folder"
+                (click)="setTitle('QuickPass | Create New Folder')">Create New Folder</button>
             </mat-menu>
             <!-- /Create New -->
 
             <!-- Passwords -->
-            <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items" (click)="setTitle('QuickPass | Passwords')">
+            <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items"
+              (click)="setTitle('QuickPass | Passwords')">
               <mat-icon class="icon">vpn_key</mat-icon>
             </button>
             <!-- /Passwords -->
 
             <!-- Folders -->
-            <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders" (click)="setTitle('QuickPass | Folders')">
+            <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders"
+              (click)="setTitle('QuickPass | Folders')">
               <mat-icon class="icon">folder</mat-icon>
             </button>
             <!-- /Folders -->
 
             <!-- Settings -->
-            <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings" (click)="setTitle('QuickPass | Settings')">
+            <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings"
+              (click)="setTitle('QuickPass | Settings')">
               <mat-icon class="icon">settings</mat-icon>
             </button>
             <!-- /Settings -->
@@ -114,25 +123,30 @@
             </button>
 
             <mat-menu #hamburgerMenu="matMenu">
-              <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToSearch">Search</button>
+              <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToSearch" class="hide-hamburger-smaller-search-bar">Search</button>
               <button style="margin-right: 50px" mat-menu-item [matMenuTriggerFor]="submenuToCreateNew">Create A
                 New...</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/items" (click)="setTitle('QuickPass | Passwords')">Passwords</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/folders" (click)="setTitle('QuickPass | Folders')">Folders</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/settings" (click)="setTitle('QuickPass | Settings')">Settings</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/items"
+                (click)="setTitle('QuickPass | Passwords')">Passwords</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/folders"
+                (click)="setTitle('QuickPass | Folders')">Folders</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/settings"
+                (click)="setTitle('QuickPass | Settings')">Settings</button>
               <button style="margin-right: 50px" mat-menu-item (click)="onLogout()">Log Out</button>
             </mat-menu>
 
             <mat-menu #submenuToCreateNew="matMenu">
-              <button style="margin-right: 50px" mat-menu-item routerLink="/items/new" (click)="setTitle('QuickPass | Create New Password')">Password</button>
-              <button style="margin-right: 50px" mat-menu-item routerLink="/folders/new-folder" (click)="setTitle('QuickPass | New Folder')">Folder</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/items/new"
+                (click)="setTitle('QuickPass | Create New Password')">Password</button>
+              <button style="margin-right: 50px" mat-menu-item routerLink="/folders/new-folder"
+                (click)="setTitle('QuickPass | New Folder')">Folder</button>
             </mat-menu>
 
             <mat-menu #submenuToSearch="matMenu">
 
               <!-- Search Bar for item-list-component.ts - Search Query functionality -->
               <!-- Only shows on a URl that contains 'items' -->
-              <div class="container">
+              <div class="container hide-hamburger-smaller-search-bar">
                 <div class="row">
                   <div *ngIf="router.url.includes('items')" (click)="stopPropagation($event)">
                     <mat-form-field>
@@ -146,7 +160,7 @@
 
               <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
               <!-- Only shows on a URl that contains 'folders' -->
-              <div class="container">
+              <div class="container hide-hamburger-smaller-search-bar">
                 <div class="row">
                   <div *ngIf="router.url.includes('folders')" (click)="stopPropagation($event)">
                     <mat-form-field>

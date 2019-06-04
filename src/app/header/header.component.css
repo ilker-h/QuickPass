@@ -32,7 +32,7 @@
 
 .about {
   padding: 0 20px;
-  color: white; 
+  color: white;
   text-decoration: none;
 }
 
@@ -41,55 +41,64 @@
   .logo-when-logged-in {
     padding: 0 5px;
   }
-
   .logo-when-not-logged-in {
     padding-right: 5px;
     padding-left: 5px;
   }
   .about {
     padding: 0 5px;
-
   }
 }
 
 /* only applies to small mobile screens */
 @media (max-width: 488px) {
-
   .logo-when-not-logged-in {
     margin-top: 50px;
     margin-bottom: 50px;
   }
-
   h2 {
     display: none;
   }
-
   h3 {
     display: none;
   }
-
 }
 
-/* for screens less than 1050px wide (which is the point when the icons collide with the search bar and
+/* for screens less than 1120px wide (which is the point when the icons collide with the search bar and
 CSS issues start to occur and white space happens at the right side of the screen because the
 header's not condensing even though the rest of the page is) */
-@media (max-width: 1050px) {
+@media (max-width: 1120px) {
+  /* this hides all the icons in the header except the ones for the search bar */
   .hide-when-collides-with-search-bar {
     display: none;
   }
+}
+
+/* for screens more than 1121px wide show the hamburger menu when the icons get hidden */
+@media (min-width: 1121px) {
+  /* this means the hamburger menu icon is shown for anything below 1121px wide screens 
+    (BUT, the smaller search bar in the hamburger menu won't show up until the screen is even smaller (710px wide) */
+  .hamburger-menu-shown-when-icons-get-hidden {
+    display: none;
+  }
+}
+
+/* for screens smaller than 710px wide (which is the point when the hamburger menu icon collides with the
+ larger search bar), hide the larger search bar and replace it with the hamburger menu's smaller search bar */
+@media (max-width: 710px) {
   mat-form-field {
     width: 65%;
     margin-right: 10px;
     margin-left: 20px;
   }
-  .hide-search-bar-on-small-screens {
+  .hide-larger-search-bar-on-small-screens {
     display: none;
   }
 }
 
-/* for screens more than 1051px wide show the hamburger menu when the icons get hidden */
-@media (min-width: 1051px) {
-  .hamburger-menu-shown-when-icons-get-hidden {
+/* for screens larger than 711px wide, show the larger search bar and hide the hamburger menu's smaller search bar */
+@media (min-width: 711px) {
+  .hide-hamburger-smaller-search-bar {
     display: none;
   }
   mat-form-field {
