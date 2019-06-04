@@ -57,7 +57,7 @@ gets pushed to the row below the "Select Folder to View" mat-card */
   }
   /* for the table */
   .fixed-height-causes-scroll-bar {
-    height: 655px;
+    height: 650px;
     overflow: auto;
   }
 }
@@ -73,7 +73,7 @@ gets pushed to the row below the "Select Folder to View" mat-card */
   }
   /* for the table */
   .fixed-height-causes-scroll-bar {
-    height: 755px;
+    height: 750px;
     overflow: auto;
   }
 }

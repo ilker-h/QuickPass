@@ -16,6 +16,8 @@ export class FolderEditComponent implements OnInit {
   editMode = false; // differentiates between "edit" mode and "create new" mode
   folderForm: FormGroup;
   allFolders;
+  isSaveButtonClicked = false;
+  isCancelButtonClicked = false;
 
   constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router,
     private dataStorageInDBService: DataStorageInDBService) { }
@@ -65,8 +67,15 @@ export class FolderEditComponent implements OnInit {
       this.dataStorageInDBService.PUTFoldersIntoDB()
         .subscribe(
           // response => console.log(response)
+          () => {
+            // to give user a notification that the save was successful
+            if (this.isCancelButtonClicked !== true) {
+              this.isSaveButtonClicked = true;
+              setTimeout(() => { this.isSaveButtonClicked = false; }, 3000);
+            }
+            this.isCancelButtonClicked = false;
+          }
         );
-
     }
 
   }
@@ -86,11 +95,17 @@ export class FolderEditComponent implements OnInit {
 
 
   onCancel() {
+    // this is to fix the fact that when the Cancel button is clicked,
+    // the green "Saved!" notification happens (since this.initForm() is called),
+    // which is an unwanted behaviour
+    this.isCancelButtonClicked = true;
+
     if (this.editMode === true) {
       this.initForm();
     } else {
       this.router.navigate(['/folders']);
     }
+
   }
 
 
@@ -130,7 +145,7 @@ export class FolderEditComponent implements OnInit {
       // Checks if the folder name that was inputted is the same as a previously existing folder name,
       // because there should be no two identical folder names
       for (let i = 0; i < this.allFolders.length; i++) {
-        if ( ( this.allFolders[i].trim() === this.folderForm.value.name.trim() )  && (i !== this.id) ) {
+        if ((this.allFolders[i].trim() === this.folderForm.value.name.trim()) && (i !== this.id)) {
           numberOfDuplicates++;
         }
       }

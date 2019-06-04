@@ -140,6 +140,12 @@ export class ItemListComponent implements OnInit, OnDestroy {
   selection; // for table's checkboxes
   setupTable() {
     this.dataSource = new MatTableDataSource<Item>(this.items);
+
+    // This is to make the table sorted alphabetically by title at the very beginning.
+    // See more at https://www.reddit.com/r/Angular2/comments/8p4r7v/how_to_enable_sorting_on_a_table_by_default/
+    this.sort.direction = 'asc';
+    this.sort.active = 'title';
+
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.selection = new SelectionModel<Item>(true, []); // for  table's checkboxes
@@ -257,7 +263,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // so it turns from [{title: "folder1"}, {title: "folder2"}] to ["folder1", "folder2"]
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map( obj => { return obj.title; });
+    this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map(obj => { return obj.title; });
 
     this.folderNameToMoveTo = this.itemForm.value['folderMatchedTo'];
 
@@ -285,7 +291,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToDelete = this.selection.selected.map( obj => { return obj.title; });
+    this.stringArrayOfItemsToDelete = this.selection.selected.map(obj => { return obj.title; });
 
     // this loops through the string array of title properties
     for (let i of this.stringArrayOfItemsToDelete) {

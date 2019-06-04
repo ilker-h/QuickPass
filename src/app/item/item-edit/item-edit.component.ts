@@ -20,7 +20,8 @@ export class ItemEditComponent implements OnInit {
   hide = true; // for masking the password
   allItems;
   allFolders: Folder[];
-  isSaveSuccessful = false;
+  isSaveButtonClicked = false;
+  isCancelButtonClicked = false;
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
@@ -75,17 +76,16 @@ export class ItemEditComponent implements OnInit {
         .subscribe(
           // response => console.log(response)
           () => {
-            this.isSaveSuccessful = true;
-            setTimeout(this.turnOff, 5000);
-
+            // to give user a notification that the save was successful
+            if (this.isCancelButtonClicked !== true) {
+              this.isSaveButtonClicked = true;
+              setTimeout(() => { this.isSaveButtonClicked = false; }, 3000);
+            }
+            this.isCancelButtonClicked = false;
           }
         );
 
     }
-
-  }
-  turnOff() {
-    this.isSaveSuccessful = false;
 
   }
 
@@ -103,6 +103,11 @@ export class ItemEditComponent implements OnInit {
 
 
   onCancel() {
+    // this is to fix the fact that when the Cancel button is clicked,
+    // the green "Saved!" notification happens (since this.initForm() is called),
+    // which is an unwanted behaviour
+    this.isCancelButtonClicked = true;
+
     if (this.editMode === true) {
       this.initForm();
     } else {

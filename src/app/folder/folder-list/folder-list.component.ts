@@ -63,6 +63,12 @@ export class FolderListComponent implements OnInit, OnDestroy {
   selection; // for checkboxes
   setupTable() {
     this.dataSource = new MatTableDataSource<Folder>(this.folders); // added in <Folder> - should not cause bug
+
+    // This is to make the table sorted alphabetically by name at the very beginning.
+    // See more at https://www.reddit.com/r/Angular2/comments/8p4r7v/how_to_enable_sorting_on_a_table_by_default/
+    this.sort.direction = 'asc';
+    this.sort.active = 'name';
+
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.selection = new SelectionModel<Folder>(true, []); // for checkboxes
