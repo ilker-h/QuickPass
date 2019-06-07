@@ -28,7 +28,7 @@ table {
 }
 
 .fixed-height-causes-scroll-bar {
-  height: 795px;
+  height: 800px;
   overflow: auto;
 }
 
