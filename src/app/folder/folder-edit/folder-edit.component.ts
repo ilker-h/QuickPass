@@ -4,6 +4,9 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { FolderService } from 'src/app/folder/folder.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
+import { Folder } from '../folder.model';
+import { Item } from 'src/app/item/item.model';
+import { ItemService } from 'src/app/item/item.service';
 
 @Component({
   selector: 'app-folder-edit',
@@ -16,11 +19,13 @@ export class FolderEditComponent implements OnInit {
   editMode = false; // differentiates between "edit" mode and "create new" mode
   folderForm: FormGroup;
   allFolders;
+  allItems: Item[];
+  theFolderBeforeItAnyEditingHappens;
   isSaveButtonClicked = false;
   isCancelButtonClicked = false;
 
-  constructor(private route: ActivatedRoute, private folderService: FolderService, private router: Router,
-    private dataStorageInDBService: DataStorageInDBService) { }
+  constructor(private route: ActivatedRoute, private folderService: FolderService, private itemService: ItemService,
+    private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
 
 
   ngOnInit() {
@@ -33,8 +38,11 @@ export class FolderEditComponent implements OnInit {
           this.id = +params['id']; // add "folder" to this?
           this.editMode = params['id'] != null;
           this.initForm();
+          this.theFolderBeforeItAnyEditingHappens = this.folderForm.value;
         }
       );
+
+    this.allItems = this.itemService.getItems();
   }
 
 
@@ -72,6 +80,24 @@ export class FolderEditComponent implements OnInit {
             if (this.isCancelButtonClicked !== true) {
               this.isSaveButtonClicked = true;
               setTimeout(() => { this.isSaveButtonClicked = false; }, 3000);
+
+              // Once the folder's name is modified successfully in the DB, all of the items that used to be
+              // in the old folder need to be transferred to the newly modified folder
+              for (let i = 0; i < this.allItems.length; i++) {
+                if (this.allItems[i].folderMatchedTo === this.theFolderBeforeItAnyEditingHappens.name) {
+                  this.itemService.updateItemFolder(i, this.folderForm.value.name);
+                }
+              }
+
+              // now that the edit(s) has happened in the local array,
+              // this pushes the updated local array of data to the remote Firebase DB
+              this.dataStorageInDBService.PUTItemsIntoDB()
+                .subscribe();
+
+                // this updates the variables after any changes have been made
+              this.theFolderBeforeItAnyEditingHappens = this.folderForm.value;
+              this.allItems = this.itemService.getItems();
+
             }
             this.isCancelButtonClicked = false;
           }
@@ -124,6 +150,8 @@ export class FolderEditComponent implements OnInit {
       'name': new FormControl(folderName, Validators.required)
       // 'name': new FormControl(folderName, Validators.required) // if you want to add validators, this is the syntax
     });
+
+    // console.log(this.folderForm); // this is a useful object I can use later for things like error handling/validation and more
 
   }
 
