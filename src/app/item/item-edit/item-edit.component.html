@@ -52,7 +52,7 @@
                   the password and email fields. See more at: https://stackoverflow.com/questions/15738259/disabling-chrome-autofill -->
                 <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password"
                   autocomplete="new-password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                <button mat-icon-button matSuffix (click)="hide = !hide; onClickOfHidePasswordIcon()" [attr.aria-label]="'Hide password'"
                   [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>

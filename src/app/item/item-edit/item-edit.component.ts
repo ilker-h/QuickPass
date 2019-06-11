@@ -22,6 +22,7 @@ export class ItemEditComponent implements OnInit {
   allFolders: Folder[];
   isSaveButtonClicked = false;
   isCancelButtonClicked = false;
+  isHidePasswordIconClicked = false;
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
@@ -77,11 +78,12 @@ export class ItemEditComponent implements OnInit {
           // response => console.log(response)
           () => {
             // to give user a notification that the save was successful
-            if (this.isCancelButtonClicked !== true) {
+            if (this.isCancelButtonClicked !== true && this.isHidePasswordIconClicked !== true) {
               this.isSaveButtonClicked = true;
               setTimeout(() => { this.isSaveButtonClicked = false; }, 3000);
             }
             this.isCancelButtonClicked = false;
+            this.isHidePasswordIconClicked = false;
           }
         );
 
@@ -113,6 +115,12 @@ export class ItemEditComponent implements OnInit {
     } else {
       this.router.navigate(['/items']);
     }
+  }
+
+  onClickOfHidePasswordIcon() {
+    // this is to fix the fact that when the "Hide/Unhide icon" is clicked,
+    // the green "Saved!" notification happens (I'm not sure why), which is an unwanted behaviour
+    this.isHidePasswordIconClicked = true;
   }
 
 
