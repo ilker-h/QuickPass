@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
-import { ItemComponent } from './item/items.component';
+import { ItemComponent } from './item/item.component';
 import { ItemEditComponent } from './item/item-edit/item-edit.component';
 import { FolderComponent } from './folder/folder.component';
 import { FolderEditComponent } from './folder/folder-edit/folder-edit.component';

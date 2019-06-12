@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { FolderService } from 'src/app/folder/folder.service';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
-import { Folder } from '../folder.model';
 import { Item } from 'src/app/item/item.model';
 import { ItemService } from 'src/app/item/item.service';
 

@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logoutUser();
     this.router.navigate(['/', 'login']);
-    this.setTitle('QuickPass | Log In');
+    this.setTitle('Log In | QuickPass');
   }
 
 

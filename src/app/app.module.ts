@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemService } from './item/item.service';
 import { AppRoutingModule } from './app-routing.module';
-import { ItemComponent } from './item/items.component';
+import { ItemComponent } from './item/item.component';
 import { ItemEditComponent } from './item/item-edit/item-edit.component';
 import { FolderComponent } from './folder/folder.component';
 import { FolderService } from './folder/folder.service';
