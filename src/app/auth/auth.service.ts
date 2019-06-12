@@ -36,7 +36,7 @@ export class AuthService {
             .then(
                 (response) => {
                     this.router.navigate(['/items']); // this only redirects the user if the token was successful
-                    this.setTitle('QuickPass | Passwords');
+                    this.setTitle('Passwords | QuickPass');
                     this.emailOfLoggedInUser = response.user.email; // or firebase.auth().currentUser.email;
 
                     firebase.auth().currentUser.getIdToken()
@@ -60,7 +60,7 @@ export class AuthService {
         firebase.auth().signOut();
         this.token = null; // reset the token
         this.router.navigate(['/login']);
-        this.setTitle('QuickPass | Log In');
+        this.setTitle('Log In | QuickPass');
     }
 
 
