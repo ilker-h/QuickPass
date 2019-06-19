@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private authService: AuthService) { }
+    constructor(public authService: AuthService) { }
 
 
     // the whole point of this interceptor is to intercept the outgoing HTTP request
@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // "https://quickpass-4ed21.firebaseio.com/WHATEVER_NODE.json?auth=INSERT_TOKEN_HERE"
     // instead of having to constantly have to authenticate every HTTP request
     // by writing " '?auth=' + TOKEN " everytime you create a request somewhere in the application
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         // console.log('intercepted!', req);
         const copiedReq = req.clone(

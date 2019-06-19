@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { SearchService } from './search.service';
@@ -13,36 +13,29 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit {
   @Output() searchQueryEventEmitter = new EventEmitter<string>();
 
-  public location = '';
 
-  constructor(private typedSearchQuery: SearchService, private route: ActivatedRoute,
-    private router: Router, public authService: AuthService, private titleService: Title) {
-    this.location = router.url;
+  constructor(private typedSearchQuery: SearchService, private router: Router,
+    public authService: AuthService, public titleService: Title) {
   }
 
 
-  queryParam;
-  ngOnInit() {
-    // is this being used?
-    this.route.queryParams.subscribe(params => {
-      this.queryParam = params['0'];
-    });
+  public ngOnInit() {
   }
 
 
   // for Search Query functionality for Folders
-  onTypeFolderSearchQuery(folderSearchQuery: string) {
+  public onTypeFolderSearchQuery(folderSearchQuery: string) {
     this.typedSearchQuery.changeFolderSearchQuery(folderSearchQuery);
   }
 
 
   // for Search Query functionality for Items
-  onTypeSearchQueryItem(itemSearchQuery: string) {
+  public onTypeSearchQueryItem(itemSearchQuery: string) {
     this.typedSearchQuery.changeSearchQueryItem(itemSearchQuery);
   }
 
 
-  onLogout() {
+  public onLogout() {
     this.authService.logoutUser();
     this.router.navigate(['/', 'login']);
     this.setTitle('Log In | QuickPass');
@@ -53,14 +46,14 @@ export class HeaderComponent implements OnInit {
   // originally from the index.html file's <head> tag.
   // Documentation: https://angular.io/guide/set-document-title
   public setTitle(newTitle: string) {
-    this.titleService.setTitle( newTitle );
+    this.titleService.setTitle(newTitle);
   }
 
 
   // this lets the person click into the search bar when it's inside the hamburger menu without closing the menu
   // because by default, whenever you click somewhere inside the menu, it thinks you selected something and closes the menu
   // https://stackoverflow.com/questions/51645949/use-mat-input-while-mat-menu-is-opened-in-material2
-  stopPropagation(event) {
+  public stopPropagation(event) {
     event.stopPropagation();
   }
 

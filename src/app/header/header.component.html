@@ -54,13 +54,13 @@
           <!-- Search Icon -->
           <div *ngIf="router.url.includes('items')">
             <mat-icon class="icon hide-larger-search-bar-on-small-screens"
-              style="padding-left: 190px; margin-top: 15px;">
+              style="padding-left: 190px; margin-top: 15px; font-size: 35px">
               search</mat-icon>
           </div>
 
           <div *ngIf="router.url.includes('folders')">
             <mat-icon class="icon hide-larger-search-bar-on-small-screens"
-              style="padding-left: 190px; margin-top: 15px;">
+              style="padding-left: 190px; margin-top: 15px; font-size: 35px;">
               search
             </mat-icon>
           </div>
@@ -74,7 +74,7 @@
 
             <!-- Create New... -->
             <button mat-icon-button class="icon" matTooltip="Create New..." [matMenuTriggerFor]="menu">
-              <mat-icon class="icon">add_circle</mat-icon>
+              <mat-icon style="font-size: 35px">add_circle</mat-icon>
             </button>
 
             <mat-menu #menu="matMenu">
@@ -88,27 +88,27 @@
             <!-- Passwords -->
             <button mat-icon-button class="icon" matTooltip="Passwords" routerLink="/items"
               (click)="setTitle('Passwords | QuickPass')">
-              <mat-icon class="icon">vpn_key</mat-icon>
+              <mat-icon style="font-size: 35px">vpn_key</mat-icon>
             </button>
             <!-- /Passwords -->
 
             <!-- Folders -->
             <button mat-icon-button class="icon" matTooltip="Folders" routerLink="/folders"
               (click)="setTitle('Folders | QuickPass')">
-              <mat-icon class="icon">folder</mat-icon>
+              <mat-icon style="font-size: 35px">folder</mat-icon>
             </button>
             <!-- /Folders -->
 
             <!-- Settings -->
             <button mat-icon-button class="icon" matTooltip="Settings" routerLink="/settings"
               (click)="setTitle('Settings | QuickPass')">
-              <mat-icon class="icon">settings</mat-icon>
+              <mat-icon style="font-size: 35px">settings</mat-icon>
             </button>
             <!-- /Settings -->
 
             <!-- Log Out -->
             <button mat-icon-button class="icon" matTooltip="Log Out" (click)="onLogout();">
-              <mat-icon class="icon">power_settings_new</mat-icon>
+              <mat-icon style="font-size: 35px">power_settings_new</mat-icon>
             </button>
             <!-- /Log Out -->
           </div>
@@ -145,28 +145,28 @@
             <mat-menu #submenuToSearch="matMenu">
 
               <!-- Search Bar for item-list-component.ts - Search Query functionality -->
-              <!-- Only shows on a URl that contains 'items' -->
+              <!-- Only shows on a URL that contains 'items' -->
               <div class="container hide-hamburger-smaller-search-bar">
                 <div class="row">
                   <div *ngIf="router.url.includes('items')" (click)="stopPropagation($event)">
                     <mat-form-field>
                       <input matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;">search</mat-icon>
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px; font-size: 35px">search</mat-icon>
                   </div>
                 </div>
               </div>
               <!-- /Search Bar for item-list-component.ts - Search Query functionality -->
 
               <!-- Search Bar for folder-list-component.ts - Search Query functionality -->
-              <!-- Only shows on a URl that contains 'folders' -->
+              <!-- Only shows on a URL that contains 'folders' -->
               <div class="container hide-hamburger-smaller-search-bar">
                 <div class="row">
                   <div *ngIf="router.url.includes('folders')" (click)="stopPropagation($event)">
                     <mat-form-field>
                       <input matInput routerLink="/folders" (keyup)="onTypeFolderSearchQuery($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px;">search</mat-icon>
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px; font-size: 35px">search</mat-icon>
                   </div>
                 </div>
               </div>

@@ -5,20 +5,20 @@ export class SearchService {
     private searchItemQuerySource = new BehaviorSubject<string>('');
 
     // for searching folders:
-    currentFolderSearchQuery = this.FolderSearchQuerySource;
+    public currentFolderSearchQuery: any = this.FolderSearchQuerySource;
 
     // for searching items:
-    currentItemSearchQuery = this.searchItemQuerySource;
+    public currentItemSearchQuery: any = this.searchItemQuerySource;
 
 
     // for searching folders:
-    changeFolderSearchQuery(newFolderSearchQuery: string) {
+    public changeFolderSearchQuery(newFolderSearchQuery: string) {
         this.FolderSearchQuerySource.next(newFolderSearchQuery);
     }
 
 
     // for searching items:
-    changeSearchQueryItem(newSearchQueryItem: string) {
+    public changeSearchQueryItem(newSearchQueryItem: string) {
         this.searchItemQuerySource.next(newSearchQueryItem);
     }
 

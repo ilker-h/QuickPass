@@ -28,7 +28,7 @@ export class ItemService {
     // reference types, so if we just want to copy the original array and not overwrite it,
     // we can use .slice(). We can also use Object.assign({}, arrayToCopy).
     // See more info about this at https://academind.com/learn/javascript/reference-vs-primitive-values/
-    setItems(items: Item[]) {
+    public setItems(items: Item[]) {
         this.items = items;
         if (this.items !== null) {
             this.itemsChanged.next(this.items.slice());
@@ -36,21 +36,21 @@ export class ItemService {
     }
 
 
-    getItems() {
+    public getItems() {
         if (this.items !== null) {
             return this.items.slice();
         }
     }
 
 
-    getItem(index: number) {
+    public getItem(index: number) {
         if (this.items !== null) {
             return this.items[index];
         }
     }
 
 
-    addItem(item: Item) {
+    public addItem(item: Item) {
         this.items.push(item);
         if (this.items !== null) {
             this.itemsChanged.next(this.items.slice());
@@ -58,7 +58,7 @@ export class ItemService {
     }
 
 
-    updateItem(index: number, newItem: Item) {
+    public updateItem(index: number, newItem: Item) {
         this.items[index] = newItem;
         if (this.items !== null) {
             this.itemsChanged.next(this.items.slice());
@@ -66,7 +66,7 @@ export class ItemService {
     }
 
 
-    updateItemFolder(index: number, folderNameToMoveTo: Folder['name']) {
+    public updateItemFolder(index: number, folderNameToMoveTo: Folder['name']) {
         this.items[index].folderMatchedTo = folderNameToMoveTo;
         if (this.items !== null) {
             this.itemsChanged.next(this.items.slice());
@@ -74,7 +74,7 @@ export class ItemService {
     }
 
 
-    deleteItem(index: number) {
+    public deleteItem(index: number) {
         if (this.items !== null) {
             this.items.splice(index, 1);
             this.itemsChanged.next(this.items.slice());

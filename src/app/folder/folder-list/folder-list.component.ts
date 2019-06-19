@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { Subscription } from 'rxjs';
@@ -17,21 +17,23 @@ import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service'
 })
 export class FolderListComponent implements OnInit, OnDestroy {
 
-  folders: Folder[];
-  folderSubscription: Subscription;
-  folderSearchQuery: string; // for Search Query functionality
+  private allFolders: Folder[];
+  private folderSubscription: Subscription;
+  public folderSearchQuery: string; // for Search Bar functionality
 
   // for the table
-  displayedColumns: string[] = ['select', 'name'];
-  dataSource;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public displayedColumns: string[] = ['select', 'name'];
+  public dataSource: any;
+  public selection: any; // for checkboxes
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
 
-  constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute,
+
+  constructor(private folderService: FolderService, private router: Router,
     private typedFolderSearchQuery: SearchService, private dataStorageInDBService: DataStorageInDBService) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
 
     // gets the items and folders data from the Firebase DB - I think this is not needed anymore
     // since it's done in item-list.component.ts anyway
@@ -44,12 +46,12 @@ export class FolderListComponent implements OnInit, OnDestroy {
       .subscribe(
         (folders: Folder[]) => {
           // if the table values have been changed, do these things
-          this.folders = folders;
+          this.allFolders = folders;
           this.setupTable();
         }
       );
     // if the table values have been not been changed, do these things that are outside of the subscribe()
-    this.folders = this.folderService.getFolders();
+    this.allFolders = this.folderService.getFolders();
     this.setupTable();
 
     // for Search Query functionality (should be inside ngOnInit)
@@ -60,9 +62,8 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
 
-  selection; // for checkboxes
-  setupTable() {
-    this.dataSource = new MatTableDataSource<Folder>(this.folders); // added in <Folder> - should not cause bug
+  private setupTable() {
+    this.dataSource = new MatTableDataSource<Folder>(this.allFolders); // added in <Folder> - should not cause bug
 
     // This is to make the table sorted alphabetically by name at the very beginning.
     // See more at https://www.reddit.com/r/Angular2/comments/8p4r7v/how_to_enable_sorting_on_a_table_by_default/
@@ -75,14 +76,14 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
 
-  // The built-in Javascript .map() function lets you convert this.folders,
+  // The built-in Javascript .map() function lets you convert this.allFolders,
   // which is an array of JSON objects,
   // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
   // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
   // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-  findIndexOfFolderName(folderName: string) {
+  public findIndexOfFolderName(folderName: string) {
 
-    return this.folders.map(
+    return this.allFolders.map(
 
       obj => { return obj.name; }
 
@@ -93,7 +94,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   // for checkboxes
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  public isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     // console.log(this.selection); // this is useful for getting the values of the checkboxes
@@ -104,7 +105,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   // for checkboxes
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  public masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
@@ -114,7 +115,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
 
   // for checkboxes
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Folder): string {
+  public checkboxLabel(row?: Folder): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -122,17 +123,16 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
 
-  stringArrayOfFoldersToDelete;
-  onDeleteItems() {
+  public onDeleteItems() {
 
     // this.selection (and this.selection.selected) are useful because it returns an array of objects
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfFoldersToDelete = this.selection.selected.map(obj => { return obj.name; });
+    let stringArrayOfFoldersToDelete = this.selection.selected.map(obj => { return obj.name; });
 
     // this loops through the string array of title properties
-    for (let i of this.stringArrayOfFoldersToDelete) {
+    for (let i of stringArrayOfFoldersToDelete) {
       // this finds the index number of that specific title, and then deletes it
       this.folderService.deleteFolder(this.findIndexOfFolderName(i));
     }
@@ -159,7 +159,7 @@ export class FolderListComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // unsubscribes in order to avoid memory leaks
     this.folderSubscription.unsubscribe();
   }

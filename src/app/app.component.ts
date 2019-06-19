@@ -8,8 +8,7 @@ import * as firebase from 'firebase'; // import everything as 'firebase' alias
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'QuickPass';
-  loadedFeature = 'item';
+  public title = 'QuickPass';
 
 
   ngOnInit() {
@@ -24,9 +23,4 @@ export class AppComponent implements OnInit {
     });
   }
 
-
-  onNavigate(feature: string) {
-    this.loadedFeature = feature;
-  }
 }
-

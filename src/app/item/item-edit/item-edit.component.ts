@@ -6,6 +6,7 @@ import { ItemService } from '../item.service';
 import { FolderService } from '../../folder/folder.service';
 import { Folder } from 'src/app/folder/folder.model';
 import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service';
+import { Item } from '../item.model';
 
 @Component({
   selector: 'app-item-edit',
@@ -14,22 +15,22 @@ import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service'
 })
 export class ItemEditComponent implements OnInit {
 
-  id: number; // ID of the item
-  editMode = false; // differentiates between "edit" mode and "create new" mode
-  itemForm: FormGroup;
-  hide = true; // for masking the password
-  allItems;
-  allFolders: Folder[];
-  isSaveButtonClicked = false;
-  isCancelButtonClicked = false;
-  isHidePasswordIconClicked = false;
+  private id: number; // ID of the item
+  private editMode = false; // differentiates between "edit" mode and "create new" mode
+  public itemForm: FormGroup;
+  public hide = true; // for masking the password
+  private allItems: string[];
+  public allFolders: Folder[];
+  public isSaveButtonClicked = false;
+  private isCancelButtonClicked = false;
+  private isHidePasswordIconClicked = false;
 
   constructor(private route: ActivatedRoute, private itemService: ItemService,
     private folderService: FolderService, private router: Router,
     private dataStorageInDBService: DataStorageInDBService) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
 
     // for populating the Folder dropdown in the template
     this.allFolders = this.folderService.getFolders();
@@ -47,7 +48,7 @@ export class ItemEditComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  public onSubmit() {
 
     if (this.didTheUserEnterADuplicateTitle()) {
       return;
@@ -91,7 +92,7 @@ export class ItemEditComponent implements OnInit {
 
   }
 
-  onDelete() {
+  public onDelete() {
     this.itemService.deleteItem(this.id);
     this.router.navigate(['/items']);
 
@@ -104,7 +105,7 @@ export class ItemEditComponent implements OnInit {
   }
 
 
-  onCancel() {
+  public onCancel() {
     // this is to fix the fact that when the Cancel button is clicked,
     // the green "Saved!" notification happens (since this.initForm() is called),
     // which is an unwanted behaviour
@@ -117,7 +118,7 @@ export class ItemEditComponent implements OnInit {
     }
   }
 
-  onClickOfHidePasswordIcon() {
+  public onClickOfHidePasswordIcon() {
     // this is to fix the fact that when the "Hide/Unhide icon" is clicked,
     // the green "Saved!" notification happens (I'm not sure why), which is an unwanted behaviour
     this.isHidePasswordIconClicked = true;
@@ -163,7 +164,7 @@ export class ItemEditComponent implements OnInit {
 
 
   // Note: I think I can simplify this code because it's a little repetitive
-  didTheUserEnterADuplicateTitle() {
+  private didTheUserEnterADuplicateTitle() {
 
     // If you're in edit mode, there can be 1 duplicate title (which is the item you're currently on).
     // If you're not in edit mode (like when creating a new item), there can be no title duplicates.

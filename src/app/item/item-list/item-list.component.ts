@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -23,25 +23,27 @@ import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service'
 })
 export class ItemListComponent implements OnInit, OnDestroy {
 
-  items: Item[]; // turn this into allItems?
-  itemSubscription: Subscription;
-  folderSubscription: Subscription;
-  itemSearchQuery: string; // for Search Query functionality
-  allFolders: Folder[];
-  itemForm: FormGroup;
-  selectedValue: any;
+  private allItems: Item[];
+  public allFolders: Folder[];
+  private itemSubscription: Subscription;
+  private folderSubscription: Subscription;
+  public itemSearchQuery: string; // for Search Bar functionality
+  public itemForm: FormGroup;
+  public selectedValue: any;
 
   // for the table
-  displayedColumns: string[] = ['select', 'title', 'username'];
-  dataSource;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public displayedColumns: string[] = ['select', 'title', 'username'];
+  public dataSource: any;
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+  public selection: any; // for table's checkboxes
 
   constructor(private itemService: ItemService, private folderService: FolderService,
-    private router: Router, private route: ActivatedRoute, private typedItemSearchQuery: SearchService,
+    private router: Router, private typedItemSearchQuery: SearchService,
     private dataStorageInDBService: DataStorageInDBService, private httpClient: HttpClient) { }
 
-  ngOnInit() {
+
+  public ngOnInit() {
 
     this.initializeFirebaseDBAndFrontendTables();
 
@@ -51,14 +53,14 @@ export class ItemListComponent implements OnInit, OnDestroy {
       .subscribe(
         (items: Item[]) => {
           // if the table values have been changed, do these things
-          this.items = items;
+          this.allItems = items;
           this.setupTable();
           this.initForm();
         }
       );
 
     // if the table values have been not been changed, do these things that are outside of the subscribe()
-    this.items = this.itemService.getItems();
+    this.allItems = this.itemService.getItems();
     this.setupTable();
     this.initForm();
 
@@ -83,7 +85,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  initializeFirebaseDBAndFrontendTables() {
+  private initializeFirebaseDBAndFrontendTables() {
 
     let userID = firebase.auth().currentUser.uid;
 
@@ -137,9 +139,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  selection; // for table's checkboxes
-  setupTable() {
-    this.dataSource = new MatTableDataSource<Item>(this.items);
+  private setupTable() {
+    this.dataSource = new MatTableDataSource<Item>(this.allItems);
 
     // This is to make the table sorted alphabetically by title at the very beginning.
     // See more at https://www.reddit.com/r/Angular2/comments/8p4r7v/how_to_enable_sorting_on_a_table_by_default/
@@ -152,14 +153,14 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  // The built-in Javascript .map() function lets you convert this.items,
+  // The built-in Javascript .map() function lets you convert this.allItems,
   // which is an array of JSON objects,
   // to an array of properties. So it turns [{num: '1'}, {num: '2'}] to ['1', '2'].
   // The .indexOf(), or .findIndex(), then lets you find out the index of that property.
   // The solution is on https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-  findIndexOfItemTitle(itemTitle: string) {
+  public findIndexOfItemTitle(itemTitle: string) {
 
-    return this.items.map(
+    return this.allItems.map(
 
       obj => { return obj.title; }
 
@@ -169,7 +170,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
 
   // Whether the number of selected elements matches the total number of rows
-  isAllSelected() {
+  public isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     // console.log(this.selection); // this is useful for getting the values of the checkboxes
@@ -179,7 +180,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
 
   // Selects all rows if they are not all selected; otherwise clear selection
-  masterToggle() {
+  public masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
@@ -188,7 +189,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
 
   // The label for the checkbox on the passed row
-  checkboxLabel(row?: Item): string {
+  public checkboxLabel(row?: Item): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -203,17 +204,14 @@ export class ItemListComponent implements OnInit, OnDestroy {
     this.itemForm = new FormGroup({
       // these are from ItemService
       'folderMatchedTo': new FormControl(itemFolderMatchedTo),
-      'All': new FormControl() // I don't know if this is being used
     });
 
   }
 
 
-  folderNameToFilterBy;
-  allItems;
-  indicesOfArraysThatContainFolderNameToFilterBy: number[] = [];
-  itemsInFolderNameToFilterBy: Item[] = [];
-  onFilterByFolder() {
+  public onFilterByFolder() {
+    let indicesOfArraysThatContainFolderNameToFilterBy: number[] = [];
+    let itemsInFolderNameToFilterBy: Item[] = [];
 
     if (this.itemForm.value['folderMatchedTo'] === 'All') {
       this.setupTable();
@@ -221,56 +219,55 @@ export class ItemListComponent implements OnInit, OnDestroy {
     } else {
 
       // initialize arrays
-      this.indicesOfArraysThatContainFolderNameToFilterBy = [];
-      this.itemsInFolderNameToFilterBy = [];
+      indicesOfArraysThatContainFolderNameToFilterBy = [];
+      itemsInFolderNameToFilterBy = [];
 
 
       // stores the dropdown Folder Name that was selected
-      this.folderNameToFilterBy = this.itemForm.value['folderMatchedTo'];
+      let folderNameToFilterBy = this.itemForm.value['folderMatchedTo'];
 
       // get all items in the form of an array of objects then map() it into an array of values (of type string)
       // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
-      this.allItems = this.itemService.getItems().map(
+      let allItemsInItemsArray = this.itemService.getItems().map(
         (obj) => { return obj.folderMatchedTo; }
       );
 
       // Gets all indices of the values in an array
       // https://stackoverflow.com/questions/20798477/how-to-find-index-of-all-occurrences-of-element-in-array
-      for (let i = 0; i < this.allItems.length; i++) {
-        if (this.allItems[i] === this.folderNameToFilterBy) {
-          this.indicesOfArraysThatContainFolderNameToFilterBy.push(i);
+      for (let i = 0; i < allItemsInItemsArray.length; i++) {
+        if (allItemsInItemsArray[i] === folderNameToFilterBy) {
+          indicesOfArraysThatContainFolderNameToFilterBy.push(i);
         }
       }
 
       // convert indices to an array of only Items that reside in the Folder that was selected
-      for (let i of this.indicesOfArraysThatContainFolderNameToFilterBy) {
-        this.itemsInFolderNameToFilterBy.push(this.itemService.getItem(i));
+      for (let i of indicesOfArraysThatContainFolderNameToFilterBy) {
+        itemsInFolderNameToFilterBy.push(this.itemService.getItem(i));
       }
 
       // fill up the table with Items that reside in the Folder that was selected
-      this.dataSource = new MatTableDataSource<Item>(this.itemsInFolderNameToFilterBy);
+      this.dataSource = new MatTableDataSource<Item>(itemsInFolderNameToFilterBy);
       this.router.navigate(['/items']);
 
     }
   }
 
-  stringArrayOfItemsToMoveToFolder;
-  folderNameToMoveTo;
-  onMoveToFolder() {
+
+  public onMoveToFolder() {
 
     // this.selection (and this.selection.selected) are useful because it returns an array of objects
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // so it turns from [{title: "folder1"}, {title: "folder2"}] to ["folder1", "folder2"]
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToMoveToFolder = this.selection.selected.map(obj => { return obj.title; });
+    let stringArrayOfItemsToMoveToFolder = this.selection.selected.map(obj => { return obj.title; });
 
-    this.folderNameToMoveTo = this.itemForm.value['folderMatchedTo'];
+    let folderNameToMoveTo = this.itemForm.value['folderMatchedTo'];
 
     // this loops through the string array of title properties
-    for (let i of this.stringArrayOfItemsToMoveToFolder) {
+    for (let i of stringArrayOfItemsToMoveToFolder) {
       // this finds the index number of that specific title, and then deletes it
-      this.itemService.updateItemFolder(this.findIndexOfItemTitle(i), this.folderNameToMoveTo);
+      this.itemService.updateItemFolder(this.findIndexOfItemTitle(i), folderNameToMoveTo);
     }
     this.router.navigate(['/items']);
 
@@ -284,17 +281,16 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  stringArrayOfItemsToDelete;
-  onDeleteItems() {
+  public onDeleteItems() {
 
     // this.selection (and this.selection.selected) are useful because it returns an array of objects
     // that represents what checkboxes have been selected.
     // Then, using .map() on that array of objects turns it into a string array of title properties.
     // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
-    this.stringArrayOfItemsToDelete = this.selection.selected.map(obj => { return obj.title; });
+    let stringArrayOfItemsToDelete = this.selection.selected.map(obj => { return obj.title; });
 
     // this loops through the string array of title properties
-    for (let i of this.stringArrayOfItemsToDelete) {
+    for (let i of stringArrayOfItemsToDelete) {
       // this finds the index number of that specific title, and then deletes it
       this.itemService.deleteItem(this.findIndexOfItemTitle(i));
     }
@@ -322,7 +318,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // unsubscribes in order to avoid memory leaks
     this.itemSubscription.unsubscribe();
     this.folderSubscription.unsubscribe();

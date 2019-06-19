@@ -14,20 +14,20 @@ import { ItemService } from 'src/app/item/item.service';
 })
 export class FolderEditComponent implements OnInit {
 
-  id: number; // ID of the folder
-  editMode = false; // differentiates between "edit" mode and "create new" mode
-  folderForm: FormGroup;
-  allFolders;
-  allItems: Item[];
-  theFolderBeforeItAnyEditingHappens;
-  isSaveButtonClicked = false;
-  isCancelButtonClicked = false;
+  private id: number; // ID of the folder
+  private editMode = false; // differentiates between "edit" mode and "create new" mode
+  public folderForm: FormGroup;
+  private allFolderNames: string[];
+  private allItems: Item[];
+  private theFolderBeforeItAnyEditingHappens: FormGroup['value'];
+  public isSaveButtonClicked = false;
+  private isCancelButtonClicked = false;
 
   constructor(private route: ActivatedRoute, private folderService: FolderService, private itemService: ItemService,
     private router: Router, private dataStorageInDBService: DataStorageInDBService) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
 
     // subscribes to the route's "params" observable and then saves the id
     // (the "+" turns the string into a number)
@@ -45,7 +45,7 @@ export class FolderEditComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  public onSubmit() {
 
     if (this.didTheUserEnterADuplicateFolderName()) {
       return;
@@ -106,7 +106,7 @@ export class FolderEditComponent implements OnInit {
   }
 
 
-  onDelete() {
+  public onDelete() {
     this.folderService.deleteFolder(this.id);
     this.router.navigate(['/folders']);
 
@@ -119,7 +119,7 @@ export class FolderEditComponent implements OnInit {
   }
 
 
-  onCancel() {
+  public onCancel() {
     // this is to fix the fact that when the Cancel button is clicked,
     // the green "Saved!" notification happens (since this.initForm() is called),
     // which is an unwanted behaviour
@@ -156,7 +156,7 @@ export class FolderEditComponent implements OnInit {
 
 
   // Note: I think I can simplify this code because it's a little repetitive
-  didTheUserEnterADuplicateFolderName() {
+  private didTheUserEnterADuplicateFolderName() {
 
     // If you're in edit mode, there can be 1 duplicate folder name (which is the folder you're currently on).
     // If you're not in edit mode (like when creating a new folder), there can be no folder name duplicates.
@@ -164,15 +164,15 @@ export class FolderEditComponent implements OnInit {
       // get all folders in the form of an array of objects then map() it into an array of values (of type string)
       // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
       // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
-      this.allFolders = this.folderService.getFolders().map(
+      this.allFolderNames = this.folderService.getFolders().map(
         (obj) => { return obj.name; }
       );
 
       let numberOfDuplicates = 0;
       // Checks if the folder name that was inputted is the same as a previously existing folder name,
       // because there should be no two identical folder names
-      for (let i = 0; i < this.allFolders.length; i++) {
-        if ((this.allFolders[i].trim() === this.folderForm.value.name.trim()) && (i !== this.id)) {
+      for (let i = 0; i < this.allFolderNames.length; i++) {
+        if (( this.allFolderNames[i].trim() === this.folderForm.value.name.trim() ) && (i !== this.id)) {
           numberOfDuplicates++;
         }
       }
@@ -186,15 +186,15 @@ export class FolderEditComponent implements OnInit {
       // get all folders in the form of an array of objects then map() it into an array of values (of type string)
       // From https://stackoverflow.com/questions/34309090/convert-array-of-objects-into-array-of-properties
       // so it turns from [{folderMatchedTo: "folder1"}, {folderMatchedTo: "folder2"}] to ["folder1", "folder2"]
-      this.allFolders = this.folderService.getFolders().map(
+      this.allFolderNames = this.folderService.getFolders().map(
         (obj) => { return obj.name; }
       );
 
       let numberOfDuplicates = 0;
       // Checks if the folder name that was inputted is the same as a previously existing folder name,
       // because there should be no two identical folder names
-      for (let i = 0; i < this.allFolders.length; i++) {
-        if (this.allFolders[i].trim() === this.folderForm.value.name.trim()) {
+      for (let i = 0; i < this.allFolderNames.length; i++) {
+        if ( this.allFolderNames[i].trim() === this.folderForm.value.name.trim() ) {
           numberOfDuplicates++;
         }
       }

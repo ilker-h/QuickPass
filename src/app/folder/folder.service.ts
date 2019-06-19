@@ -24,7 +24,7 @@ export class FolderService {
     // reference types, so if we just want to copy the original array and not overwrite it,
     // we can use .slice(). We can also use Object.assign({}, arrayToCopy).
     // See more info about this at https://academind.com/learn/javascript/reference-vs-primitive-values/
-    setFolders(folders: Folder[]) {
+    public setFolders(folders: Folder[]) {
         this.folders = folders;
         if (this.folders !== null) {
             this.foldersChanged.next(this.folders.slice());
@@ -32,28 +32,28 @@ export class FolderService {
     }
 
 
-    getFolders() {
+    public getFolders() {
         if (this.folders !== null) {
             return this.folders.slice();
         }
     }
 
 
-    getFolderName(index: number) {
+    public getFolderName(index: number) {
         if (this.folders !== null) {
             return this.folders[index].name;
         }
     }
 
 
-    getFolder(index: number) {
+    public getFolder(index: number) {
         if (this.folders !== null) {
             return this.folders[index];
         }
     }
 
 
-    addFolder(folder: Folder) {
+    public addFolder(folder: Folder) {
         this.folders.push(folder);
         if (this.folders !== null) {
             this.foldersChanged.next(this.folders.slice());
@@ -61,7 +61,7 @@ export class FolderService {
     }
 
 
-    updateFolder(index: number, newFolder: Folder) {
+    public updateFolder(index: number, newFolder: Folder) {
         this.folders[index] = newFolder;
         if (this.folders !== null) {
             this.foldersChanged.next(this.folders.slice());
@@ -69,7 +69,7 @@ export class FolderService {
     }
 
 
-    updateFolderName(index: number, newFolderName: Folder['name']) {
+    public updateFolderName(index: number, newFolderName: Folder['name']) {
         this.folders[index].name = newFolderName;
         if (this.folders !== null) {
             this.foldersChanged.next(this.folders.slice());
@@ -77,7 +77,7 @@ export class FolderService {
     }
 
 
-    deleteFolder(index: number) {
+    public deleteFolder(index: number) {
         if (this.folders !== null) {
             this.folders.splice(index, 1);
             this.foldersChanged.next(this.folders.slice());

@@ -22,7 +22,7 @@ export class DataStorageInDBService {
     //     this.dataStorageInDBService.PUTItemsIntoDB(), I must also apply something like
     //  .subscribe( response => console.log(response) ) on it. (But no need to unsubscribe from it because
     // angular takes care of that for us in these pre-built cases like with HTTP GET).
-    PUTItemsIntoDB() {
+    public PUTItemsIntoDB() {
 
         // getting the current user's id/"User UID",
         // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
@@ -35,7 +35,7 @@ export class DataStorageInDBService {
     // by default, the get() method returns the body of the response. If you want another part of the
     // response, like the header, you'd have to configure it more.
     // Also, the get() method already turns the JSON into JavaScript so you don't need to do .json() to transform it anymore
-    GETItemsFromDB() {
+    public GETItemsFromDB() {
 
         // getting the current user's id/"User UID",
         // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
@@ -71,7 +71,7 @@ export class DataStorageInDBService {
     //     this.dataStorageInDBService.PUTFoldersIntoDB(), I must also apply something like
     //  .subscribe( response => console.log(response) ) on it. (But no need to unsubscribe from it because
     // angular takes care of that for us in these pre-built cases like with HTTP GET).
-    PUTFoldersIntoDB() {
+    public PUTFoldersIntoDB() {
 
         // getting the current user's id/"User UID",
         // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
@@ -84,7 +84,7 @@ export class DataStorageInDBService {
     // by default, the get() method returns the body of the response. If you want another part of the
     // response, like the header, you'd have to configure it more.
     // Also, the get() method already turns the JSON into JavaScript so you don't need to do .json() to transform it anymore
-    GETFoldersFromDB() {
+    public GETFoldersFromDB() {
 
         // getting the current user's id/"User UID",
         // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
@@ -125,7 +125,8 @@ export class DataStorageInDBService {
 
     // _____________________________ Delete the user's entire node (and the data nested in it) from Firebase DB ____________________________
 
-    DELETEAllOfThisUsersDataFromDB() {
+
+    public DELETEAllOfThisUsersDataFromDB() {
         // getting the current user's id/"User UID",
         // from https://stackoverflow.com/questions/30910704/how-do-i-link-each-user-to-their-data-in-firebase
         let userID = firebase.auth().currentUser.uid;

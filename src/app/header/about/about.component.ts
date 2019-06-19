@@ -8,10 +8,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(public titleService: Title) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 

@@ -11,14 +11,14 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(public authService: AuthService, private titleService: Title) { }
+  constructor(public authService: AuthService, public titleService: Title) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 
-  onSignup(form: NgForm) {
+  public onSignup(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.signupUser(email, password);

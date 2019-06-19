@@ -9,28 +9,28 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  areYouSure = false;
+  public areYouSure = false;
 
   constructor(private dataStorageInDBService: DataStorageInDBService, private authService: AuthService) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 
-  onDeleteAccount() {
+  public onDeleteAccount() {
     this.areYouSure = true;
   }
 
 
-  onDeleteAccountYesIAmSure() {
+  public onDeleteAccountYesIAmSure() {
     this.dataStorageInDBService.DELETEAllOfThisUsersDataFromDB();
     this.authService.deleteAccount();
     this.authService.logoutUser();
   }
 
 
-  getEmailOfLoggedInUser() {
+  public getEmailOfLoggedInUser() {
     return this.authService.emailOfLoggedInUser;
   }
 

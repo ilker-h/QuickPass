@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { AuthService } from '../auth.service';
@@ -12,14 +11,14 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router, private titleService: Title) { }
+  constructor(public authService: AuthService, public titleService: Title) { }
 
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 
-  onLogin(form: NgForm) {
+  public onLogin(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.loginUser(email, password);

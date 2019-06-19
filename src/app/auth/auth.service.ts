@@ -6,13 +6,13 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
-    token: string;
-    emailOfLoggedInUser: string;
+    public token: string;
+    public emailOfLoggedInUser: string;
 
-    constructor(private router: Router, private titleService: Title) { }
+    constructor(private router: Router, public titleService: Title) { }
 
 
-    signupUser(email: string, password: string) {
+    public signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(
                 (response) => {
@@ -31,7 +31,7 @@ export class AuthService {
     }
 
 
-    loginUser(email: string, password: string) {
+    public loginUser(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(
                 (response) => {
@@ -56,7 +56,7 @@ export class AuthService {
     }
 
 
-    logoutUser() {
+    public logoutUser() {
         firebase.auth().signOut();
         this.token = null; // reset the token
         this.router.navigate(['/login']);
@@ -64,7 +64,7 @@ export class AuthService {
     }
 
 
-    getToken() {
+    public getToken() {
         firebase.auth().currentUser.getIdToken()
             .then(
                 (token: string) => this.token = token
@@ -73,16 +73,16 @@ export class AuthService {
     }
 
 
-    isAuthenticated() {
+    public isAuthenticated() {
         // Checks if the token is valid/not expired, meaning you're authenticated.
         // Returns true if the token is valid.
         return this.token != null;
     }
 
 
-    deleteAccount() {
+    public deleteAccount() {
         firebase.auth().currentUser.delete()
-            .catch(error => { } )
+            .catch(error => { })
             .then(() => alert('Your account was successfully deleted.'));
     }
 
