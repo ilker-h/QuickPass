@@ -1,13 +1,10 @@
 .icon {
-  margin-bottom: -0.6%;
-  cursor: pointer;
+  margin-bottom: -0.6%; /* I think this is not being used */
   margin-right: 40px;
 }
 
 .hamburger-menu-icon {
-  margin-bottom: 0.3%;
-  cursor: pointer;
-  font-size: 35px;
+  margin-bottom: 0.3%; /* I think this is not being used */
   margin: 0 10px;
 }
 

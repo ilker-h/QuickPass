@@ -1,3 +1,11 @@
 /node_modules
 /dist
+
+#this one does not get ignored for some reason:
 /.firebase
+
+*.log
+
+#orig files come from merge conflicts and can be deleted once the merge conflict is resolved.
+#See "Lecture 33: Conflict Resolution" at 4:30, https://www.udemy.com/github-ultimate/learn/lecture/4731806#overview
+*.orig
