@@ -53,13 +53,15 @@ mat-form-field {
 
 /* only applies at the moment AFTER the "Move to Folder" mat-card
 gets pushed to the row below the "Select Folder to View" mat-card */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .move-to-folder {
     margin-top: 20px;
   }
   /* for the table */
   .fixed-height-causes-scroll-bar {
-    height: 655px;
+    /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the "view folder"
+    or Toolbar sections or the website header */
+    height: calc(100vh - 304px);
     overflow: auto;
   }
 }
@@ -75,7 +77,9 @@ gets pushed to the row below the "Select Folder to View" mat-card */
   }
   /* for the table */
   .fixed-height-causes-scroll-bar {
-    height: 755px;
+    /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the "view folder"
+    or Toolbar sections or the website header */
+    height: calc(100vh - 204px);
     overflow: auto;
   }
 }
@@ -147,7 +151,7 @@ td {
 
 /* ______________________________________________________ */
 
-/* Note: at 767px and below, the whole right side of the page (the "edit item" area)
+/* Note: at 767px (768px is tablet widths, this comes from the md bootrap class) and below, the whole right side of the page (the "edit item" area)
  moves below the left side of the page (the table). So this information is useful for adding @media queries like:
 
  @media (max-width: 767px) {

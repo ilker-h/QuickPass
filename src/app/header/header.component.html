@@ -54,13 +54,13 @@
           <!-- Search Icon -->
           <div *ngIf="router.url.includes('items')">
             <mat-icon class="icon hide-larger-search-bar-on-small-screens"
-              style="padding-left: 190px; margin-top: 15px; font-size: 35px; cursor: pointer">
+              style="padding-left: 190px; margin-top: 8px; font-size: 35px; cursor: pointer">
               search</mat-icon>
           </div>
 
           <div *ngIf="router.url.includes('folders')">
             <mat-icon class="icon hide-larger-search-bar-on-small-screens"
-              style="padding-left: 190px; margin-top: 15px; font-size: 35px; cursor: pointer">
+              style="padding-left: 190px; margin-top: 8px; font-size: 35px; cursor: pointer">
               search
             </mat-icon>
           </div>
@@ -154,7 +154,7 @@
                     <mat-form-field>
                       <input matInput routerLink="/items" (keyup)="onTypeSearchQueryItem($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px; font-size: 35px; cursor: pointer">search
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -13px; font-size: 35px; cursor: pointer">search
                     </mat-icon>
                   </div>
                 </div>
@@ -169,7 +169,7 @@
                     <mat-form-field>
                       <input matInput routerLink="/folders" (keyup)="onTypeFolderSearchQuery($event.target.value)">
                     </mat-form-field>
-                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -5px; font-size: 35px; cursor: pointer">search
+                    <mat-icon class="icon" style="vertical-align: middle; margin-top: -13px; font-size: 35px; cursor: pointer">search
                     </mat-icon>
                   </div>
                 </div>

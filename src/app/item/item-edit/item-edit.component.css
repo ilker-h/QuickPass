@@ -23,13 +23,22 @@ gets pushed to the row below the "Item-List" table on the left side of the page 
 
 mat-card {
   max-width: 100%;
-  height: 855px;
+  /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the form's padding or the website header */
+  height: calc(100vh - 104px);
   text-align: left;
 }
 
 .inner-div {
   margin: 0px auto;
   width: 85%;
+  position: relative;
+}
+
+.textarea-takes-up-any-remaining-height-after-all-other-inputs-have-taken-up-their-space {
+  margin: 0px auto;
+  /* the 700px represents all the other vertical space that is taken up by the rest of the inputs and the header. 
+  So the textarea input essentially contracts/expands to fit the rest of the screen's remaining height */
+  height: calc(100vh - 700px);
   position: relative;
 }
 
@@ -55,7 +64,8 @@ I made this because the cancel button goes onto the next row on small mobile scr
     margin: auto;
   }
   mat-card {
-    height: 915px;
+  /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the form's padding or the website header */
+    height: calc(100vh - 44px);
   }
   .cancel-button-larger-screens {
     display: none;
@@ -98,7 +108,7 @@ And then add this to the Save button: [disabled]="!itemForm.valid"
 
 /* ______________________________________________________ */
 
-/* Note: at 767px and below, the whole right side of the page (the "edit item" area)
+/* Note: at 767px (768px is tablet widths, this comes from the md bootrap class) and below, the whole right side of the page (the "edit item" area)
  moves below the left side of the page (the table). So this information is useful for adding @media queries like:
 
  @media (max-width: 767px) {

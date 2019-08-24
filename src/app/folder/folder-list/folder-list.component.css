@@ -28,7 +28,8 @@ table {
 }
 
 .fixed-height-causes-scroll-bar {
-  height: 800px;
+  /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the Toolbar or the website header */
+  height: calc(100vh - 160px);
   overflow: auto;
 }
 
@@ -70,7 +71,7 @@ td {
 
 /* ______________________________________________________ */
 
-/* Note: at 767px and below, the whole right side of the page (the "edit folder" area)
+/* Note: at 767px (768px is tablet widths, this comes from the md bootrap class) and below, the whole right side of the page (the "edit folder" area)
  moves below the left side of the page (the table). So this information is useful for adding @media queries like:
 
  @media (max-width: 767px) {

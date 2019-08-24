@@ -38,6 +38,8 @@ import {
     MatMenuModule,
     MatChipsModule],
 
+    // I don't think I need to put the same things in "exports" as I did "imports" because in Max's MEAN course,
+    // where he uses Angular Material, he doesn't even have an "exports" section
   exports: [
     MatButtonModule,
     MatCheckboxModule,

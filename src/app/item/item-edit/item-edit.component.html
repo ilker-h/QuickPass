@@ -52,8 +52,8 @@
                   the password and email fields. See more at: https://stackoverflow.com/questions/15738259/disabling-chrome-autofill -->
                 <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password"
                   autocomplete="new-password">
-                <button mat-icon-button matSuffix (click)="hide = !hide; onClickOfHidePasswordIcon()" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
+                <button mat-icon-button matSuffix (click)="hide = !hide; onClickOfHidePasswordIcon()"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
               </mat-form-field>
@@ -82,7 +82,9 @@
             <div class="row">
               <mat-form-field class="full-width">
                 <mat-label for="notes">Notes</mat-label>
-                <textarea matInput type="text" id="notes" formControlName="notes" cols="1" rows="14"></textarea>
+                <textarea
+                  class="textarea-takes-up-any-remaining-height-after-all-other-inputs-have-taken-up-their-space"
+                  matInput type="text" id="notes" formControlName="notes" cols="1"></textarea>
               </mat-form-field>
             </div>
             <!-- Notes field -->

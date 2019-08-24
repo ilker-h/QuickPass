@@ -1,5 +1,8 @@
+import { Injectable } from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs';
 
+@Injectable()
 export class SearchService {
     private FolderSearchQuerySource = new BehaviorSubject<string>('');
     private searchItemQuerySource = new BehaviorSubject<string>('');

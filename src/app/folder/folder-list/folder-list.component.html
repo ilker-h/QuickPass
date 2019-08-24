@@ -9,6 +9,7 @@
       [disabled]="this.selection.selected.length === 0">Delete</button>
     <!-- /Toolbar -->
 
+    <!-- table - list of folders -->
     <div class="mat-elevation-z4" style="margin-top: 20px; margin-bottom: 20px;">
       <div class="fixed-height-causes-scroll-bar">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -51,6 +52,7 @@
 
       <mat-paginator hidden [pageSizeOptions]="[50, 100, 300]" showFirstLastButtons></mat-paginator>
     </div>
+    <!-- /table - list of folders -->
 
   </div>
 </div>
