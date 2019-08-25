@@ -21,17 +21,30 @@ gets pushed to the row below the "Folder-List" table on the left side of the pag
   }
 }
 
+
 /* For the table ________________________________________*/
 
 table {
   width: 100%;
 }
 
-.fixed-height-causes-scroll-bar {
-  /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the Toolbar or the website header */
-  height: calc(100vh - 160px);
-  overflow: auto;
-}
+  @media (min-height: 325px) {
+    .fixed-height-causes-scroll-bar {
+      /* this means 100% of the screen's height minus anything else that takes up a fixed height, like the Toolbar or the website header */
+      height: calc(100vh - 160px);
+      overflow: auto;
+    }
+  }
+
+  /* The minimum height for the Folder-List table to end at the same place that the Folder-Edit form ends is 162px
+  so if the device's screen height is 325px or less, make the table's height a fixed 162px instead of a
+  percentage of the viewport height */
+  @media (max-height: 325px) {
+    .fixed-height-causes-scroll-bar {
+      height: 162px;
+      overflow: auto;
+    }
+  }
 
 .th-checkbox-padding {
   width: 64;

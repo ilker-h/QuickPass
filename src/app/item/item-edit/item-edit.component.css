@@ -81,6 +81,21 @@ I made this because the cancel button goes onto the next row on small mobile scr
   }
 }
 
+/* The minimum height for the Item-Edit form is 620px so if the device's screen height 
+is 725px or less, make the form's height a fixed 620px instead of a percentage of the viewport height.
+And make the textarea height a fixed 25px instead of a percentage of the viewport height so that its first
+row is always visible */
+@media (max-height: 725px) {
+  mat-card {
+    height: 620px;
+  }
+  .textarea-takes-up-any-remaining-height-after-all-other-inputs-have-taken-up-their-space {
+    height: 25px;
+  }
+}
+
+
+
 .folder-icon {
   font-size: 50px;
   padding-top: 25px;

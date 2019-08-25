@@ -64,6 +64,16 @@ gets pushed to the row below the "Select Folder to View" mat-card */
     height: calc(100vh - 304px);
     overflow: auto;
   }
+
+  /* The minimum height for the Item-List table to end at the same place that the Item-Edit form ends is 420px
+  so if the device's screen height is 725px or less, make the table's height a fixed 420px instead of a
+  percentage of the viewport height */
+  @media (max-height: 725px) {
+    .fixed-height-causes-scroll-bar {
+      height: 420px;
+    }
+  }
+
 }
 
 /* only applies BEFORE the moment when the "Move to Folder" mat-card
@@ -81,6 +91,15 @@ gets pushed to the row below the "Select Folder to View" mat-card */
     or Toolbar sections or the website header */
     height: calc(100vh - 204px);
     overflow: auto;
+  }
+
+  /* The minimum height for the Item-List table to end at the same place that the Item-Edit form ends is 520px
+  so if the device's screen height is 725px or less, make the table's height a fixed 420px instead of a
+  percentage of the viewport height */
+  @media (max-height: 725px) {
+    .fixed-height-causes-scroll-bar {
+      height: 520px;
+    }
   }
 }
 
