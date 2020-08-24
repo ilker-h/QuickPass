@@ -1,8 +1,10 @@
 /node_modules
 /dist
 
+# Firebase
 .firebase/
 database.rules.json
+.firebaserc
 
 *.log
 

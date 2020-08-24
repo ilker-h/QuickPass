@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import * as firebase from 'firebase';
 
+import { environment } from 'src/environments/environment';
 import { Item } from '../item.model';
 import { ItemService } from '../item.service';
 import { SearchService } from 'src/app/header/search.service';
@@ -22,7 +23,7 @@ import { DataStorageInDBService } from 'src/app/auth/data-storage-in-db.service'
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit, OnDestroy {
-
+  private DATABASE_URL = environment.firebase.databaseURL;
   private allItems: Item[];
   public allFolders: Folder[];
   private itemSubscription: Subscription;
@@ -90,7 +91,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     let userID = firebase.auth().currentUser.uid;
 
     // the purpose of GET here is to just check if that user's node on the DB exists or not (if not, it returns null)
-    this.httpClient.get('https://quickpass-4ed21.firebaseio.com/' + userID + '.json')
+    this.httpClient.get(this.DATABASE_URL + '/' + userID + '.json')
       .pipe(map(
         (response) => {
           // console.log('items worked???? ' + JSON.stringify(response));

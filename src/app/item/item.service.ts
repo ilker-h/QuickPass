@@ -97,7 +97,7 @@ export class ItemService {
     //             this.folderService.getFolders().length === 0)
     //     ) {
 
-    //         this.httpClient.put('https://quickpass-4ed21.firebaseio.com/' + firebase.auth().currentUser.uid + '.json',
+    //         this.httpClient.put('https://PROJECT_ID.firebaseio.com/' + firebase.auth().currentUser.uid + '.json',
     //             {
     //                 "folders": [{
     //                     "name": "from item.service.ts --------------"
