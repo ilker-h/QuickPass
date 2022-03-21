@@ -1,6 +1,6 @@
 # QuickPass
 
-You can interact with the app live at https://www.quickpass-app.com/.
+You can interact with the app live at https://quickpass-4ed21.firebaseapp.com/.
 
 You can see a video walkthrough of this web app at https://vimeo.com/381806818.
 
